@@ -1,0 +1,9 @@
+# corpus descargados/clonados: se regeneran con scripts/download_corpus.sh
+corpus/raw/
+corpus/cache/
+# entornos y temporales
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/

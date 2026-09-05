@@ -1,0 +1,7 @@
+# Python 3.12 (entorno creado con: uv venv --python 3.12 .venv && uv pip install -r requirements.txt)
+music21>=10
+numpy
+pandas
+pyarrow
+matplotlib
+requests
