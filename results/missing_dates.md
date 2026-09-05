@@ -1,14 +1,14 @@
 # Obras sin fecha de composición en la fuente
 
-Generado por `scripts/build_catalog.py`. Total unidades: 9300; obras (`work_id`): 3127.
+Generado por `scripts/build_catalog.py`. Total unidades: 9300; obras (`work_id`): 3071.
 
 ## Origen de la fecha (por obra)
 
 | year_source | obras |
 |---|---|
 | composer_lifespan | 2279 |
-| dcml_metadata | 494 |
-| kern_ODT | 288 |
+| dcml_metadata | 440 |
+| kern_ODT | 286 |
 | kern_PDT_publication | 65 |
 | missing | 1 |
 
@@ -17,9 +17,9 @@ Generado por `scripts/build_catalog.py`. Total unidades: 9300; obras (`work_id`)
 | period | period_source | obras |
 |---|---|---|
 | 1750–1800 | lifespan | 114 |
-| 1750–1800 | year | 173 |
+| 1750–1800 | year | 161 |
 | 1800–1830 | lifespan | 20 |
-| 1800–1830 | year | 102 |
+| 1800–1830 | year | 58 |
 | 1830–1900 | lifespan | 76 |
 | 1830–1900 | year | 84 |
 | <1750 | lifespan | 1481 |

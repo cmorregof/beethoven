@@ -73,6 +73,7 @@ def fig_null(br):
     ax.set_xticklabels([f"{k}\n({v['perm_works']} obras)" for k, v in items], rotation=60, ha="right", fontsize=7)
     ax.set_ylabel("ocurrencias D4 (obras con ≥150 notas)")
     ax.set_yscale("symlog", linthresh=10)
+    ax.set_ylim(bottom=0)
     ax.set_title("D4 (altura generalizada ∧ ritmo) observado frente al nulo de barajado intra-voz")
     ax.legend(fontsize=8)
     ax.grid(axis="y", alpha=0.3)

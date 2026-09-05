@@ -192,9 +192,13 @@ MOZART_SONATA_K = {1: 279, 2: 280, 3: 281, 4: 282, 5: 283, 6: 284, 7: 309, 8: 31
 BEETHOVEN_SYM_OP = {1: 21, 2: 36, 3: 55, 4: 60, 5: 67, 6: 68, 7: 92, 8: 93, 9: 125}
 
 
-def catalog_key(text: str) -> str:
+def catalog_key(text: str, composer: str = "") -> str:
     """Clave normalizada de catálogo a partir de texto libre (título, número de obra, ruta)."""
     t = strip_accents(text or "").lower().replace("_", " ")
+    if composer == "schubert_f":
+        m = re.search(r"\bd\.?\s*(\d{2,4})\b", t)
+        if m:
+            return f"d{int(m.group(1))}"
     m = re.search(r"\bbwv\s*\.?\s*(\d+[a-z]?)", t)
     if m:
         return f"bwv{m.group(1)}"
@@ -265,7 +269,7 @@ def apply_year(r: dict, lo, hi, source: str, certainty: str, raw_text=""):
 KERN_REPOS = {
     # repo: (licencia, regex de fichero -> (work, mov) o None -> usar OPS/ONM)
     "beethoven-piano-sonatas": ("no LICENSE (craigsapp)", r"^(sonata\d+)-(\d+)$"),
-    "beethoven-string-quartets": ("no LICENSE (craigsapp)", r"^(quartet\d+)-(\d+)$"),
+    "beethoven-string-quartets": ("no LICENSE (craigsapp)", r"^(quartet\d+)-(\d+[a-z]?)$"),
     "haydn-piano-sonatas": ("CC BY-SA 4.0", r"^(sonata\d+)-(\d+)$"),
     "mozart-piano-sonatas": ("CC BY-SA 4.0", r"^(sonata\d+)-(\d+)$"),
     "scarlatti-keyboard-sonatas": ("CC BY-SA 4.0", r"^(L\d+K\d+)()$"),
@@ -396,19 +400,19 @@ def read_dcml():
             cid = COMP.add(comp_name, source=name)
             wnum, wtitle = rec.get("workNumber", "").strip(), rec.get("workTitle", "").strip()
             movnum = rec.get("movementNumber", "").strip()
-            if base.name == "ABC":
+            if base.name in ("ABC", "dcml_abc"):
                 mm = re.match(r"(n\d+op\d+(?:-\d+)?)_(\d+)", piece)
                 work_key, mov = mm.group(1), mm.group(2)
                 cat = catalog_key(work_key.replace("-", " no. ").replace("op", " op. "))
                 title = f"String Quartet {work_key[3:]}"
-            elif base.name == "mozart_piano_sonatas":
+            elif base.name in ("mozart_piano_sonatas", "dcml_mozart_sonatas"):
                 mm = re.match(r"(K\d+)-(\d+)", piece)
                 work_key, mov = mm.group(1), mm.group(2)
                 cat = catalog_key(work_key)
                 title = wtitle or work_key
             elif wnum and movnum:
                 work_key, mov = slug(wnum, 30), movnum
-                cat = catalog_key(wnum)
+                cat = catalog_key(wnum, cid)
                 title = wtitle or wnum
             else:
                 work_key, mov = slug(piece, 40), ""
@@ -465,7 +469,7 @@ def read_openscore(coll: str, prefix: str):
         r = row(unit_id=f"{prefix}-{s['id']}", work_id=work_id, collection=coll,
                 composer=comp_name, composer_id=cid, title=st.get("name", s["name"]),
                 movement=mov, format="musicxml_mxl", path=rel(mxl[0]), license="CC0-1.0",
-                catalog_key=catalog_key(st.get("name", "") + " " + s["path"]))
+                catalog_key=catalog_key(st.get("name", "") + " " + s["path"], cid))
         rows.append(r)
     return rows
 

@@ -202,3 +202,28 @@ la nueva canalización los excluye. Test de regresión: `results/regression_test
 ### D-25 OpenScore Lieder: 106 `.mxl` sin fila en `scores.tsv`
 Se ignoran (no hay metadatos de compositor). Las 1.356 filas del catálogo se localizan
 por el id numérico del fichero, no por la ruta de `scores.tsv` (274 rutas no coincidían).
+
+### D-26 Validación del nulo vectorizado (2026-09-05)
+Sobre 25 obras de `musedata_vivaldi`, `openscore_lieder` y `kern/humdrum-haydn-quartets`
+se ejecutó el `process()` original del piloto (Python puro, `random.Random`) y
+`base_rate.analyse_work` (numpy) sobre las mismas secuencias de la caché: recuentos
+observados D1–D5 y número de ventanas idénticos; medias del nulo D4 34,1 vs 33,5, 9,0 vs 8,8
+y 20,4 vs 20,5 (desviaciones típicas ~5, ~3, ~5). El ratio obs/nulo > 1 del corpus real no es
+un artefacto de la reimplementación.
+
+### D-27 P_cross depende del tamaño del corpus
+`P_cross(n)` mide «aparece en otra obra del corpus»: con 2.274 obras frente a 601 sube en
+todas las n (IVR n=6: 0,67 vs 0,46; suelo n=12: 0,27 vs 0,17). Para el E-value de Fase 2
+habrá que normalizar por número de obras/ventanas del estrato de referencia, no usar la
+curva global como constante.
+
+### D-28 Corrección del agrupamiento de ABC y de la clave Deutsch (2026-09-05)
+La curva `P_cross` del estrato `1800–1830` tenía un suelo anómalo (0,44 a n=12). Causa: la
+rama de `build_catalog.py` para el Annotated Beethoven Corpus comprobaba el nombre `ABC`
+pero el directorio es `dcml_abc`, así que cada movimiento quedó como obra suelta sin clave
+de catálogo y los 16 cuartetos de kern no se marcaron como duplicados (lo mismo con las
+sonatas de Mozart). Corregido: ABC = 16 obras con clave `op18/1 … op135`, kern y OpenScore
+no primarias. Además, para Schubert la clave prefiere el número Deutsch (`d911`) al opus,
+para que Winterreise (DCML) y Winterreise (OpenScore Lieder) formen un mismo grupo.
+Lección: el diagnóstico por pares de obras que comparten 12-gramas es una buena prueba de
+duplicados residuales; queda en `results/summary.md` §9.

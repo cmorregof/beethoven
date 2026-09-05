@@ -1,33 +1,32 @@
 # Resumen de la extracción (tarea 4)
 
-Unidades primarias procesadas: 7737 — ok 7705, fail 32. Caché: `corpus/cache/*.npz` (2688 obras).
+Unidades primarias procesadas: 7659 — ok 7573, fail 32. Caché: `corpus/cache/*.npz` (2704 obras, incluye duplicados extraídos antes de la deduplicación final).
 
 | colección | unidades | ok | fail | partes | partes tras colapso | notas | colapso medio | colapso máx | seg |
 |---|---|---|---|---|---|---|---|---|---|
-| dcml | 955.0 | 955.0 | 0.0 | 2096 | 2090 | 869,917 | 0.002 | 0.25 | 8 |
-| dcml_abc | 64.0 | 64.0 | 0.0 | 256 | 256 | 199,711 | 0.0 | 0.0 | 3 |
-| dcml_mozart_sonatas | 54.0 | 54.0 | 0.0 | 108 | 108 | 88,463 | 0.0 | 0.0 | 1 |
-| kern | 1578.0 | 1578.0 | 0.0 | 5825 | 5576 | 1,577,806 | 0.027 | 0.5 | 331 |
-| m21_bach | 413.0 | 413.0 | 0.0 | 1779 | 1770 | 110,001 | 0.002 | 0.333 | 6 |
-| musedata_bach | 1304.0 | 1293.0 | 11.0 | 7042 | 6359 | 1,656,604 | 0.065 | 0.714 | 365 |
-| musedata_beethoven | 52.0 | 48.0 | 4.0 | 625 | 569 | 483,801 | 0.076 | 0.381 | 49 |
-| musedata_corelli | 45.0 | 45.0 | 0.0 | 175 | 134 | 16,443 | 0.228 | 0.25 | 3 |
-| musedata_handel | 877.0 | 872.0 | 5.0 | 4651 | 3712 | 824,202 | 0.197 | 0.75 | 136 |
-| musedata_mozart | 105.0 | 104.0 | 1.0 | 1059 | 938 | 408,631 | 0.075 | 0.533 | 96 |
-| musedata_telemann | 560.0 | 560.0 | 0.0 | 2575 | 2089 | 437,216 | 0.15 | 0.667 | 154 |
-| musedata_vivaldi | 241.0 | 237.0 | 4.0 | 1356 | 1032 | 337,092 | 0.18 | 0.857 | 24 |
-| openscore_lieder | 1356.0 | 1356.0 | 0.0 | 4266 | 4253 | 953,880 | 0.003 | 0.333 | 189 |
-| openscore_quartets | 125.0 | 118.0 | 7.0 | 472 | 472 | 1,162,448 | 0.0 | 0.0 | 248 |
-| s3_symphonies | 8.0 | 8.0 | 0.0 | 184 | 177 | 108,755 | 0.039 | 0.143 | 26 |
-| **total** | 7737 | 7705 | 32 | 32469 | 29535 | 9,234,970 | 0.059 | 0.857 | 1633 |
+| dcml | 955 | 955 | 0 | 2096 | 2090 | 869,917 | 0.002 | 0.25 | 7 |
+| dcml_abc | 70 | 70 | 0 | 280 | 280 | 221,655 | 0.000 | 0.0 | 4 |
+| dcml_mozart_sonatas | 54 | 0 | 0 | 0 | 0 | 0 | nan | nan | 0 |
+| kern | 1518 | 1518 | 0 | 5585 | 5336 | 1,391,185 | 0.028 | 0.5 | 283 |
+| m21_bach | 413 | 413 | 0 | 1779 | 1770 | 110,001 | 0.002 | 0.333 | 5 |
+| musedata_bach | 1304 | 1293 | 11 | 7042 | 6359 | 1,656,604 | 0.065 | 0.714 | 364 |
+| musedata_beethoven | 52 | 48 | 4 | 625 | 569 | 483,801 | 0.076 | 0.381 | 49 |
+| musedata_corelli | 45 | 45 | 0 | 175 | 134 | 16,443 | 0.228 | 0.25 | 2 |
+| musedata_handel | 877 | 872 | 5 | 4651 | 3712 | 824,202 | 0.197 | 0.75 | 136 |
+| musedata_mozart | 105 | 104 | 1 | 1059 | 938 | 408,631 | 0.075 | 0.533 | 96 |
+| musedata_telemann | 560 | 560 | 0 | 2575 | 2089 | 437,216 | 0.150 | 0.667 | 154 |
+| musedata_vivaldi | 241 | 237 | 4 | 1356 | 1032 | 337,092 | 0.180 | 0.857 | 24 |
+| openscore_lieder | 1332 | 1332 | 0 | 4194 | 4181 | 936,152 | 0.003 | 0.333 | 185 |
+| openscore_quartets | 125 | 118 | 7 | 472 | 472 | 1,162,448 | 0.000 | 0.0 | 247 |
+| s3_symphonies | 8 | 8 | 0 | 184 | 177 | 108,755 | 0.039 | 0.143 | 25 |
+| **total** | 7659 | 7573 | 32 | 32073 | 29139 | 8,964,102 | 0.060 | 0.857 | 1582 |
 
 ## Colapso de voces dobladas (D-13)
 
-Unidades con alguna voz colapsada: 1547 de 7705 (20.1 %). Por colección (nº unidades con colapso / total):
+Unidades con alguna voz colapsada: 1547 de 7573 (20.4 %).
 - dcml: 6/955
-- dcml_abc: 0/64
-- dcml_mozart_sonatas: 0/54
-- kern: 171/1578
+- dcml_abc: 0/70
+- kern: 171/1518
 - m21_bach: 5/413
 - musedata_bach: 319/1293
 - musedata_beethoven: 35/48
@@ -36,27 +35,27 @@ Unidades con alguna voz colapsada: 1547 de 7705 (20.1 %). Por colección (nº un
 - musedata_mozart: 54/104
 - musedata_telemann: 283/560
 - musedata_vivaldi: 131/237
-- openscore_lieder: 13/1356
+- openscore_lieder: 13/1332
 - openscore_quartets: 0/118
 - s3_symphonies: 5/8
 
 Las 15 unidades con mayor colapso:
 
-- `musedata_vivaldi-micro-op10-rv570_1B--02` 14.0→2.0 (0.857)
-- `musedata_handel-best-rada--28` 4.0→1.0 (0.75)
-- `musedata_handel-best-rada--55` 4.0→1.0 (0.75)
-- `musedata_handel-best-rada--06` 4.0→1.0 (0.75)
-- `musedata_handel-best-rada--48` 4.0→1.0 (0.75)
-- `musedata_handel-best-rada--49` 4.0→1.0 (0.75)
-- `musedata_handel-best-rada--08` 4.0→1.0 (0.75)
-- `musedata_handel-hicks-ott--58a` 4.0→1.0 (0.75)
-- `musedata_handel-hicks-ott--06b` 8.0→2.0 (0.75)
-- `musedata_handel-best-rada--20` 4.0→1.0 (0.75)
-- `musedata_handel-hicks-ott--04` 4.0→1.0 (0.75)
-- `musedata_handel-hicks-ott--13` 4.0→1.0 (0.75)
-- `musedata_handel-best-rada--10` 4.0→1.0 (0.75)
-- `musedata_handel-best-rada--44` 4.0→1.0 (0.75)
-- `musedata_handel-hicks-ott--50b` 8.0→2.0 (0.75)
+- `musedata_vivaldi-micro-op10-rv570_1B--02` 14→2 (0.857)
+- `musedata_handel-hicks-ott--26b` 4→1 (0.75)
+- `musedata_handel-hicks-ott--59a` 4→1 (0.75)
+- `musedata_handel-hicks-ott--10a` 4→1 (0.75)
+- `musedata_handel-best-rada--55` 4→1 (0.75)
+- `musedata_handel-hicks-ott--38` 4→1 (0.75)
+- `musedata_handel-best-rada--20` 4→1 (0.75)
+- `musedata_handel-hicks-ott--34a` 4→1 (0.75)
+- `musedata_handel-hicks-ott--31` 4→1 (0.75)
+- `musedata_handel-best-rada--67` 4→1 (0.75)
+- `musedata_handel-hicks-ott--41` 4→1 (0.75)
+- `musedata_handel-best-rada--26` 4→1 (0.75)
+- `musedata_handel-best-rada--28` 4→1 (0.75)
+- `musedata_handel-best-rada--65` 4→1 (0.75)
+- `musedata_handel-hicks-ott--19c` 4→1 (0.75)
 
 ## Fallos
 
