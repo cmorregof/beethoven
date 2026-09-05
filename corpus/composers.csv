@@ -1,0 +1,170 @@
+composer_id,name,born,died,n_units,sources
+abbott_jb,Jane Bingham Abbott,1851,1934,2,openscore_lieder
+abrams_h,Harriett Abrams,1758,1821,2,openscore_lieder
+andree_e,Elfrida Andrée,1841,1929,1,openscore_quartets
+arriaga_jc,Juan Crisóstomo de Arriaga,1806,1826,3,openscore_quartets
+bach_cpe,Carl Philipp Emanuel Bach,1714,1788,66,dcml/cpe_bach_keyboard
+bach_jc,Johann Christian Bach,1735,1782,29,dcml/jc_bach_sonatas
+bach_js,Johann Sebastian Bach,1685,1750,2491,dcml/bach_en_fr_suites;dcml/bach_solo;kern/art-of-the-fugue;kern/bach-370-chorales;kern/bach-musical-offering;kern/bach-wtc;kern/humdrum-bach-brandenburg;m21_bach;musedata_bach
+bach_wf,Wilhelm Friedemann Bach,1710,1784,9,dcml/wf_bach_sonatas
+bantock_g,Granville Bantock,1868,1946,5,openscore_lieder
+barnard_ca,Charlotte Alington Barnard,1830,1869,5,openscore_lieder
+barnby_j,Joseph Barnby,1838,1896,2,openscore_lieder
+barns_e,Ethel Barns,1874,1948,1,openscore_lieder
+bartok_b,Béla Bartók,1881,1945,16,dcml/bartok_bagatelles;openscore_quartets
+beach_a,Amy Beach,1867,1944,11,openscore_lieder;openscore_quartets
+beau_la,Luise Adolpha Le Beau,1850,1927,7,openscore_lieder
+beethoven_l,Ludwig van Beethoven,1770,1827,498,dcml/beethoven_piano_sonatas;dcml_abc;kern/beethoven-piano-sonatas;kern/beethoven-string-quartets;musedata_beethoven;openscore_lieder;openscore_quartets;s3
+bianchi_j,Jane Bianchi,1776,1858,1,openscore_lieder
+bishop_h,Henry Bishop,1787,1855,2,openscore_lieder
+bizet_g,Georges Bizet,1838,1875,26,openscore_lieder
+boccherini_l,Luigi Boccherini,1743,1805,1,openscore_quartets
+bonis_m,Mélanie Bonis,1858,1937,2,openscore_lieder
+borodin_a,Alexander Borodin,1833,1887,2,openscore_quartets
+boulanger_l,Lili Boulanger,1893,1918,16,openscore_lieder
+brahms_j,Johannes Brahms,1833,1897,113,openscore_lieder;openscore_quartets
+bridge_f,Frank Bridge,1879,1941,11,openscore_lieder;openscore_quartets
+browne_a,Augusta Browne,1820,1882,3,openscore_lieder
+burleigh_ht,Harry T. Burleigh,1866,1949,8,openscore_lieder
+busoni_f,Ferruccio Busoni,1866,1924,1,openscore_quartets
+butterworth_g,George Butterworth,1885,1916,12,openscore_lieder
+carreno_t,Teresa Carreño,1853,1917,1,openscore_quartets
+cellier_a,Alfred Cellier,1844,1891,1,openscore_lieder
+chabrier_e,Emmanuel Chabrier,1841,1894,3,openscore_lieder
+chaminade_c,Cécile Chaminade,1857,1944,31,openscore_lieder
+chausson_e,Ernest Chausson,1855,1899,12,openscore_lieder
+cherubini_l,Luigi Cherubini,1760,1842,1,openscore_quartets
+chopin_f,Frédéric Chopin,1810,1849,132,dcml/chopin_mazurkas;kern/chopin-mazurkas;kern/chopin-preludes
+coleridge-taylor_s,Samuel Coleridge-Taylor,1875,1912,8,openscore_lieder
+corder_f,Frederick Corder,1852,1932,1,openscore_lieder
+corelli_a,Arcangelo Corelli,1653,1713,704,dcml/corelli;kern/humdrum-corelli;musedata_corelli
+cornelius_p,Peter Cornelius,1824,1874,33,openscore_lieder
+couperin_f,François Couperin,1668,1733,91,dcml/couperin_concerts
+cowen_fh,Frederic Hymen Cowen,1852,1935,3,openscore_lieder
+cras_j,Jean Cras,1879,1932,1,openscore_quartets
+davies_w,Walford Davies,1869,1941,8,openscore_lieder
+debussy_c,Claude Debussy,1862,1918,21,dcml/debussy_suite_bergamasque;openscore_lieder;openscore_quartets
+delius_f,Frederick Delius,1862,1934,7,openscore_lieder;openscore_quartets
+dhardelot_g,Guy d'Hardelot,1858,1936,9,openscore_lieder
+dickson_e,Ellen Dickson,1819,1878,4,openscore_lieder
+dindy_v,Vincent d’Indy,1851,1931,1,openscore_quartets
+dittersdorf_cd,Carl Ditters von Dittersdorf,1739,1799,2,openscore_quartets
+duchambge_p,Pauline Duchambge,1776,1858,4,openscore_lieder
+dvorak_a,Antonín Dvořák,1841,1904,22,dcml/dvorak_silhouettes;openscore_quartets;s3
+elgar_e,Edward Elgar,1857,1934,11,openscore_lieder;openscore_quartets
+faisst_cm,Clara Mathilda Faisst,1872,1948,27,openscore_lieder
+faltis_e,Evelyn Faltis,1887,1937,4,openscore_lieder
+farrenc_l,Louise Farrenc,1804,1875,1,openscore_lieder
+faure_g,Gabriel Fauré,1845,1924,13,openscore_lieder;openscore_quartets
+ferrari_g,Gabrielle Ferrari,1851,1921,2,openscore_lieder
+franck_c,César Franck,1822,1890,1,openscore_quartets
+franz_r,Robert Franz,1815,1892,48,openscore_lieder
+freer_ee,Eleanor Everest Freer,1864,1942,2,openscore_lieder
+frescobaldi_g,Girolamo Frescobaldi,1583,1643,47,dcml/frescobaldi_fiori_musicali
+gabriel_v,Virginia Gabriel,1825,1877,4,openscore_lieder
+gail_s,Sophie Gail,1775,1819,2,openscore_lieder
+gambarini_e,Elisabetta de Gambarini,1730,1765,1,openscore_lieder
+german_e,Edward German,1862,1936,3,openscore_lieder
+glazunov_a,Alexander Glazunov,1865,1936,1,openscore_quartets
+glinka_m,Mikhail Glinka,1804,1857,1,openscore_quartets
+gonzaga_c,Chiquinha Gonzaga,1847,1935,12,openscore_lieder
+gossec_fj,François Joseph Gossec,1734,1829,1,openscore_quartets
+gounod_c,Charles Gounod,1818,1893,7,openscore_lieder;openscore_quartets
+gouvy_t,Théodore Gouvy,1819,1898,1,openscore_quartets
+grandval_c,Clémence de Grandval,1828,1907,13,openscore_lieder
+gray_l,Louisa Gray,,1911,7,openscore_lieder
+greger_l,Luise Greger,1862,1944,9,openscore_lieder
+grieg_e,Edvard Grieg,1843,1907,67,dcml/grieg_lyric_pieces;openscore_quartets
+guest_jm,Jane Mary Guest,1762,1846,2,openscore_lieder
+gurney_i,Ivor Gurney,1890,1937,6,openscore_lieder
+handel_gf,Georg Friedrich Händel,1685,1759,1255,dcml/handel_keyboard;musedata_handel
+haydn_fj,Franz Joseph Haydn,1732,1809,302,kern/haydn-piano-sonatas;kern/humdrum-haydn-quartets;kern/humdrum-haydn-symphonies;openscore_lieder;openscore_quartets
+hensel_f,Fanny (Mendelssohn) Hensel,1805,1847,1,openscore_quartets
+hodges_fh,Faustina Hasse Hodges,1823,1895,1,openscore_lieder
+hoffmeister_fa,Franz Anton Hoffmeister,1754,1812,1,openscore_quartets
+holmes_a,Augusta Holmès,1847,1903,73,openscore_lieder
+hopekirk_h,Helen Hopekirk,1856,1945,1,openscore_lieder
+horrocks_ae,Amy Elsie Horrocks,1867,1920,4,openscore_lieder
+jacobs-bond_c,Carrie Jacobs-Bond,1862,1946,5,openscore_lieder
+jaell_m,Marie Jaëll,1846,1925,17,openscore_lieder
+janacek_l,Leoš Janáček,1854,1928,2,openscore_quartets
+joplin_s,Scott Joplin,1868,1917,48,kern/joplin;openscore_lieder
+kalliwoda_jw,Johann Wenzel Kalliwoda,1801,1866,1,openscore_quartets
+kinkel_j,Johanna Kinkel,1810,1858,45,openscore_lieder
+koechlin_c,Charles Koechlin,1867,1950,1,openscore_quartets
+kozeluch_l,Leopold Koželuch,1747,1818,49,dcml/kozeluh_sonatas
+kralik_m,Mathilde Kralik,1857,1944,18,openscore_lieder
+krzyzanowska_h,Halina Krzyżanowska,1867,1937,1,openscore_quartets
+lang_j,Josephine Lang,1815,1880,52,openscore_lieder
+lehmann_a,Amelia Lehmann,1838,1903,5,openscore_lieder
+lehmann_l,Liza Lehmann,1862,1918,29,openscore_lieder
+liliuokalani,Liliʻuokalani,1838,1917,1,openscore_lieder
+lindsay_m,Maria Lindsay,1827,1898,2,openscore_lieder
+liszt_f,Franz Liszt,1811,1886,19,dcml/liszt_pelerinage
+mackenzie_a,Alexander Mackenzie,1847,1935,8,openscore_lieder
+mahler_g,Gustav Mahler,1860,1911,14,dcml/mahler_kindertotenlieder;openscore_lieder
+maier_a,Amanda Maier,1853,1894,1,openscore_quartets
+marshall_fa,Florence Ashton Marshall,1843,1922,2,openscore_lieder
+mayer_e,Emilie Mayer,1812,1883,14,openscore_lieder;openscore_quartets
+medtner_n,Nikolai Medtner,1880,1951,19,dcml/medtner_tales
+mendelssohn_f,Felix Mendelssohn,1809,1847,76,dcml/mendelssohn_quartets;openscore_lieder;openscore_quartets
+moeran_ej,Ernest John Moeran,1894,1950,1,openscore_quartets
+monteverdi_c,Claudio Monteverdi,1567,1643,19,dcml/monteverdi_madrigals
+mounsey_a,Ann Mounsey,1811,1891,7,openscore_lieder
+mozart_wa,Wolfgang Amadeus Mozart,1756,1791,455,dcml_mozart_sonatas;kern/humdrum-mozart-quartets;kern/mozart-piano-sonatas;musedata_mozart;openscore_quartets;s3
+muller-hermann_j,Johanna Müller-Hermann,1868,1941,1,openscore_quartets
+munktell_h,Helena Munktell,1852,1919,12,openscore_lieder
+netzel_l,Laura Netzel,1839,1927,7,openscore_lieder
+nielsen_c,Carl Nielsen,1865,1931,1,openscore_quartets
+onslow_g,George Onslow,1784,1853,1,openscore_quartets
+paradis_mt,Maria Theresia von Paradis,1759,1824,12,openscore_lieder
+parratt_w,Walter Parratt,1841,1924,13,openscore_lieder
+parry_h,Hubert Parry,1848,1918,8,openscore_lieder
+pergolesi_gb,Giovanni Battista Pergolesi,1710,1736,12,dcml/pergolesi_stabat_mater
+peri_j,Jacopo Peri,1561,1633,6,dcml/peri_euridice
+phillips_e,Elizabeth Phillips,1822,1876,1,openscore_lieder
+philp_e,Elizabeth Philp,1827,1885,2,openscore_lieder
+pleyel_i,Ignaz Pleyel,1757,1831,6,dcml/pleyel_quartets
+poldowski,Poldowski,1880,1932,3,openscore_lieder
+poulenc_f,Francis Poulenc,1899,1963,3,dcml/poulenc_mouvements_perpetuels
+puget_l,Loïsa Puget,1810,1889,3,openscore_lieder
+rachmaninoff_s,Sergei Rachmaninoff,1873,1943,22,dcml/rachmaninoff_piano
+ravel_m,Maurice Ravel,1875,1937,6,dcml/ravel_piano;openscore_quartets
+reger_m,Max Reger,1873,1916,4,openscore_quartets
+reichardt_l,Louise Reichardt,1779,1826,43,openscore_lieder
+rootham_c,Cyril Rootham,1875,1938,1,openscore_lieder
+saint-georges_jb,Joseph Bologne Saint-Georges,1745,1799,6,openscore_quartets
+satie_e,Erik Satie,1866,1925,11,openscore_lieder
+scarlatti_d,Domenico Scarlatti,1685,1757,134,dcml/scarlatti_sonatas;kern/scarlatti-keyboard-sonatas
+schroter_c,Corona Schröter,1751,1802,25,openscore_lieder
+schubert_f,Franz Schubert,1797,1828,119,dcml/schubert_winterreise;openscore_lieder;openscore_quartets
+schulhoff_e,Erwin Schulhoff,1894,1942,7,dcml/schulhoff_suite_dansante_en_jazz;openscore_quartets
+schumann_c,Clara Schumann,1819,1896,12,dcml/c_schumann_lieder
+schumann_r,Robert Schumann,1810,1856,99,dcml/schumann_kinderszenen;dcml/schumann_liederkreis;openscore_lieder;openscore_quartets
+scriabin_a,Alexander Scriabin,1872,1915,207,kern/scriabin
+shield_w,William Shield,1748,1829,1,openscore_lieder
+sirharoldboulton_b,"Sir Harold Boulton, 2nd Baronet",1859,1935,12,openscore_lieder
+smetana_b,Bedřich Smetana,1824,1884,1,openscore_quartets
+smyth_e,Ethel Smyth,1858,1944,2,openscore_lieder;openscore_quartets
+somervell_a,Arthur Somervell,1863,1937,10,openscore_lieder
+spohr_l,Louis Spohr,1784,1859,1,openscore_quartets
+stanford_cv,Charles Villiers Stanford,1852,1924,18,openscore_lieder;openscore_quartets
+stenhammar_w,Wilhelm Stenhammar,1871,1927,1,openscore_quartets
+strauss_r,Richard Strauss,1864,1949,5,openscore_lieder;openscore_quartets
+sullivan_a,Arthur Sullivan,1842,1900,2,openscore_lieder
+sweelinck_jp,Jan Pieterszoon Sweelinck,1562,1621,1,dcml/sweelinck_keyboard
+tchaikovsky_pi,Pyotr Ilyich Tchaikovsky,1840,1893,17,dcml/tchaikovsky_seasons;openscore_quartets;s3
+tegner_a,Alice Tegnér,1864,1943,2,openscore_lieder
+telemann_gp,Georg Philipp Telemann,1681,1767,560,musedata_telemann
+thys_pme,Pauline-Marie-Elisa Thys,1835,1909,1,openscore_lieder
+viardot_p,Pauline Viardot,1821,1910,21,openscore_lieder
+vivaldi_a,Antonio Vivaldi,1678,1741,471,kern/vivaldi-op6;musedata_vivaldi
+wagner_r,Richard Wagner,1813,1883,7,dcml/wagner_overtures;openscore_lieder
+warlock_p,Peter Warlock,1894,1930,22,openscore_lieder
+webern_a,Anton Webern,1883,1945,10,openscore_lieder
+white_mv,Maude Valerie White,1855,1937,6,openscore_lieder
+wieck_c,Clara Wieck,1819,1896,17,openscore_lieder
+wolf_h,Hugo Wolf,1860,1903,24,openscore_lieder;openscore_quartets
+wood_c,Charles Wood,1866,1926,1,openscore_lieder
+zemlinsky_a,Alexander von Zemlinsky,1871,1942,1,openscore_quartets
+zumsteeg_e,Emilie Zumsteeg,1796,1857,11,openscore_lieder

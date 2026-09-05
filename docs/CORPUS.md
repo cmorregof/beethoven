@@ -4,7 +4,7 @@ Sesión: 2026-09-05. Todo está en `corpus/raw/` (ignorado por git; se regenera 
 `bash scripts/download_corpus.sh`). Clones superficiales (`--depth 1`); la columna *commit*
 es el HEAD clonado y *fecha* la de ese commit. Los tamaños son de disco tras el clon.
 
-Total en disco: ~9,4 GB. Ficheros de partitura utilizables: ~4.400 (ver inventario).
+Total en disco: ~11 GB (tras clonar todo el workspace MuseData). Ficheros de partitura utilizables: ~4.400 (ver inventario).
 
 ## 1. Resumen por colección
 
@@ -18,6 +18,12 @@ Total en disco: ~9,4 GB. Ficheros de partitura utilizables: ~4.400 (ver inventar
 | `dcml/<sub>` (38 subcorpus) | [DCMLab](https://github.com/DCMLab) — lista en §2 | `notes.tsv` + `metadata.tsv` | 1.316 piezas/movimientos | Sí, 100 % (`composed_start`/`end`; algunos abiertos `..-1720`) | CC BY-NC-SA 4.0 (LICENSE en 11 repos; el resto lo declara en README con badge) | OK |
 | `kern/<repo>` (19 repos) | KernScores en GitHub: [craigsapp](https://github.com/craigsapp), [musedata](https://github.com/musedata), [humdrum-tools](https://github.com/humdrum-tools) — lista en §3 | `.krn` (Humdrum) | 1.760 ficheros | Parcial: `!!!ODT` en 7 de 19 repos; `!!!CDT` **no sirve** (son fechas del compositor, ver `DECISIONES.md` D-05) | Variada (CC BY-SA / CC BY-NC-SA / sin fichero LICENSE; ver §3) | OK. `kern.humdrum.org` daba 503 durante toda la sesión; todo vía GitHub |
 | `musedata_beethoven` | MuseData Stage 2, CCARH: [bitbucket.org/musedata/beethoven](https://bitbucket.org/musedata/beethoven) `76a94a6` (2022-10-23), 1,3 GB | `.md2` (MuseData); music21 lo parsea (`format='musedata'`) | **9 sinfonías completas** (44 ficheros de movimiento; la 9.ª tiene el IV en 8 secciones), conciertos op. 19 y op. 61, 14 cuartetos (op. 18/1–6, 59/1–2, 127, 130–133, 135) — solo `editions/public/score/*.md2` | No en fichero; obras canónicas → `manual` | CCARH (uso académico; ver §4) | OK. **Incluye la Quinta, op. 67 (movs. I–IV)** |
+| `musedata_mozart` | Bitbucket `musedata/mozart` (2023-05-20) | `.md2` (57 partituras públicas) y `stage2/` | 15 sinfonías NMA (K. 16–76, 550) + 3 BH (K. 385, 504, 543), concierto K. 467, cuartetos/quintetos/tríos/divertimenti en `stage2` (63 obras, 227 unidades) | `manual` / periodo activo (1771–1790 → `1750–1800`) | CCARH | OK |
+| `musedata_bach` | Bitbucket `musedata/bach` (2022-10-20) | `stage2/` (y `stage1/` donde no hay stage2) | 439 obras, 1.408 movimientos: cantatas BG, WTC, inventions, suites, órgano… | periodo activo (1700–1749 → `<1750`) | CCARH | OK; 6 movimientos no parsean |
+| `musedata_handel` | Bitbucket `musedata/handel` (2023-10-27) | `stage2/` | 85 obras, 1.249 números (óperas, oratorios, op. 3/6, teclado) | **sin fecha** (Handel 1700–1758 cruza 1750) → `manual_dates.csv` | CCARH | OK; 5 no parsean |
+| `musedata_vivaldi` | Bitbucket `musedata/vivaldi` (2025-12-16) | `stage2/` | 161 obras, 453 movimientos (op. 3–9, RV varios) | periodo activo → `<1750` | CCARH | OK; 4 no parsean |
+| `musedata_corelli` | Bitbucket `musedata/corelli` (2024-05-03) | `stage2/` | 72 obras (op. 1–6), 305 movimientos | periodo activo → `<1750` | CCARH | OK; duplica `dcml/corelli` y `kern/humdrum-corelli` (no primaria) |
+| `musedata_telemann` | Bitbucket `musedata/telemann` (2020-12-19) | `stage2/` y `stage1/` | 109 obras, 560 movimientos | **sin fecha** (1696–1766 cruza 1750) → `manual_dates.csv` | CCARH | OK |
 | `bps_motif` | [Wiilly07/Beethoven_motif](https://github.com/Wiilly07/Beethoven_motif) `bd40b77` (2023-04-17) | `csv_notes/*.csv` (eventos con etiqueta de motivo), `csv_label/`, `motif_midi/` | 32 primeros movimientos de las sonatas de Beethoven; 263 motivos, 4.944 ocurrencias | n/a (Fase 2) | Sin LICENSE en el repo; el paper en Zenodo ([10.5281/zenodo.10265277](https://zenodo.org/records/10265277)) es CC BY 4.0 → pedir confirmación a los autores antes de redistribuir | OK |
 | `cherubini` | — | MusicXML manual | 0 (pendiente) | 1794 → `manual` | transcripción propia | **Pendiente de transcripción manual**: `corpus/raw/cherubini/README.md` + `template_minimal.musicxml` |
 
@@ -94,9 +100,7 @@ use"); confirmar en <https://musedata.org/about> antes de redistribuir derivados
 
 ## 5. Disponible y NO descargado (recomendaciones)
 
-* **Sinfonías de Mozart en MuseData Stage 2** (NMA; 17 sinfonías incl. 35, 38–41) en
-  `bitbucket.org/musedata/mozart` — llenaría el estrato orquestal `1750–1800`, hoy
-  cubierto solo por Haydn 99–104 (kern) y Mozart 41 (S3). Coste: un clon.
+* (Hecho el 2026-09-05, a petición del usuario: todo el workspace Bitbucket `musedata`, ver §1.)
 * PDMX (HF, gated): requiere login del usuario; útil solo si queremos un estrato
   MuseScore masivo, que trae OMR y arreglos → probablemente no.
 

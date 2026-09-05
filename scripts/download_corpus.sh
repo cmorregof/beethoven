@@ -39,8 +39,12 @@ for r in corelli couperin_concerts bach_solo bach_en_fr_suites handel_keyboard f
   clone DCMLab/$r dcml/$r &
 done
 wait
-# --- MuseData (CCARH) en Bitbucket: Beethoven completo (sinfonías 1-9 incl. op. 67, conciertos, cuartetos)
-if [ -d "$ROOT/musedata_beethoven/.git" ]; then echo "skip musedata_beethoven"; else
-  git clone --depth 1 --quiet https://bitbucket.org/musedata/beethoven.git "$ROOT/musedata_beethoven" && echo "OK musedata_beethoven" || echo "FAIL musedata_beethoven"
-fi
+# --- MuseData (CCARH) en Bitbucket: todos los repos de compositor del workspace `musedata`
+#     (beethoven incluye las sinfonías 1-9 con op. 67; haydn/dvorak/marcello/rovetta están vacíos)
+for r in beethoven mozart bach handel vivaldi corelli telemann haydn dvorak marcello rovetta; do
+  if [ -d "$ROOT/musedata_$r/.git" ]; then echo "skip musedata_$r"; else
+    (git clone --depth 1 --quiet https://bitbucket.org/musedata/$r.git "$ROOT/musedata_$r" && echo "OK musedata_$r" || echo "FAIL musedata_$r") &
+  fi
+done
+wait
 echo "listo. Cherubini: ver corpus/raw/cherubini/README.md (codificación manual)."

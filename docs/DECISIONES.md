@@ -92,3 +92,113 @@ Sin fuente simbólica. `corpus/raw/cherubini/README.md` + plantilla MusicXML mí
 Los subcorpus DCML son CC BY-NC-SA 4.0. Es compatible con uso académico pero obliga a
 (a) citar cada subcorpus y (b) no redistribuir derivados con licencia más permisiva. Los
 ficheros de caché derivados (`corpus/cache/`) no se suben al repo público.
+
+## 2026-09-05 — Cambios pedidos por el usuario antes de la extracción
+
+### D-13 Voces dobladas: colapso intra-obra
+Dentro de cada unidad (obra+movimiento), dos partes se consideran dobladas si sus
+secuencias de tokens `(offset, intervalo_siguiente, rclass_siguiente)` coinciden en más del
+95 % de la longitud de la más corta (comparación por offset absoluto, transposición-invariante:
+colapsa dobles de octava, instrumentos transpositores que doblan y la parte «Violoncello e
+Contrabasso» de MuseData). Se conserva la primera parte en orden de partitura y se descartan
+las demás del grupo. `results/extract_log.csv` registra `n_parts_raw`, `n_parts_kept` y
+`collapse_ratio = 1 − kept/raw` por unidad. Esto **no** estaba en el piloto: en corales SATB
+no debería activarse (test de regresión D-18); en orquesta reduce la inflación de recuentos
+por dobles. Implementado en `scripts/extract.py`.
+
+### D-14 Instrumentos transpositores: cerrado, sin efecto
+music21 devuelve las partes MuseData en altura escrita (clarinete en B♭ de la Quinta:
+`A A A F` frente a `G G G E♭` de las cuerdas). Todas las definiciones D1–D5 y la curva de
+unicidad usan intervalos intra-voz, invariantes a transposición, y D3/D5 usan solo ritmo y
+posición métrica. No se corrige nada. (Las alturas MIDI de la caché para esas partes están
+en altura escrita; no se usan en Fase 1.)
+
+### D-15 Unidad de análisis: `work_id` = obra completa, `movement` = subunidad
+`works.csv` tiene una fila por fichero/unidad (`unit_id`), pero `work_id` es común a todos los
+movimientos de una obra (las ocho secciones del finale de la Novena comparten `work_id`).
+La caché se guarda por `work_id` (`corpus/cache/<work_id>.npz`, con array `movement_idx`), y
+los análisis cuentan prevalencia, permutaciones y `P_cross` por `work_id`. Diferencia con el
+piloto: allí «obra» = fichero de music21 (a menudo un movimiento), así que los porcentajes
+de prevalencia por obra no son directamente comparables; las tasas por 100k ventanas sí.
+Se añade `composer_id` (slug canónico) y `corpus/composers.csv` con nombre, nacimiento y muerte.
+
+### D-16 MuseData completo
+Además de `musedata/beethoven`, se han clonado todos los repos del workspace Bitbucket
+`musedata`: `mozart` (15 sinfonías NMA + 3 BH, concierto K. 467, cuartetos/quintetos/…),
+`bach` (808 movs. stage2 + 80 cantatas solo stage1), `handel` (974 movs. stage2), `vivaldi`
+(566), `corelli` (245), `telemann` (178); `haydn`, `dvorak`, `marcello`, `rovetta` están vacíos.
+Regla de selección por obra: `editions/public/score/*.md2` si existe; si no, los directorios
+`stage2/<mov>/`; si no, `stage1/<mov>/` (music21 parsea los tres; verificado). Los
+ficheros `stage2` con etiqueta «sound» duplicada quedan cubiertos por D-13.
+Las sinfonías de Mozart entran en `1750–1800` (por `manual_dates.csv` o, mientras esté
+vacío, por la regla D-17: Mozart 1771–1791 cae entero en el bin).
+
+### D-17 Fechas: `manual_dates.csv` y periodo activo del compositor
+`corpus/manual_dates.csv` lista, una fila por `work_id`, las obras canónicas sin fecha en su
+fuente (cuartetos de Haydn/Mozart/Beethoven en kern y OpenScore, sinfonías y conciertos
+MuseData, etc.) para que el equipo rellene `year_start`, `year_end`, `year_certainty`, `source`.
+Al reconstruir el catálogo, las filas rellenas entran con `year_source = manual`.
+Para las obras sin fecha (Lieder y cualquier otra), `period` se asigna por el periodo activo
+del compositor `[nacimiento + 15, muerte − 1]` **solo si cae entero en un bin** (el año de muerte no cuenta: Bach, †1750, queda en `<1750`)
+(`year_certainty = range`, `year_source = composer_lifespan`, `composition_year` vacío);
+si cruza un bin, `period = unknown`. El +15 es conservador (opus 1 juveniles); ajustable en
+`build_catalog.py` (`ACTIVE_START_AGE`).
+
+### D-18 Test de regresión antes de los análisis
+`scripts/regression_test.py` extrae `bach-370-chorales` (kern) y el subconjunto `bach` del
+corpus interno de music21 (los mismos 433 ficheros del piloto, marcados
+`collection = m21_bach`, `in_analysis = 0`), corre el recuento D1–D5 sobre la caché y
+compara con el piloto: `bach` D2 = 148,28/100k, D4 = 7,91/100k, tolerancia 2 %. Si falla,
+la sesión se detiene antes de `base_rate.py`/`uniqueness.py`.
+
+### D-19 Emulación del aplanado de music21 en el lector de `notes.tsv` (DCML)
+El piloto usa `part.flatten().notesAndRests`: una secuencia por pentagrama con las voces
+intercaladas por offset (acorde = objeto único → nota superior; notas simultáneas de voces
+distintas = eventos consecutivos con el mismo offset). El lector TSV reproduce eso: agrupa
+por `staff`, dentro de cada `(quarterbeats, voice)` reduce a la nota más aguda
+(`from_chord = 1` si había más de una), ordena por `(offset, voice)`, y sintetiza silencios a
+partir de huecos: en la voz 1 cualquier hueco es silencio; en voces 2–4 solo los huecos
+dentro de un mismo compás (`mc`), porque MuseScore no escribe silencios para voces ausentes.
+Ligaduras: filas con `tied ∈ {0, −1}` y mismo `midi` que la anterior en la misma voz se
+funden sumando `duration_qb`. Notas de adorno (`gracenote`) se conservan con duración 0,
+como hace music21.
+
+## 2026-09-05 — Decisiones tomadas durante catálogo, extracción y análisis
+
+### D-20 Generador aleatorio del nulo sembrado por obra
+El piloto usaba un único `random.Random(20260903)` recorrido en orden de fichero; el
+resultado dependía del orden. Ahora cada obra usa `numpy.random.default_rng(20260903 +
+crc32(work_id) % 1e6)`: reproducible obra a obra e independiente del orden y del número
+de workers. El barajado es el mismo (permutación independiente de intervalos y duraciones
+dentro de cada voz, 100 permutaciones, obras con ≥ 150 notas), vectorizado con numpy.
+
+### D-21 La Quinta (obra objetivo) no entra en las tasas base
+`base_rate.py` y `uniqueness.py` excluyen `is_target = 1` (op. 67, 4 movimientos) por
+defecto (`--include-target` para incluirla). Evita que la obra cuya hipótesis se va a
+contrastar contribuya a su propio nulo. Efecto numérico despreciable (4 de ~6.500 unidades).
+
+### D-22 Curva de unicidad con hashes de 64 bits
+Con ~10× más ventanas que el piloto, las tablas de tuplas de Python no caben en memoria.
+Cada n-grama se codifica con un hash polinómico de 64 bits (numpy) y se cuentan obras
+distintas por hash ordenando la tabla. Probabilidad de colisión con ~10⁷ tipos: < 10⁻⁵.
+Además de la curva global se calcula `P_cross(n)` dentro de cada periodo.
+
+### D-23 Unidades que no parsean (27 de 6.990)
+20 movimientos MuseData con datos corruptos (`cannot process bar data`, enteros
+inválidos) en `musedata_bach` (6), `_beethoven` (4: piano2 mvt 1–3 en `stage2s`, sym9 —
+ninguno de op. 67), `_handel` (5), `_vivaldi` (4), `_mozart` (1); 7 cuartetos OpenScore
+(errores de importación MusicXML de music21: elementos desconocidos, `NoneType.style`).
+Quedan registrados en `results/extract_log.csv` con `status = fail`; no se corrigen a mano.
+Los 24 ficheros de sinfonías de Haydn fallaban por un registro `!!!commission` que
+music21 rechaza: `extract.py` reintenta sin las líneas `!!!` (solo metadatos).
+
+### D-24 Corales de Bach: sin deduplicación por BWV; explicación del piloto
+Varios corales del mismo BWV (cantata) compartían clave de catálogo y el primer intento
+descartó 68 de 370 como «duplicados». Los corales no se deduplican por BWV (solo pierden
+la clave de catálogo). Por otro lado, la colección `bach` del piloto sumaba 433 «obras»
+porque incluía 20 ficheros `.rntxt` (análisis armónicos) que music21 parsea como acordes;
+la nueva canalización los excluye. Test de regresión: `results/regression_test.md`.
+
+### D-25 OpenScore Lieder: 106 `.mxl` sin fila en `scores.tsv`
+Se ignoran (no hay metadatos de compositor). Las 1.356 filas del catálogo se localizan
+por el id numérico del fichero, no por la ruta de `scores.tsv` (274 rutas no coincidían).
