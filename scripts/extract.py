@@ -43,7 +43,7 @@ LOG = ROOT / "results" / "extract_log.csv"
 
 TOL = 1e-6
 COLLAPSE_THRESHOLD = 0.95
-EXTRACT_VERSION = "1.0 (2026-09-05)"
+EXTRACT_VERSION = "1.1 (2026-09-05, +bar_remaining)"
 LOG_COLS = ["work_id", "unit_id", "collection", "format", "status", "error", "n_parts_raw",
             "n_parts_kept", "collapse_ratio", "n_events", "n_rests", "seconds"]
 
@@ -70,12 +70,39 @@ def rclass(d_prev, d):
 # lectores: cada uno devuelve lista de partes; parte = lista de eventos
 # evento = (midi, ql, offset, from_chord, gap_before)
 # ----------------------------------------------------------------------------
+def _measure_table(part):
+    """(offsets de compás, duración nominal del compás en negras) para bar_remaining."""
+    import bisect
+    offs, lens = [], []
+    try:
+        for m in part.getElementsByClass("Measure"):
+            try:
+                bl = float(m.barDuration.quarterLength)
+            except Exception:
+                bl = float(m.duration.quarterLength)
+            offs.append(float(m.offset))
+            lens.append(bl if bl > 0 else float(m.duration.quarterLength))
+    except Exception:
+        pass
+    if not offs:
+        return None
+
+    def remaining(off):
+        i = bisect.bisect_right(offs, off + 1e-9) - 1
+        if i < 0:
+            return -1.0
+        return offs[i] + lens[i] - off
+    return remaining
+
+
 def _m21_part_events(part):
-    """Reproduce voice_sequences() del piloto, guardando el silencio previo en vez de cortar."""
+    """Reproduce voice_sequences() del piloto, guardando el silencio previo en vez de cortar.
+    Evento = (midi, ql, offset, from_chord, gap_before, bar_remaining)."""
     from music21 import chord, note
     events = []
     gap = 0.0
     n_rests = 0
+    remaining = _measure_table(part)
     for el in part.flatten().notesAndRests:
         if isinstance(el, note.Rest):
             try:
@@ -103,10 +130,10 @@ def _m21_part_events(part):
             continue
         if (tie is not None and tie.type in ("stop", "continue") and gap == 0.0
                 and events and events[-1][0] == midi):
-            m, d, o, fc, g = events[-1]
-            events[-1] = (m, d + ql, o, fc, g)
+            m, d, o, fc, g, br = events[-1]
+            events[-1] = (m, d + ql, o, fc, g, br)
             continue
-        events.append((midi, ql, off, from_chord, gap))
+        events.append((midi, ql, off, from_chord, gap, remaining(off) if remaining else -1.0))
         gap = 0.0
     return events, n_rests
 
@@ -174,7 +201,15 @@ def read_dcml_tsv(path: Path):
         mc = int(float(d.get("mc", "0") or 0))
         tied = d.get("tied", "")
         tied = int(float(tied)) if tied not in ("", "NA", "nan") else None
-        rows.append((staff, voice, on, midi, dur, mc, tied))
+        ts = d.get("timesig", "")
+        try:
+            num, den = ts.split("/")
+            bar_len = 4.0 * float(num) / float(den)
+            mc_on = frac(d.get("mc_onset", "0")) or 0.0
+            bar_rem = bar_len - 4.0 * mc_on
+        except Exception:
+            bar_rem = -1.0
+        rows.append((staff, voice, on, midi, dur, mc, tied, bar_rem))
 
     parts, n_rests = [], 0
     by_staff = defaultdict(list)
@@ -183,45 +218,45 @@ def read_dcml_tsv(path: Path):
     for staff in sorted(by_staff):
         # 1) por voz: acordes -> nota superior; ligaduras; silencios sintéticos
         voices = defaultdict(list)
-        for (_, voice, on, midi, dur, mc, tied) in by_staff[staff]:
-            voices[voice].append((on, midi, dur, mc, tied))
+        for (_, voice, on, midi, dur, mc, tied, bar_rem) in by_staff[staff]:
+            voices[voice].append((on, midi, dur, mc, tied, bar_rem))
         merged = []  # (offset, voice, midi, dur, from_chord) y silencios (offset, voice, None, dur)
         for voice in sorted(voices):
             ev = sorted(voices[voice], key=lambda x: (x[0], -x[1]))
             # agrupar por onset -> acorde
             chords = []
-            for on, midi, dur, mc, tied in ev:
+            for on, midi, dur, mc, tied, br in ev:
                 if chords and abs(chords[-1][0] - on) < TOL:
                     c = chords[-1]
                     if midi > c[1]:
-                        chords[-1] = (on, midi, dur, mc, tied, 1)
+                        chords[-1] = (on, midi, dur, mc, tied, 1, br)
                     else:
-                        chords[-1] = (c[0], c[1], c[2], c[3], c[4], 1)
+                        chords[-1] = (c[0], c[1], c[2], c[3], c[4], 1, c[6])
                 else:
-                    chords.append((on, midi, dur, mc, tied, 0))
+                    chords.append((on, midi, dur, mc, tied, 0, br))
             seq = []
-            for on, midi, dur, mc, tied, fc in chords:
+            for on, midi, dur, mc, tied, fc, br in chords:
                 if seq and tied in (0, -1) and seq[-1][1] == midi and abs(seq[-1][0] + seq[-1][2] - on) < 1e-3:
-                    o, m, d, mcp, fcp = seq[-1]
-                    seq[-1] = (o, m, d + dur, mc, fcp)
+                    o, m, d, mcp, fcp, brp = seq[-1]
+                    seq[-1] = (o, m, d + dur, mc, fcp, brp)
                     continue
-                seq.append((on, midi, dur, mc, fc))
+                seq.append((on, midi, dur, mc, fc, br))
             prev_end, prev_mc = None, None
-            for on, midi, dur, mc, fc in seq:
+            for on, midi, dur, mc, fc, br in seq:
                 if prev_end is not None and on - prev_end > 1e-3:
                     if voice == 1 or mc == prev_mc:
-                        merged.append((prev_end, voice, None, on - prev_end, 0))
+                        merged.append((prev_end, voice, None, on - prev_end, 0, -1.0))
                         n_rests += 1
-                merged.append((on, voice, midi, dur, fc))
+                merged.append((on, voice, midi, dur, fc, br))
                 prev_end, prev_mc = max(prev_end or 0.0, on + dur), mc
         # 2) aplanar por (offset, voz) como music21
         merged.sort(key=lambda x: (x[0], x[1]))
         events, gap = [], 0.0
-        for off, voice, midi, dur, fc in merged:
+        for off, voice, midi, dur, fc, br in merged:
             if midi is None:
                 gap += dur
                 continue
-            events.append((midi, dur, off, fc, gap))
+            events.append((midi, dur, off, fc, gap, br))
             gap = 0.0
         if events:
             parts.append(events)
@@ -293,7 +328,8 @@ def extract_work(job):
             kept = collapse_parts(parts)
             n_ev = 0
             for vi, ev in enumerate(kept):
-                for midi, ql, off, fc, gap in ev:
+                for midi, ql, off, fc, gap, br in ev:
+                    arrays["bar_remaining"].append(br)
                     arrays["midi"].append(midi)
                     arrays["quarter_length"].append(ql)
                     arrays["offset"].append(off)
@@ -324,6 +360,7 @@ def extract_work(job):
                             movement_idx=np.array(arrays["movement_idx"], dtype=np.int16),
                             from_chord=np.array(arrays["from_chord"], dtype=np.int8),
                             gap_before=np.array(arrays["gap_before"], dtype=np.float32),
+                            bar_remaining=np.array(arrays["bar_remaining"], dtype=np.float32),
                             meta=np.array(json.dumps(meta)))
     return logs
 

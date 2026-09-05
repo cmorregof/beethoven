@@ -227,3 +227,70 @@ no primarias. Además, para Schubert la clave prefiere el número Deutsch (`d911
 para que Winterreise (DCML) y Winterreise (OpenScore Lieder) formen un mismo grupo.
 Lección: el diagnóstico por pares de obras que comparten 12-gramas es una buena prueba de
 duplicados residuales; queda en `results/summary.md` §9.
+
+## 2026-09-05 (tarde) — Ingesta de fechas manuales y segunda ronda de análisis
+
+### D-29 Deduplicación por hash de secuencia y nueva prioridad de ediciones
+Además de la clave de catálogo, `build_catalog.py` marca como no primarias las obras cuyo
+conjunto de 12-gramas IVR está contenido en otra obra del mismo compositor (tipos
+compartidos ≥ 50 y compartidos / min(tipos) ≥ 0,5; se ignoran los tipos presentes en > 40
+obras). Se ejecuta sobre la caché, por lo que la cadena es catálogo → extracción → catálogo.
+Resuelve las ediciones múltiples de MuseData (Handel op. 6 en `brit`/`chry`/`haa`, Vivaldi
+op. 3 y op. 8 en `dawson`/`dover`/`lecene`/`micro`), WTC, corales y Corelli entre kern y
+MuseData, y absorbe los corales kern dentro de sus cantatas MuseData. Prioridad para elegir
+la copia primaria: **dcml > musedata > kern > s3 > openscore** (antes kern iba delante de
+musedata); dentro de una misma colección gana la copia con más notas (edición más
+completa) y, a igualdad, la ruta alfabética. Los grupos quedan listados en
+`results/seq_duplicates.md`. Riesgo asumido: autopréstamos masivos (Handel) podrían
+fundir obras distintas; el umbral de contención 0,5 sobre la obra entera lo hace improbable.
+
+### D-30 Ingesta de `corpus/manual_dates.csv` y regla del punto medio
+Se ingieren las 1.960 filas rellenadas por el equipo (`year_start`, `year_end`,
+`year_certainty`, `source`, `note`; años aceptados como `1742` o `1742.0`).
+Regla de bin: `year_certainty = range` → periodo por el **punto medio**
+`round((year_start + year_end)/2)` (`period_source = year_midpoint`); `exact`/`approx` → por
+el año (`period_source = year`). Se aplica a todas las fuentes de fecha (manual, kern ODT,
+DCML), no solo a las manuales, para que un rango como Bach 1707–1750 caiga en `<1750`.
+La regla del periodo activo (D-17) sigue vigente solo para obras sin ninguna fecha.
+
+### D-31 La Quinta ya estaba excluida del 0,34× de las sinfonías de Beethoven
+`base_rate.py` carga el catálogo con `exclude_target=True`; `musedata_beethoven` contaba 11
+obras (8 sinfonías sin la Quinta, dos conciertos, op. 133). No hace falta recalcular; la
+salida ahora lista explícitamente `targets_excluded` en `results/base_rate.json`.
+
+### D-32 Desgloses de D4 por rol de voz y posición cadencial
+Rol: en cada movimiento, la voz de mediana MIDI más baja es «bajo» (solo si hay ≥ 2 voces;
+instrumentos transpositores en altura escrita, así que el contrabajo escrito una octava
+arriba puede no ser el «bajo» en MuseData). Posición cadencial: la nota larga (4.ª de la
+ventana) empieza en la última negra de su compás (`bar_remaining ≤ 1`, campo nuevo de la
+caché, versión 1.1) o precede a un silencio o al final de la voz. Cuatro clases:
+`bass_cad`, `bass_other`, `other_cad`, `other_other`, con tasa por 100k y nulo propio. En el
+nulo la clase queda ligada a la posición original de la ventana (las duraciones barajadas
+cambian los compases, pero preserva «cuántas ventanas de esa posición son D4 por azar»).
+
+### D-33 `P_pair(n)`: unicidad invariante al tamaño del corpus
+`P_pair(n)` = probabilidad de que una ventana de n notas de la obra A aparezca en otra obra
+B concreta del mismo estrato, promediada sobre pares ordenados (A, B). Se calcula en cerrado
+a partir de la tabla (hash, obra): para A, Σ_h t_A(h)·(|W_h| − 1) / (T_A·(N − 1)). A
+diferencia de `P_cross`, no crece con N. Está en `results/uniqueness.json` (`p_pair`).
+
+### D-34 1000 permutaciones para la tabla por estrato
+`base_rate.py` corre 1000 permutaciones por obra; las tablas `all` y `period` usan las
+1000 (IC95 = percentiles 2,5–97,5; p mínima 0,001); `collection`, `composer` y
+`collection_x_period` usan las primeras 100, como el piloto.
+
+### D-35 Cuarteto n.º 1 de Cherubini (OpenScore) marcado `is_target = 1`
+`osq-5108725` (set 5108725) queda fuera de las tasas base y de la curva de unicidad, como
+la Quinta, por ser material del caso de estudio.
+
+### D-36 Resultado del desglose de D4 (D-32) y lectura de `P_pair` (2026-09-05, tarde)
+La hipótesis «el exceso 1,31× está en el bajo cadencial» **no se sostiene**: el bajo aporta el
+23 % del exceso (29 + 46 de 318) con un 21 % de las ventanas; las voces superiores en posición
+cadencial aportan el 49 % (ratio 1,48) y en posición no cadencial el 27 % (ratio 1,17). El
+exceso es transversal a las voces y algo mayor en posición cadencial. Por periodo sí hay
+estructura: en `<1750` está en las voces superiores cadenciales (2,22×), en `1800–1830` en el
+bajo (3,0×, 68 obras) y en `1750–1800` no hay exceso cadencial (0,99–1,04×). Los pares de
+obras con más 12-gramas compartidos en 1750–1830 son sinfonías distintas con contención ≤ 5 %
+(figuras de acompañamiento), no duplicados; por eso `P_pair` sube en los estratos
+orquestales. Queda pendiente una variante de `P_pair` ponderada por tipos o sin n-gramas de
+nota repetida.

@@ -80,10 +80,12 @@ def work_windows(data, rest_break):
 
 
 def curve(hashes: np.ndarray, work_idx: np.ndarray) -> dict:
-    """tokens, tipos, tipos únicos y P_cross de una tabla (hash, obra)."""
+    """tokens, tipos, tipos únicos, P_cross y P_pair de una tabla (hash, obra).
+    P_pair (D-33): probabilidad de que una ventana de la obra A aparezca en otra obra B
+    concreta, promediada sobre pares ordenados (A, B) del estrato; invariante al tamaño."""
     tok = len(hashes)
     if tok == 0:
-        return {"tokens": 0, "types": 0, "unique_types": 0, "p_cross": None}
+        return {"tokens": 0, "types": 0, "unique_types": 0, "p_cross": None, "p_pair": None, "works": 0}
     order = np.lexsort((work_idx, hashes))
     h, w = hashes[order], work_idx[order]
     new_h = np.r_[True, h[1:] != h[:-1]]
@@ -93,8 +95,19 @@ def curve(hashes: np.ndarray, work_idx: np.ndarray) -> dict:
     works_per_type = np.bincount(type_id[new_pair], minlength=ntypes)
     shared = works_per_type >= 2
     tokens_per_type = np.bincount(type_id, minlength=ntypes)
+    # P_pair: por (tipo, obra) el nº de tokens t_hw; cada uno «aparece» en works_per_type-1 obras distintas
+    pair_id = np.cumsum(new_pair) - 1
+    t_hw = np.bincount(pair_id)
+    pair_type = type_id[new_pair]
+    pair_work = w[new_pair]
+    uw = np.unique(w)
+    N = len(uw)
+    contrib = t_hw * (works_per_type[pair_type] - 1)
+    S = np.bincount(np.searchsorted(uw, pair_work), weights=contrib, minlength=N)
+    T = np.bincount(np.searchsorted(uw, w), minlength=N)
+    p_pair = float(np.mean(S / (T * (N - 1)))) if N > 1 else None
     return {"tokens": int(tok), "types": ntypes, "unique_types": int((~shared).sum()),
-            "p_cross": float(tokens_per_type[shared].sum() / tok)}
+            "p_cross": float(tokens_per_type[shared].sum() / tok), "p_pair": p_pair, "works": int(N)}
 
 
 def main():
@@ -147,7 +160,7 @@ def main():
                 cp = curve(H[sel], W[sel])
                 cp["n"] = n
                 out["curve_by_period"].setdefault(rep, {}).setdefault(p, []).append(cp)
-            print(f"{rep} n={n:2d} tokens={c['tokens']:,} tipos={c['types']:,} P_cross={c['p_cross']:.4f}", flush=True)
+            print(f"{rep} n={n:2d} tokens={c['tokens']:,} tipos={c['types']:,} P_cross={c['p_cross']:.4f} P_pair={c['p_pair']:.5f}", flush=True)
             tables[rep][n] = ([], [])
     out["works_by_period"] = {p: int((per == p).sum()) for p in sl.PERIODS}
     Path(args.out).write_text(json.dumps(out, indent=1), encoding="utf-8")

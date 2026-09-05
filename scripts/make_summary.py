@@ -33,10 +33,25 @@ def rate_row(name, s):
 
 def null_row(name, s):
     n = s["null"]["D4"]
-    if n["mean"] is None:
-        return f"| {name} | {s['perm_works']} | — | — | — | — | — |"
+    if not n or n["mean"] is None:
+        return f"| {name} | {s['perm_works']} | — | — | — | — | — | — |"
     return (f"| {name} | {s['perm_works']} | {n['obs']:,} | {f(n['mean'], 1)} | {n['ci95'][0]:,}–{n['ci95'][1]:,} | "
-            f"{f(n['ratio'])} | {f(n['p'], 3)} |")
+            f"{f(n['ratio'])} | {f(n['p'], 3)} | {n.get('n_perm', '')} |")
+
+
+CLASSES = ["bass_cad", "bass_other", "other_cad", "other_other"]
+CLASS_LABEL = {"bass_cad": "bajo, cadencial", "bass_other": "bajo, otra", "other_cad": "otras voces, cadencial",
+               "other_other": "otras voces, otra"}
+
+
+def class_rows(name, s):
+    rows = []
+    for c in CLASSES:
+        x = s["d4_by_class"][c]
+        n = x["null"]
+        rows.append(f"| {name} | {CLASS_LABEL[c]} | {x['windows']:,} | {x['obs']:,} | {f(x['rate_per_100k'])} | "
+                    + (f"{f(n['mean'], 1)} | {f(n['ratio'])} | {f(n['p'], 3)} |" if n else "— | — | — |"))
+    return rows
 
 
 def main():
@@ -59,8 +74,9 @@ def main():
 
     L = []
     L.append("# Fase 1 sobre el corpus real — resumen\n")
-    L.append(f"Generado por `scripts/make_summary.py` el 2026-09-05. Semilla {br['seed']}, {br['n_perm']} permutaciones, "
-             f"`rest_break = {br['rest_break']}`, obra objetivo (op. 67) excluida. Entorno en `results/env.txt`.\n")
+    L.append(f"Generado por `scripts/make_summary.py` el 2026-09-05. Semilla {br['seed']}, {br['n_perm']} permutaciones "
+             f"para `todo` y `period` ({br.get('n_perm_small', 100)} para el resto), `rest_break = {br['rest_break']}`, "
+             f"obras objetivo excluidas: {', '.join(br.get('targets_excluded', []))}. Entorno en `results/env.txt`.\n")
 
     # 1. tamaño
     L.append("## 1. Tamaño del corpus por estrato\n")
@@ -127,7 +143,7 @@ def main():
 
     # 5. nulo
     L.append("\n## 5. Observado frente al modelo nulo (D4; barajado intra-voz, obras con ≥ 150 notas)\n")
-    L.append("| estrato | obras perm. | D4 obs | D4 nulo (media) | IC95 | ratio | p |\n|---|---|---|---|---|---|---|")
+    L.append("| estrato | obras perm. | D4 obs | D4 nulo (media) | IC95 | ratio | p | perms |\n|---|---|---|---|---|---|---|---|")
     L.append(null_row("**todo**", A))
     for p in sl.PERIODS:
         if p in P:
@@ -135,7 +151,23 @@ def main():
     for k, s in C[:12]:
         if s["perm_works"] >= 5:
             L.append(null_row(k, s))
-    L.append(f"| piloto (art) | 519 | {PILOT_NULL_D4['obs']} | {PILOT_NULL_D4['mean']} | 36–64 | {PILOT_NULL_D4['ratio']} | {PILOT_NULL_D4['p']} |")
+    L.append(f"| piloto (art) | 519 | {PILOT_NULL_D4['obs']} | {PILOT_NULL_D4['mean']} | 36–64 | {PILOT_NULL_D4['ratio']} | {PILOT_NULL_D4['p']} | 100 |")
+    # 5b. desgloses D4 (D-32)
+    L.append("\n### 5b. D4 por rol de voz y posición cadencial (D-32)\n")
+    L.append("Rol: voz de mediana MIDI más baja de cada movimiento = «bajo». Cadencial: la nota larga empieza en la última "
+             "negra del compás o precede a silencio/fin de voz. El nulo conserva la clase de cada posición.\n")
+    L.append("| estrato | clase | ventanas | D4 obs | D4/100k | nulo (media) | ratio | p |\n|---|---|---|---|---|---|---|---|")
+    L += class_rows("**todo**", A)
+    for p in sl.PERIODS:
+        if p in P:
+            L += class_rows(p, P[p])
+    tot_obs = A["counts"]["D4"]
+    parts = {c: A["d4_by_class"][c] for c in CLASSES}
+    excess = {c: (parts[c]["obs"] - parts[c]["null"]["mean"]) if parts[c]["null"] else 0 for c in CLASSES}
+    tot_excess = sum(excess.values())
+    L.append("\nReparto del exceso observado − nulo (todo): " + ", ".join(
+        f"{CLASS_LABEL[c]} {excess[c]:+.0f} ({100*excess[c]/tot_excess:.0f} %)" for c in CLASSES) +
+        f". Ventanas por clase: " + ", ".join(f"{CLASS_LABEL[c]} {100*parts[c]['windows']/A['windows']:.1f} %" for c in CLASSES) + ".\n")
     nd = A["null"]
     L.append(f"\nD2: obs {nd['D2']['obs']:,} vs nulo {f(nd['D2']['mean'], 1)} (ratio {f(nd['D2']['ratio'])}, p={f(nd['D2']['p'], 3)}); "
              f"D3: obs {nd['D3']['obs']:,} vs {f(nd['D3']['mean'], 1)} (ratio {f(nd['D3']['ratio'])}, p={f(nd['D3']['p'], 3)}); "
@@ -152,21 +184,28 @@ def main():
     # 7. unicidad
     L.append("## 7. Curva de unicidad P_cross(n)\n")
     L.append(f"{un['works']:,} obras. P_cross(n) = probabilidad de que una ventana de n notas aparezca idéntica en otra obra.\n")
-    L.append("| n | IV tokens | IV tipos | IV P_cross | IV piloto | IVR tokens | IVR tipos | IVR P_cross | IVR piloto |\n|---|---|---|---|---|---|---|---|---|")
+    L.append("| n | IV tokens | IV tipos | IV P_cross | IV piloto | IV P_pair | IVR tokens | IVR tipos | IVR P_cross | IVR piloto | IVR P_pair |\n|---|---|---|---|---|---|---|---|---|---|---|")
     civ = {d["n"]: d for d in un["curve"]["IV"]}
     civr = {d["n"]: d for d in un["curve"]["IVR"]}
     for n in un["ns"]:
         a, b = civ[n], civr[n]
-        L.append(f"| {n} | {a['tokens']:,} | {a['types']:,} | {f(a['p_cross'], 4)} | {PILOT_PCROSS['IV'].get(n, '')} | "
-                 f"{b['tokens']:,} | {b['types']:,} | {f(b['p_cross'], 4)} | {PILOT_PCROSS['IVR'].get(n, '')} |")
-    L.append("\nP_cross(n) por periodo (IVR = intervalos + ritmo), dentro de cada periodo:\n")
-    L.append("| periodo | obras | n=4 | n=6 | n=8 | n=10 | n=12 |\n|---|---|---|---|---|---|---|")
+        L.append(f"| {n} | {a['tokens']:,} | {a['types']:,} | {f(a['p_cross'], 4)} | {PILOT_PCROSS['IV'].get(n, '')} | {f(a.get('p_pair'), 5)} | "
+                 f"{b['tokens']:,} | {b['types']:,} | {f(b['p_cross'], 4)} | {PILOT_PCROSS['IVR'].get(n, '')} | {f(b.get('p_pair'), 5)} |")
+    L.append("\n`P_pair(n)` (D-33) = probabilidad de que una ventana de A aparezca en una obra B concreta del mismo estrato, "
+             "promediada sobre pares; no depende del número de obras.\n")
+    L.append("Aviso (D-33): `P_pair` pondera por ventanas, así que en los estratos orquestales (1750–1830) lo dominan "
+             "n-gramas formularios de acompañamiento (notas repetidas, trémolos, escalas) que aparecen en casi todas las "
+             "sinfonías; el diagnóstico por pares no encontró duplicados (contención máxima 5 % entre obras distintas). "
+             "Para el E-value convendrá una versión ponderada por tipos o que excluya los n-gramas de nota repetida.\n")
+    L.append("P_cross(n) y P_pair(n) por periodo (IVR = intervalos + ritmo), dentro de cada periodo:\n")
+    L.append("| periodo | obras | P_cross n=4 | n=6 | n=8 | n=12 | P_pair n=4 | n=6 | n=8 | n=12 |\n|---|---|---|---|---|---|---|---|---|---|")
     for p in sl.PERIODS:
         cp = un["curve_by_period"].get("IVR", {}).get(p)
         if not cp or not cp[0]["tokens"]:
             continue
-        d = {x["n"]: x["p_cross"] for x in cp}
-        L.append(f"| {p} | {un['works_by_period'].get(p, 0)} | " + " | ".join(f(d.get(n), 3) for n in (4, 6, 8, 10, 12)) + " |")
+        d = {x["n"]: x for x in cp}
+        L.append(f"| {p} | {un['works_by_period'].get(p, 0)} | " + " | ".join(f(d[n]["p_cross"], 3) for n in (4, 6, 8, 12))
+                 + " | " + " | ".join(f(d[n].get("p_pair"), 5) for n in (4, 6, 8, 12)) + " |")
 
     # 8. fechas y anomalías
     all_works = {}
@@ -175,15 +214,18 @@ def main():
     ys = Counter(r["year_source"] for r in all_works.values())
     unk = sum(1 for r in prim if r["period"] == "unknown")
     L.append("\n## 8. Obras sin fecha\n")
+    ps = Counter(r["period_source"] for r in all_works.values())
     L.append(f"Origen de la fecha por obra: " + ", ".join(f"{k} {v}" for k, v in ys.most_common()) + ". "
-             f"Unidades en `unknown`: {unk} de {len(prim)} ({100*unk/len(prim):.0f} %), sobre todo Handel, Telemann, "
-             f"Lieder cuyo compositor cruza un bin, cuartetos de Haydn (kern) y Beethoven MuseData. "
-             f"Lista para rellenar: `corpus/manual_dates.csv` ({sum(1 for _ in open(sl.ROOT/'corpus'/'manual_dates.csv'))-1} obras); "
+             f"Asignación de periodo: " + ", ".join(f"{k} {v}" for k, v in ps.most_common()) + " (D-30: rangos por punto medio). "
+             f"Unidades en `unknown`: {unk} de {len(prim)} ({100*unk/len(prim):.0f} %), casi todas Lieder cuyo compositor cruza un bin. "
+             f"`corpus/manual_dates.csv` ingerido ({sum(1 for _ in open(sl.ROOT/'corpus'/'manual_dates.csv'))-1} obras); "
              f"detalle en `results/missing_dates.md`.\n")
     L.append("## 9. Anomalías y avisos\n")
-    L.append("- **Duplicados entre colecciones**: 1.563 unidades no primarias (Beethoven sonatas/cuartetos en kern, DCML, MuseData y OpenScore; "
-             "Chopin, Corelli, Scarlatti, Bach BWV); se conserva una copia por obra (prioridad DCML > kern > MuseData > S3 > OpenScore). "
-             "Los corales no se deduplican por BWV (D-24).")
+    n_np = sum(1 for r in rows if r["is_primary"] != "1")
+    n_seq = len({r["work_id"] for r in rows if "seq:" in r["duplicate_group"] and r["is_primary"] != "1"})
+    L.append(f"- **Duplicados entre colecciones**: {n_np:,} unidades no primarias por clave de catálogo o por hash de secuencia "
+             f"({n_seq} obras por hash, D-29: ediciones MuseData, kern vs MuseData, OpenScore vs kern/DCML); prioridad "
+             "DCML > MuseData > kern > S3 > OpenScore. Lista en `results/seq_duplicates.md`.")
     L.append("- **Movimientos partidos**: el finale de la Novena está en 8 secciones MuseData (un solo `work_id`); WTC = pareja preludio+fuga; "
              "en OpenScore un fichero puede contener todos los movimientos (Beethoven op. 18) o uno (Dvořák).")
     L.append("- **OMR/transcripción**: OpenScore es transcripción humana desde IMSLP (sin OMR), pero 7 cuartetos no importan en music21 y 39 carpetas "

@@ -83,8 +83,11 @@ def load_work(work_id: str):
         return None
     z = np.load(p, allow_pickle=False)
     meta = json.loads(str(z["meta"]))
-    return {k: z[k] for k in ("midi", "quarter_length", "offset", "voice_id", "movement_idx",
-                              "from_chord", "gap_before")} | {"meta": meta}
+    out = {k: z[k] for k in ("midi", "quarter_length", "offset", "voice_id", "movement_idx",
+                             "from_chord", "gap_before")}
+    out["bar_remaining"] = z["bar_remaining"] if "bar_remaining" in z.files else np.full(len(out["midi"]), -1.0, np.float32)
+    out["meta"] = meta
+    return out
 
 
 def sequences(data, rest_break: float = 0.0, min_len: int = 4):
@@ -108,6 +111,38 @@ def sequences(data, rest_break: float = 0.0, min_len: int = 4):
                 seqs.append(list(zip(midi[start:i].tolist(), ql[start:i].tolist(), off[start:i].tolist())))
             start = i
     return seqs
+
+
+def sequences_ex(data, rest_break: float = 0.0, min_len: int = 4):
+    """Como sequences(), pero devuelve (movement_idx, voice_id, is_bass, arr[n,4]) con columnas
+    midi, ql, offset, bar_remaining. is_bass: la voz de mediana MIDI más baja de su movimiento
+    (solo si el movimiento tiene >= 2 voces)."""
+    midi, ql, off, br = data["midi"], data["quarter_length"], data["offset"], data["bar_remaining"]
+    mv, vc, gap = data["movement_idx"], data["voice_id"], data["gap_before"]
+    n = len(midi)
+    if n == 0:
+        return []
+    # voz más grave por movimiento
+    bass = {}
+    for m in np.unique(mv):
+        sel = mv == m
+        voices = np.unique(vc[sel])
+        if len(voices) < 2:
+            continue
+        med = {v: float(np.median(midi[sel & (vc == v)])) for v in voices}
+        bass[int(m)] = min(med, key=med.get)
+    key = mv.astype(np.int64) * 100000 + vc.astype(np.int64)
+    out = []
+    start = 0
+    for i in range(1, n + 1):
+        if i == n or key[i] != key[i - 1] or gap[i] > rest_break + TOL:
+            if i - start >= min_len:
+                m, v = int(mv[start]), int(vc[start])
+                arr = np.stack([midi[start:i].astype(np.float64), ql[start:i].astype(np.float64),
+                                off[start:i].astype(np.float64), br[start:i].astype(np.float64)], axis=1)
+                out.append((m, v, bass.get(m) == v, arr))
+            start = i
+    return out
 
 
 def by_stratum(works: dict, key: str):

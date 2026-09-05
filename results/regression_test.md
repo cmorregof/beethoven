@@ -14,14 +14,14 @@ obras 413 (sin caché: 0), ventanas 99,297, notas 109,206
 | D5 | 4 | 4.03 | 3.95 | +1.9% |
 
 ## kern/bach-370-chorales
-obras 370 (sin caché: 0), ventanas 78,026, notas 84,614
+obras 105 (sin caché: 0), ventanas 19,200, notas 21,723
 
 | def | recuento | por 100k | piloto por 100k | desviación |
 |---|---|---|---|---|
-| D1 | 33 | 42.29 | 41.52 | +1.9% |
-| D2 | 94 | 120.47 | 148.28 | -18.8% (fuera de tolerancia: conjunto distinto) |
-| D3 | 5043 | 6463.23 | 6590.42 | -1.9% |
-| D4 | 1 | 1.28 | 7.91 | -83.8% (fuera de tolerancia: conjunto distinto) |
+| D1 | 5 | 26.04 | 41.52 | -37.3% |
+| D2 | 20 | 104.17 | 148.28 | -29.7% (fuera de tolerancia: conjunto distinto) |
+| D3 | 1328 | 6916.67 | 6590.42 | +5.0% |
+| D4 | 0 | 0.00 | 7.91 | -100.0% (fuera de tolerancia: conjunto distinto) |
 | D5 | 0 | 0.00 | 3.95 | -100.0% |
 
 Notas: (1) el piloto contaba 433 «obras» en `bach` porque incluía 20 ficheros `.rntxt` (análisis en números romanos) que music21 parsea como acordes; la nueva canalización los excluye (413 ficheros), de ahí las ~1.900 ventanas de menos y la desviación de +1–2 %. (2) `bach-370-chorales` es un conjunto distinto (370 corales Riemenschneider frente a ~390 corales + obras instrumentales del corpus music21), así que sus tasas no tienen por qué coincidir; se listan como referencia.

@@ -27,7 +27,7 @@ PERIOD_BINS = [("<1750", -9999, 1749), ("1750–1800", 1750, 1799),
                ("1800–1830", 1800, 1829), ("1830–1900", 1830, 1899),
                (">1900", 1900, 9999)]
 # prioridad para duplicados entre colecciones (menor = primaria), D-09
-PRIORITY = {"dcml": 0, "kern": 1, "musedata": 2, "s3": 3, "openscore": 4, "m21": 9}
+PRIORITY = {"dcml": 0, "musedata": 1, "kern": 2, "s3": 3, "openscore": 4, "m21": 9}   # D-29
 
 COLUMNS = ["unit_id", "work_id", "collection", "composer", "composer_id", "title",
            "movement", "composition_year", "year_start", "year_end", "year_source",
@@ -258,11 +258,12 @@ def apply_year(r: dict, lo, hi, source: str, certainty: str, raw_text=""):
     if lo is None:
         return
     r["year_start"], r["year_end"] = lo, hi
-    r["composition_year"] = hi           # año final del rango = terminus
+    # D-30: range -> punto medio; exact/approx -> el año
+    r["composition_year"] = int(round((lo + hi) / 2)) if certainty == "range" else hi
     r["year_source"] = source
     r["year_certainty"] = certainty
-    r["period"] = period_of(hi)
-    r["period_source"] = "year"
+    r["period"] = period_of(r["composition_year"])
+    r["period_source"] = "year_midpoint" if certainty == "range" else "year"
 
 
 # ---------------------------------------------------------------- kern
@@ -437,6 +438,9 @@ def read_dcml():
 
 
 # ---------------------------------------------------------------- OpenScore
+TARGET_SETS = {"5108725"}   # Cherubini, String Quartet No. 1 (OpenScore) — obra objetivo (D-35)
+
+
 def read_openscore(coll: str, prefix: str):
     base = RAW / coll
     data = base / "data"
@@ -467,6 +471,7 @@ def read_openscore(coll: str, prefix: str):
         work_id = f"{prefix}-{s['set_id']}"
         mov = s["name"] if per_set[s["set_id"]] > 1 else "all"
         r = row(unit_id=f"{prefix}-{s['id']}", work_id=work_id, collection=coll,
+                is_target=1 if s["set_id"] in TARGET_SETS else 0,
                 composer=comp_name, composer_id=cid, title=st.get("name", s["name"]),
                 movement=mov, format="musicxml_mxl", path=rel(mxl[0]), license="CC0-1.0",
                 catalog_key=catalog_key(st.get("name", "") + " " + s["path"], cid))
@@ -637,6 +642,15 @@ MANUAL_COLS = ["work_id", "collection", "composer", "title", "catalog_key", "n_u
                "year_start", "year_end", "year_certainty", "source", "note"]
 
 
+def _year(x):
+    """'1742', '1742.0', '' -> int | None"""
+    try:
+        v = int(float(str(x).strip()))
+    except (TypeError, ValueError):
+        return None
+    return v if 1400 <= v <= 2100 else None
+
+
 def load_manual() -> dict:
     if not MANUAL_DATES.exists():
         return {}
@@ -660,7 +674,11 @@ def write_manual(rows: list[dict], existing: dict):
     for wid, old in existing.items():
         if wid in by_work:
             for k in ("year_start", "year_end", "year_certainty", "source", "note"):
-                by_work[wid][k] = old.get(k, "")
+                v = old.get(k, "")
+                if k in ("year_start", "year_end"):
+                    y = _year(v)
+                    v = str(y) if y is not None else ""
+                by_work[wid][k] = v
         else:
             by_work[wid] = old  # conservar filas que el usuario haya añadido
     with open(MANUAL_DATES, "w", newline="", encoding="utf-8") as fh:
@@ -676,10 +694,13 @@ def finalize_dates(rows: list[dict], manual: dict):
         if r["year_source"]:
             continue
         m = manual.get(r["work_id"])
-        if m and m.get("year_end", "").strip().isdigit():
-            lo = int(m["year_start"]) if m.get("year_start", "").strip().isdigit() else int(m["year_end"])
-            hi = int(m["year_end"])
-            apply_year(r, lo, hi, "manual", m.get("year_certainty") or ("exact" if lo == hi else "range"))
+        hi = _year(m.get("year_end")) if m else None
+        if hi is not None:
+            lo = _year(m.get("year_start")) or hi
+            cert = (m.get("year_certainty") or "").strip().lower()
+            if cert not in ("exact", "approx", "range"):
+                cert = "exact" if lo == hi else "range"
+            apply_year(r, lo, hi, "manual", cert)
             continue
         ls = COMP.lifespan(r["composer_id"])
         if ls:
@@ -731,6 +752,109 @@ def mark_duplicates(rows: list[dict]):
 
 
 # ----------------------------------------------------------------------------
+# deduplicación por hash de secuencia (D-29): ediciones distintas de la misma obra
+# ----------------------------------------------------------------------------
+SEQ_N = 12                 # n-gramas IVR de 12 notas
+SEQ_MIN_SHARED = 50        # tipos compartidos mínimos
+SEQ_CONTAINMENT = 0.5      # compartidos / min(|A|, |B|)
+SEQ_MAX_WORKS_PER_TYPE = 40   # n-gramas más frecuentes se ignoran (escalas, arpegios)
+
+
+def sequence_dedup(rows: list[dict]):
+    """Marca como no primarias las obras cuyo conjunto de 12-gramas IVR está contenido
+    (> 50 %) en otra obra del mismo compositor. Requiere corpus/cache. Devuelve grupos."""
+    try:
+        import numpy as np
+        import seqlib as sl
+        import uniqueness as un
+    except ImportError:
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import numpy as np
+        import seqlib as sl
+        import uniqueness as un
+    by_work = {}
+    for r in rows:
+        if r["is_primary"] == 1 and r["in_analysis"] == 1:
+            by_work.setdefault(r["work_id"], r)
+    sigs, nnotes = {}, {}
+    for wid in by_work:
+        d = sl.load_work(wid)
+        if d is None:
+            continue
+        h = un.work_windows(d, 0.0)["IVR"].get(SEQ_N)
+        if h is None or len(h) == 0:
+            continue
+        sigs[wid] = np.unique(h)
+        nnotes[wid] = int(len(d["midi"]))
+    # por compositor
+    comp_of = {w: by_work[w]["composer_id"] for w in sigs}
+    groups = []
+    for cid in sorted(set(comp_of.values())):
+        wids = [w for w in sigs if comp_of[w] == cid]
+        if len(wids) < 2:
+            continue
+        H = np.concatenate([sigs[w] for w in wids])
+        W = np.concatenate([np.full(len(sigs[w]), i, dtype=np.int32) for i, w in enumerate(wids)])
+        order = np.argsort(H, kind="stable")
+        H, W = H[order], W[order]
+        starts = np.r_[0, np.nonzero(H[1:] != H[:-1])[0] + 1, len(H)]
+        shared = Counter()
+        for a, b in zip(starts[:-1], starts[1:]):
+            k = b - a
+            if 2 <= k <= SEQ_MAX_WORKS_PER_TYPE:
+                ws = W[a:b]
+                for i in range(k):
+                    for j in range(i + 1, k):
+                        shared[(ws[i], ws[j])] += 1
+        parent = list(range(len(wids)))
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        pair_info = {}
+        for (i, j), s in shared.items():
+            ci, cj = by_work[wids[i]]["collection"], by_work[wids[j]]["collection"]
+            if ci == cj and ci.startswith("dcml"):
+                continue        # colecciones DCML curadas: una pieza por fichero, sin ediciones múltiples
+            cont = s / min(len(sigs[wids[i]]), len(sigs[wids[j]]))
+            if s >= SEQ_MIN_SHARED and cont >= SEQ_CONTAINMENT:
+                parent[find(i)] = find(j)
+                pair_info[(wids[i], wids[j])] = (s, cont)
+        comps = defaultdict(list)
+        for i, w in enumerate(wids):
+            comps[find(i)].append(w)
+        for members in comps.values():
+            if len(members) > 1:
+                groups.append((members, pair_info))
+
+    def prio(w):
+        c = by_work[w]["collection"]
+        pr = next((v for k, v in PRIORITY.items() if c.startswith(k)), 5)
+        return (pr, -nnotes.get(w, 0), by_work[w]["path"])
+
+    seq_group = {}
+    report = ["# Duplicados por hash de secuencia (D-29)", "",
+              f"Criterio: n-gramas IVR de {SEQ_N} notas compartidos ≥ {SEQ_MIN_SHARED} y "
+              f"compartidos / min(tipos) ≥ {SEQ_CONTAINMENT}; mismo compositor. Primaria = prioridad de "
+              "colección (dcml > musedata > kern > s3 > openscore), luego más notas.", ""]
+    for members, pair_info in groups:
+        primary = min(members, key=prio)
+        for w in members:
+            seq_group[w] = (primary, w == primary)
+        report.append(f"- **{primary}** ← " + ", ".join(
+            f"`{w}` ({by_work[w]['collection']})" for w in sorted(members) if w != primary))
+    for r in rows:
+        g = seq_group.get(r["work_id"])
+        if g:
+            r["duplicate_group"] = (r["duplicate_group"] + ";" if r["duplicate_group"] else "") + f"seq:{g[0]}"
+            r["is_primary"] = 1 if g[1] else 0
+    (ROOT / "results" / "seq_duplicates.md").write_text("\n".join(report) + "\n", encoding="utf-8")
+    return sum(1 for w, g in seq_group.items() if not g[1]), len(groups), len(sigs)
+
+
 def main():
     rows = []
     for fn in (read_kern, read_dcml, lambda: read_openscore("openscore_quartets", "osq"),
@@ -744,6 +868,8 @@ def main():
     finalize_dates(rows, manual)
     n_manual_rows = write_manual(rows, manual)
     n_dup = mark_duplicates(rows)
+    n_seq_dup, n_seq_groups, n_sigs = sequence_dedup(rows)
+    print(f"dedup por secuencia: {n_sigs} obras con caché, {n_seq_groups} grupos, {n_seq_dup} obras marcadas no primarias")
 
     # unit_id únicos
     seen = Counter(r["unit_id"] for r in rows)
