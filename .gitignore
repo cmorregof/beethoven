@@ -9,3 +9,4 @@ __pycache__/
 .ipynb_checkpoints/
 # tablas de fondo (217 MB): se regeneran con scripts/background.py build
 results/background/*.parquet
+results/background_kn/*.parquet

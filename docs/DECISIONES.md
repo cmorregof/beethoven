@@ -330,3 +330,56 @@ las ventanas del estrato son tipos únicos. Decisiones para el preregistro: cand
 ritmo no uniforme, E-value de tipos no vistos como cota superior, y evaluar un fondo
 jerárquico estrato + compositor si el tramo alto importa. No se ha calculado nada de la
 Quinta ni de Cherubini.
+
+### D-39 Fondo Kneser-Ney, fondo jerárquico y frecuencia documental (decisión sobre D-38)
+`scripts/kn_background.py`. (1) **KN interpolado** sobre el alfabeto de símbolos
+(intervalo, rclass), órdenes de símbolo 1..m (m = n − 1 para ventanas de n notas):
+p_KN(q) = Π_k p(s_k | s_1..s_{k−1}), cada condicional un KN interpolado de orden k con
+descuento absoluto D_j = n1/(n1 + 2·n2) (n1, n2 del estrato completo, no se recalculan al
+excluir), recuentos crudos en el orden superior, de continuación (N1+) en los inferiores y
+uniforme 1/(V1 + 1) al fondo. Las tablas por (grama, prefijo, sufijo, obra, recuento) de
+`results/background_kn/` permiten evaluar cualquier subconjunto de obras: inclusión (modelo de
+compositor) o exclusión por sustracción (estrato sin A ni B), verificado equivalente en un
+test sintético. El E de Laplace (D-37) se conserva en la salida como **cota superior**.
+(2) **Fondo jerárquico**: p_q = λ·p_KN[obras del compositor de B, sin la obra bajo test](q) +
+(1 − λ)·p_KN[estrato sin los compositores de A y B](q). λ por interpolación borrada: 20 % de
+obras de reserva del estrato 1750-1830 (semilla 20260903); para cada obra de reserva B, sus
+ventanas se puntúan con el modelo de su compositor entrenado en las obras de entrenamiento
+de cB y con el estrato de entrenamiento sin cB; λ maximiza la log-verosimilitud en una
+rejilla de 0,05. **Limitación**: el término de compositor solo captura el idioma propio de B;
+no detecta influencia difusa (un rasgo de época o de escuela compartido por A y B que no
+esté en el resto del estrato), que queda absorbido por el término de estrato como «azar».
+(3) **Frecuencia documental** DF_q = fracción de obras del estrato (sin A ni B) que contienen
+q, con el mismo back-off: KN sobre recuentos documentales (cada obra aporta cada grama una
+vez), DF_q = min(1, p_doc(q)·T_doc/N_obras), que para gramas vistos es ≈ d(q)/N_obras. DF es
+la cantidad de decisión para «presencia en B»; E = windows_B·p_q queda como puntuación.
+Calibración de los tres modelos y de DF en `results/kn_calibration.md`; la elección se fija
+en D-40 y no se cambia después.
+
+### D-40 Elección del fondo (2026-09-09) — no se cambia después
+Calibración en `results/kn_calibration.md` y `results/fig/background_calibration_models.png`
+(estrato 1750-1830, n = 8, 200 ventanas, leave-both-composers-out, λ = 0,45 por
+interpolación borrada; perfil plano entre 0,25 y 0,75, caída fuerte en λ = 0 y λ = 1).
+Sobre las 200 ventanas, log(x + 0,05):
+
+| modelo | pendiente | MAE log | sesgo | obs/pred |
+|---|---|---|---|---|
+| Laplace | 1,42 | 1,96 | −1,70 | 1,61 |
+| Kneser-Ney | 1,02 | 0,25 | −0,14 | 1,10 |
+| jerárquico | 1,02 | 0,23 | −0,15 | 1,05 |
+
+Regla (menor MAE con pendiente en [0,9, 1,1]) → **fondo jerárquico**, λ = 0,45 (n = 8;
+para otros n se reestima con el mismo procedimiento antes de congelar el preregistro). El
+E de Laplace se conserva como cota superior. Por tramos, KN y jerárquico dan obs/pred
+0,97–1,10 desde E = 3 en adelante; en E < 3 quedan sobrepredichos (obs/pred 1,1–2,5, pocas
+ventanas), y las 118 ventanas sin ocurrencias en otro compositor reciben E ≈ 0,04 (Laplace: 1,0).
+**DF** (empírica para gramas vistos, back-off KN documental para no vistos): fiabilidad por
+bins en la diagonal (0,0004→0,0004 … 0,69→0,71), pendiente 1,02, total 4.320 obras predichas
+frente a 4.436 observadas; 1 − e^(−E) sobrepredice la presencia ×2–3 en los bins medios porque
+las ocurrencias se concentran en pocas obras: DF es la cantidad de decisión para presencia.
+Dos correcciones descubiertas por la calibración y aplicadas antes de fijar la elección:
+(a) la cadena de condicionales KN telescopa a c_m(q)/N_1 (posiciones de símbolo), y el
+E-value multiplica por ventanas de orden m, así que p_KN se escala por N_1/N_m (verificado:
+p_KN = 4,05e-2 frente a ML 4,05e-2 en el grama de nota repetida); (b) el KN sobre recuentos
+documentales infla los gramas frecuentes (0,93 frente a 0,65 empírico), por lo que DF usa
+d(q)/N_obras cuando d(q) > 0 y el back-off solo para no vistos, acotado por 1/(N_obras + 1).
