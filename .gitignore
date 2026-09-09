@@ -7,3 +7,5 @@ __pycache__/
 *.pyc
 .DS_Store
 .ipynb_checkpoints/
+# tablas de fondo (217 MB): se regeneran con scripts/background.py build
+results/background/*.parquet

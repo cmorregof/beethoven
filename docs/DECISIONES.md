@@ -294,3 +294,39 @@ obras con más 12-gramas compartidos en 1750–1830 son sinfonías distintas con
 (figuras de acompañamiento), no duplicados; por eso `P_pair` sube en los estratos
 orquestales. Queda pendiente una variante de `P_pair` ponderada por tipos o sin n-gramas de
 nota repetida.
+
+## 2026-09-09 — Modelo de fondo por tipo
+
+### D-37 Fondo por tipo de n-grama y regla de exclusión por compositor
+Sustituye la idea de un `P_pair` ponderado (D-36, descartada). Para cada estrato (los cinco
+bins de periodo y la unión `1750-1830`) y n = 4..12, `scripts/background.py build` guarda la
+tabla de frecuencias de n-gramas IVR (intervalos + clase rítmica) de las obras primarias del
+estrato, sin obras objetivo, en `results/background/<estrato>_n<n>.parquet`, con una fila por
+(hash, `composer_id`, count). Reutiliza los hashes de `uniqueness.py` sobre la caché.
+Probabilidad de fondo con suavizado de Laplace:
+`p_q = (count_q + 1) / (N + V + 1)`, con N ventanas y V tipos observados del estrato;
+tipo no visto: `p_unseen = 1 / (N + V + 1)`.
+**Regla de exclusión:** en el confirmatorio, para todo par de obras (A, B) el fondo se estima
+**sin los compositores de A ni de B** (`Background.p(hashes, exclude=(cA, cB))`): se restan
+las ventanas de los excluidos de N, sus tipos exclusivos de V (aproximación: los tipos
+compartidos solo entre los dos excluidos no se descuentan) y sus recuentos de count_q. Así
+ni la obra consultada ni la candidata contribuyen a su propio fondo, y un compositor con
+muchas obras no se «autocalibra».
+E-value de una ventana q contra una obra B: `E = windows_B × p_q`; probabilidad de aparecer
+al menos una vez ≈ `1 − exp(−E)`.
+Calibración (`scripts/background.py calibrate`): 200 ventanas de 8 notas muestreadas
+uniformemente sobre las ventanas de `1750-1830` (semilla 20260903), E predicho frente a
+frecuencia empírica en las demás obras del estrato con compositor distinto, leave-both-
+composers-out; `results/fig/background_calibration.png`, `results/background_calibration.md`.
+Los parquet (217 MB) no se suben al repo; `meta.json` sí.
+
+### D-38 Resultado de la calibración del fondo (2026-09-09)
+`results/fig/background_calibration.png`, `results/background_calibration.md`. Tramo medio
+(E 3–300) calibrado con sesgo 1,3–1,5× y correlación 0,97; tramo bajo (59 % de las ventanas
+muestreadas son tipos que no aparecen en otro compositor) sobrepredicho (E ≈ 1 frente a 0),
+conservador; tramo alto (fórmulas de acompañamiento) infrapredicho 1,5–1,6× por la exclusión
+del compositor de B, anticonservador. Good–Turing (α = 0,96) no cambia nada porque el 29 % de
+las ventanas del estrato son tipos únicos. Decisiones para el preregistro: candidatos con
+ritmo no uniforme, E-value de tipos no vistos como cota superior, y evaluar un fondo
+jerárquico estrato + compositor si el tramo alto importa. No se ha calculado nada de la
+Quinta ni de Cherubini.
