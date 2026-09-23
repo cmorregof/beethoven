@@ -383,3 +383,42 @@ E-value multiplica por ventanas de orden m, así que p_KN se escala por N_1/N_m 
 p_KN = 4,05e-2 frente a ML 4,05e-2 en el grama de nota repetida); (b) el KN sobre recuentos
 documentales infla los gramas frecuentes (0,93 frente a 0,65 empírico), por lo que DF usa
 d(q)/N_obras cuando d(q) > 0 y el back-off solo para no vistos, acotado por 1/(N_obras + 1).
+
+## 2026-09-23 — Memoria del fondo KN
+
+### D-42 Optimización de memoria del fondo KN (2026-09-23)
+**Causa.** `scripts/run_lambda_by_n.sh` (D-41, punto 1) pedía más de 100 GB de RAM en una
+máquina de 24 GB. `calibrate_grid` (`scripts/lambda_by_n.py`) recorría las consultas por fuera
+y, dentro de ese bucle, construía un modelo KN por par de compositores (p_KN) y otro por obra B
+(p_comp), unos 600 modelos de 100–200 MB. `Models._minus`/`_subset` (`scripts/kn_background.py`)
+los cacheaba todos sin tope, y el `.sh` lanzaba 7 procesos en paralelo (uno por n), cada uno con
+su propia `Tables`. El consumo era ese producto cartesiano de modelos cacheados sin tope,
+multiplicado por 7 procesos.
+
+**Cambios** (memoria y orden de cálculo; ninguna fórmula cambia):
+1. `kn_background.py`: los recuentos a restar `sub[j]` pasan de `dict` de Python a la clase
+   `Sub` (arrays NumPy ordenados de gramas y recuentos, búsqueda con `searchsorted`) y los
+   recuentos N1+ se calculan vectorizados sobre índices. La caché de cada modelo KN es LRU con
+   tope de 200.000 entradas, y `Models` mantiene como máximo 4 modelos vivos por tipo (LRU).
+   `Models` acepta `tables=` para reutilizar una `Tables` ya cargada (no depende de n).
+2. `lambda_by_n.py`: `calibrate_grid` invierte el bucle (modelos por fuera, consultas por
+   dentro), de modo que cada modelo por par (cA, cB) y por obra B se construye una sola vez y
+   se descarta. `main` carga `Tables` una vez y la comparte entre todos los n.
+3. `run_lambda_by_n.sh`: un solo proceso en serie para n ∈ {4, 5, 6, 7, 8, 10, 12} en lugar
+   de 7 procesos en paralelo.
+
+**Evidencia de que los resultados no cambian.**
+- `pytest tests/`: pasan los 2 tests de D-40, (a) y (b), sobre las tablas reales de
+  `results/background_kn/`; ninguno se salta.
+- `kn_background.py calibrate` regenera `results/kn_calibration.md`, `.csv` y `.json` idénticos
+  byte a byte a los de c715141 (`git diff` vacío). Jerárquico con λ = 0,45: pendiente 1,016,
+  MAE log 0,234, sesgo −0,152, obs/pred 1,05. Kneser-Ney: 1,018 / 0,246 / −0,138 / 1,10.
+- El `calibrate_grid` nuevo con n = 8 reproduce esas dos filas a 3 decimales: λ = 0 da la de
+  Kneser-Ney y λ = 0,45 la del jerárquico (`results/lambda_by_n_grid.csv`).
+- Memoria: `lambda_by_n.py 8 --only-cache` termina en ≈ 4 min con un RSS máximo muestreado de
+  2,4 GiB; en el pipeline completo en serie ninguna muestra (cada 60 s) supera 6 GB.
+
+El preregistro D-41 (`decisions/D-41_preregistro.md`) sigue vigente: D-42 no cambia umbrales,
+n, λ, estrato ni modelo nulo. Este commit va ANTES de ejecutar el caso Cherubini → op. 67, que
+sigue sin ejecutarse. Como el commit D-41 aún no existe, este commit añade
+`scripts/lambda_by_n.py` y `scripts/run_lambda_by_n.sh` ya corregidos.

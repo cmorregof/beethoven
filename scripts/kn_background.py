@@ -31,7 +31,7 @@ import csv
 import json
 import sys
 import time
-from collections import defaultdict
+from collections import OrderedDict, defaultdict
 from pathlib import Path
 
 import numpy as np
@@ -165,30 +165,97 @@ class ArrayCounts:
             return int(self.uc[k])
         return 0
 
-    def grams_with_prefix(self, p):
+    def idx_with_prefix(self, p):
+        """Índices (en ug/uc) de los gramas con prefijo p."""
         a = np.searchsorted(self.pre_sorted, np.uint64(p), side="left")
         b = np.searchsorted(self.pre_sorted, np.uint64(p), side="right")
-        return self.ug[self.by_pre[a:b]]
+        return self.by_pre[a:b]
 
-    def grams_with_suffix(self, s):
+    def idx_with_suffix(self, s):
         a = np.searchsorted(self.suf_sorted, np.uint64(s), side="left")
         b = np.searchsorted(self.suf_sorted, np.uint64(s), side="right")
-        return self.ug[self.by_suf[a:b]]
+        return self.by_suf[a:b]
+
+    def idx_with_suffixes(self, ss):
+        """Índices de los gramas cuyo sufijo está en el array ss (vectorizado)."""
+        ss = np.asarray(ss, dtype=np.uint64)
+        if len(ss) == 0:
+            return np.empty(0, dtype=np.int64)
+        a = np.searchsorted(self.suf_sorted, ss, side="left")
+        b = np.searchsorted(self.suf_sorted, ss, side="right")
+        ln = b - a
+        tot = int(ln.sum())
+        if tot == 0:
+            return np.empty(0, dtype=np.int64)
+        starts = np.repeat(a - np.r_[0, np.cumsum(ln)[:-1]], ln)
+        return self.by_suf[starts + np.arange(tot)]
+
+    def grams_with_prefix(self, p):
+        return self.ug[self.idx_with_prefix(p)]
+
+    def grams_with_suffix(self, s):
+        return self.ug[self.idx_with_suffix(s)]
+
+
+class Sub:
+    """Recuentos a restar de un orden: gramas ordenados (uint64) y recuento (int64)."""
+
+    __slots__ = ("g", "c", "total")
+
+    def __init__(self, g=None, c=None):
+        self.g = np.empty(0, dtype=np.uint64) if g is None else np.asarray(g, dtype=np.uint64)
+        self.c = np.empty(0, dtype=np.int64) if c is None else np.asarray(c, dtype=np.int64)
+        self.total = int(self.c.sum())
+
+    def __bool__(self):
+        return len(self.g) > 0
+
+    def lookup(self, gs):
+        """Recuento a restar para cada grama de gs (0 si no está)."""
+        gs = np.asarray(gs, dtype=np.uint64)
+        if len(self.g) == 0 or len(gs) == 0:
+            return np.zeros(len(gs), dtype=np.int64)
+        k = np.minimum(np.searchsorted(self.g, gs), len(self.g) - 1)
+        return np.where(self.g[k] == gs, self.c[k], 0)
 
 
 class Counts:
     """Modelo de recuentos multi-orden con exclusión opcional de obras (por sustracción).
-    base[j]: ArrayCounts del conjunto incluido; sub[j]: dict grama -> recuento a restar."""
+    base[j]: ArrayCounts del conjunto incluido; sub[j]: Sub (arrays) con lo que se resta.
+    Todo vectorizado sobre NumPy: ningún dict de Python del tamaño del corpus."""
 
-    def __init__(self, base: dict[int, ArrayCounts], sub: dict[int, dict] | None = None):
+    CACHE_MAX = 200_000
+
+    def __init__(self, base: dict[int, ArrayCounts], sub: dict[int, Sub] | None = None):
         self.base = base
-        self.sub = sub or {j: {} for j in base}
-        self.N = {j: b.N - sum(self.sub[j].values()) for j, b in base.items()}
+        self.sub = sub or {j: Sub() for j in base}
+        for j in base:
+            self.sub.setdefault(j, Sub())
+        self.N = {j: b.N - self.sub[j].total for j, b in base.items()}
         self.V = {}
         for j, b in base.items():
-            zeroed = sum(1 for g, v in self.sub[j].items() if v >= b.count(g))
+            s = self.sub[j]
+            if s:
+                k = np.searchsorted(b.ug, s.g)
+                k = np.minimum(k, len(b.ug) - 1)
+                bc = np.where(b.ug[k] == s.g, b.uc[k], 0)
+                zeroed = int((s.c >= bc).sum())
+            else:
+                zeroed = 0
             self.V[j] = b.V - zeroed
-        self._cache = {}
+        self._cache = OrderedDict()
+
+    def _get(self, k):
+        v = self._cache.get(k)
+        if v is not None:
+            self._cache.move_to_end(k)
+        return v
+
+    def _put(self, k, v):
+        self._cache[k] = v
+        if len(self._cache) > self.CACHE_MAX:
+            self._cache.popitem(last=False)
+        return v
 
     def D(self, j):
         return self.base[j].D
@@ -196,40 +263,64 @@ class Counts:
     def count(self, j, g):
         if j not in self.base:
             return 0
-        return self.base[j].count(g) - self.sub[j].get(int(g), 0)
+        b = self.base[j]
+        c = b.count(g)
+        if c and self.sub[j]:
+            c -= int(self.sub[j].lookup(np.array([g], dtype=np.uint64))[0])
+        return c
+
+    def _counts_at(self, j, idx):
+        """Recuentos netos de los gramas base[j].ug[idx]."""
+        b = self.base[j]
+        c = b.uc[idx]
+        if self.sub[j] and len(idx):
+            c = c - self.sub[j].lookup(b.ug[idx])
+        return c
 
     def followers(self, j, p):
         """N1+(p •): j-gramas distintos con prefijo p y recuento > 0."""
         k = ("f", j, int(p))
-        if k not in self._cache:
-            gs = self.base[j].grams_with_prefix(p) if j in self.base else []
-            if len(gs) and not self.sub[j]:
-                self._cache[k] = int(len(gs))
+        v = self._get(k)
+        if v is None:
+            if j not in self.base:
+                v = 0
             else:
-                self._cache[k] = int(sum(1 for g in gs.tolist() if self.count(j, g) > 0)) if len(gs) else 0
-        return self._cache[k]
+                idx = self.base[j].idx_with_prefix(p)
+                v = int((self._counts_at(j, idx) > 0).sum()) if len(idx) else 0
+            self._put(k, v)
+        return v
 
     def cont(self, j, g):
         """N1+(• g): (j+1)-gramas distintos con sufijo g y recuento > 0."""
         k = ("c", j, int(g))
-        if k not in self._cache:
+        v = self._get(k)
+        if v is None:
             if j + 1 not in self.base:
-                self._cache[k] = 0
+                v = 0
             else:
-                gs = self.base[j + 1].grams_with_suffix(g)
-                if len(gs) and not self.sub[j + 1]:
-                    self._cache[k] = int(len(gs))
-                else:
-                    self._cache[k] = int(sum(1 for x in gs.tolist() if self.count(j + 1, x) > 0)) if len(gs) else 0
-        return self._cache[k]
+                idx = self.base[j + 1].idx_with_suffix(g)
+                v = int((self._counts_at(j + 1, idx) > 0).sum()) if len(idx) else 0
+            self._put(k, v)
+        return v
 
     def cont_sum(self, j, p):
-        """N1+(• p •) = Σ_{g de orden j con prefijo p} N1+(• g)."""
+        """N1+(• p •) = Σ_{g de orden j con prefijo p, c(g)>0} N1+(• g)."""
         k = ("s", j, int(p))
-        if k not in self._cache:
-            gs = self.base[j].grams_with_prefix(p) if j in self.base else []
-            self._cache[k] = int(sum(self.cont(j, g) for g in gs.tolist() if self.count(j, g) > 0)) if len(gs) else 0
-        return self._cache[k]
+        v = self._get(k)
+        if v is None:
+            if j not in self.base or j + 1 not in self.base:
+                v = 0
+            else:
+                b = self.base[j]
+                idx = b.idx_with_prefix(p)
+                if len(idx) == 0:
+                    v = 0
+                else:
+                    gs = b.ug[idx][self._counts_at(j, idx) > 0]
+                    idx2 = self.base[j + 1].idx_with_suffixes(gs)
+                    v = int((self._counts_at(j + 1, idx2) > 0).sum()) if len(idx2) else 0
+            self._put(k, v)
+        return v
 
 
 class Tables:
@@ -285,14 +376,14 @@ class Tables:
         for j, r in self.rows.items():
             idx = self._rows_of(j, excl)
             if len(idx) == 0:
-                sub[j] = {}
+                sub[j] = Sub()
                 continue
             g = r["g"][idx]
             c = np.ones(len(idx), dtype=np.int64) if doc else r["c"][idx]
             order = np.argsort(g, kind="stable")
             g, c = g[order], c[order]
             starts = np.r_[0, np.nonzero(g[1:] != g[:-1])[0] + 1]
-            sub[j] = dict(zip(g[starts].tolist(), np.add.reduceat(c, starts).tolist()))
+            sub[j] = Sub(g[starts], np.add.reduceat(c, starts))
         return Counts(self.doc if doc else self.tok, sub)
 
 
@@ -363,12 +454,13 @@ class KN:
 class Models:
     """Modelos de un estrato: Laplace (cota superior), KN estrato-sin-(A,B), jerárquico, DF."""
 
-    def __init__(self, stratum: str, n: int, lam: float | None = None):
+    def __init__(self, stratum: str, n: int, lam: float | None = None, tables: Tables | None = None):
         self.stratum, self.n, self.m = stratum, n, n - 1
-        self.T = Tables(stratum)
+        self.T = tables if tables is not None else Tables(stratum)   # Tables no depende de n: compartible
         self.lap = bgl.Background.load(stratum, n)
         self.lam = lam
-        self._minus, self._subset = {}, {}
+        self._minus, self._subset = OrderedDict(), OrderedDict()
+        self.MODEL_CACHE = 4                # modelos vivos a la vez por tipo (LRU)
         works = sl.load_catalog(exclude_target=True)
         self.widx = {w: i for i, w in enumerate(self.T.works)}
         self.comp_works = defaultdict(set)
@@ -377,17 +469,22 @@ class Models:
                 self.comp_works[self.T.composer[w]].add(self.widx[w])
         self.n_works = sum(len(v) for v in self.comp_works.values())
 
+    def _lru(self, cache, key, make):
+        if key in cache:
+            cache.move_to_end(key)
+            return cache[key]
+        cache[key] = v = make()
+        while len(cache) > self.MODEL_CACHE:
+            cache.popitem(last=False)
+        return v
+
     def minus(self, excl: set[int], doc=False) -> KN:
         key = (frozenset(excl), doc)
-        if key not in self._minus:
-            self._minus[key] = KN(self.T.minus_counts(excl, doc))
-        return self._minus[key]
+        return self._lru(self._minus, key, lambda: KN(self.T.minus_counts(excl, doc)))
 
     def subset(self, incl: set[int], doc=False) -> KN:
         key = (frozenset(incl), doc)
-        if key not in self._subset:
-            self._subset[key] = KN(self.T.subset_counts(incl, doc))
-        return self._subset[key]
+        return self._lru(self._subset, key, lambda: KN(self.T.subset_counts(incl, doc)))
 
     def excl_of(self, cA, cB):
         return self.comp_works.get(cA, set()) | self.comp_works.get(cB, set())
