@@ -384,6 +384,16 @@ p_KN = 4,05e-2 frente a ML 4,05e-2 en el grama de nota repetida); (b) el KN sobr
 documentales infla los gramas frecuentes (0,93 frente a 0,65 empírico), por lo que DF usa
 d(q)/N_obras cuando d(q) > 0 y el back-off solo para no vistos, acotado por 1/(N_obras + 1).
 
+## 2026-09-21 — Preregistro del caso confirmatorio
+
+### D-41 Preregistro del caso confirmatorio Cherubini → op. 67 (2026-09-21)
+Documento completo en `decisions/D-41_preregistro.md`: hipótesis, commit congelado, n y λ(n),
+umbrales fijados sin la Quinta, modelo nulo, criterios de confirmación y refutación,
+limitaciones y tareas pendientes antes del caso objetivo. Commit congelado D-41:
+`6c44aa98ed32ee691cc4140aec684414ef5691ba` (2026-09-23), sobre c715141 (D-39/D-40) y 160828d
+(D-42). La suite `tests/` pasa en ese commit (2 de 2). El caso Cherubini → op. 67 no se ha
+ejecutado.
+
 ## 2026-09-23 — Memoria del fondo KN
 
 ### D-42 Optimización de memoria del fondo KN (2026-09-23)
