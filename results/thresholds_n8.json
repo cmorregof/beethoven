@@ -1,0 +1,160 @@
+{
+ "n": 8,
+ "lambda": 0.45,
+ "stratum": "1750-1830",
+ "positives": [
+  {
+   "id": "P07",
+   "A": "musedata_mozart-bhl-qrtets-k464",
+   "B": "dcml_abc-n05op18-5",
+   "ref": "Kerman, The Beethoven Quartets (1967), cap. 2"
+  },
+  {
+   "id": "P08",
+   "A": "dcml_abc-n15op132",
+   "B": "dcml-mendelssohn_quartets-op-13",
+   "ref": "Todd, Mendelssohn: A Life in Music (2003); Krummacher (1978)"
+  },
+  {
+   "id": "P09",
+   "A": "dcml_abc-n11op95",
+   "B": "dcml-mendelssohn_quartets-op-13",
+   "ref": "Todd (2003)"
+  },
+  {
+   "id": "P10",
+   "A": "dcml_abc-n10op74",
+   "B": "dcml-mendelssohn_quartets-op-12",
+   "ref": "Todd (2003)"
+  }
+ ],
+ "negatives": [
+  {
+   "id": "N07",
+   "A": "kern-humdrum-haydn-quartets-op64n5",
+   "B": "dcml_abc-n05op18-5",
+   "criterio": "cuarteto 1750-1800 → mismo B que P07"
+  },
+  {
+   "id": "N08",
+   "A": "osq-13145872",
+   "B": "dcml-mendelssohn_quartets-op-13",
+   "criterio": "Schubert D.804 (1824), cuarteto 1800-1830 → mismo B que P08"
+  },
+  {
+   "id": "N09",
+   "A": "osq-5116346",
+   "B": "dcml-mendelssohn_quartets-op-13",
+   "criterio": "Arriaga n.º 1 (1823), cuarteto 1800-1830 → mismo B que P09"
+  },
+  {
+   "id": "N10",
+   "A": "osq-5108909",
+   "B": "dcml-mendelssohn_quartets-op-12",
+   "criterio": "Schubert D.810 (1824), cuarteto 1800-1830 → mismo B que P10"
+  }
+ ],
+ "excluded": "ningún par incluye Beethoven op. 67 ni Cherubini (X01 de controls_positive_candidates.csv)",
+ "n_instances": {
+  "pos": 360,
+  "neg": 273
+ },
+ "DF": {
+  "threshold": 0.00018215226373135057,
+  "rule": "mayor DF con FPR ≤ 5 % en negativos; presencia significativa si DF ≤ umbral",
+  "FPR": 0.047619047619047616,
+  "sensitivity": 0.008333333333333333
+ },
+ "E": {
+  "threshold": 0.0004086034322961938,
+  "rule": "percentil 5 de E en el nulo estratificado (pares negativos) = percentil 95 de −log E",
+  "FPR": 0.05128205128205128,
+  "sensitivity": 0.011111111111111112
+ },
+ "combined": {
+  "rule": "DF ≤ t_DF (presencia) y después ranking por E; decisión conjunta DF ≤ t_DF y E ≤ t_E",
+  "FPR": 0.047619047619047616,
+  "sensitivity": 0.008333333333333333
+ },
+ "per_pair": {
+  "P07": {
+   "shared_types": 69,
+   "pass_DF": 0,
+   "pass_E": 0,
+   "pass_both": 0,
+   "min_DF": 0.005780346820809248,
+   "min_E": 0.0005091201192195194
+  },
+  "P08": {
+   "shared_types": 81,
+   "pass_DF": 1,
+   "pass_E": 1,
+   "pass_both": 1,
+   "min_DF": 5.230951622755638e-05,
+   "min_E": 0.0001038303677439923
+  },
+  "P09": {
+   "shared_types": 90,
+   "pass_DF": 0,
+   "pass_E": 0,
+   "pass_both": 0,
+   "min_DF": 0.0009543612412498066,
+   "min_E": 0.0012000371677042764
+  },
+  "P10": {
+   "shared_types": 120,
+   "pass_DF": 2,
+   "pass_E": 3,
+   "pass_both": 2,
+   "min_DF": 8.641950896018595e-06,
+   "min_E": 2.1976561837220486e-05
+  },
+  "N07": {
+   "shared_types": 42,
+   "pass_DF": 0,
+   "pass_E": 0,
+   "pass_both": 0,
+   "min_DF": 0.0004178023547304996,
+   "min_E": 0.0013399742820270788
+  },
+  "N08": {
+   "shared_types": 52,
+   "pass_DF": 10,
+   "pass_E": 11,
+   "pass_both": 10,
+   "min_DF": 9.46471828574386e-304,
+   "min_E": 8.895016533299013e-304
+  },
+  "N09": {
+   "shared_types": 93,
+   "pass_DF": 0,
+   "pass_E": 0,
+   "pass_both": 0,
+   "min_DF": 0.0032716421581342066,
+   "min_E": 0.0031255006152758735
+  },
+  "N10": {
+   "shared_types": 86,
+   "pass_DF": 3,
+   "pass_E": 3,
+   "pass_both": 3,
+   "min_DF": 9.644842268250666e-10,
+   "min_E": 9.807615907473757e-07
+  }
+ },
+ "curves": {
+  "DF": {
+   "AUC": 0.4661273911273911,
+   "AP": 0.5326380844480609
+  },
+  "E": {
+   "AUC": 0.45733618233618234,
+   "AP": 0.5281486602145786
+  },
+  "DF→E": {
+   "AUC": 0.4802706552706552,
+   "AP": 0.5654037518892377
+  }
+ },
+ "prevalence": 0.5687203791469194
+}
