@@ -1,0 +1,86 @@
+<!-- Method explainer (W2). Inserted by app.js into #method-content.
+     No result number is typed here: results use <span data-num="…">, filled from web/data/numbers.json.
+     Design constants (n = 8, FPR target 5 %, seed, permutations) are part of the protocol, not results. -->
+<div class="method-block">
+  <h3 id="method-window">What is an 8-note window?</h3>
+  <p>
+    We read each voice of a score as a melody: one note after another. A <em>window</em> is a run of
+    consecutive notes in one voice. An 8-note window is described by the seven steps between its
+    notes: the interval in semitones (up or down) and a coarse rhythm class for each step. The
+    pitches themselves are not stored, so the same figure in another key counts as the same window.
+  </p>
+  <figure aria-labelledby="window-demo-cap">
+    <ol class="window-demo" aria-hidden="true">
+      <li>…</li><li class="in">n₁</li><li class="in">n₂</li><li class="in">n₃</li><li class="in">n₄</li>
+      <li class="in">n₅</li><li class="in">n₆</li><li class="in">n₇</li><li class="in">n₈</li><li>n₉</li><li>…</li>
+    </ol>
+    <figcaption id="window-demo-cap">A window covers eight consecutive notes of one voice (outlined).
+      Sliding it one note to the right gives the next window, so a voice of N notes yields N − 7 windows.</figcaption>
+  </figure>
+  <p>
+    Short windows are shared by almost everything (scales, arpeggios, repeated notes); long windows
+    are almost never shared. Eight notes is the preregistered compromise: long enough that a shared
+    window is rare across the corpus, short enough that a borrowed theme still produces several of them.
+    The uniqueness curves below show how fast sharing falls as the window grows.
+  </p>
+
+  <h3 id="method-df-e">Two ways to ask “is this shared window surprising?”: DF and E</h3>
+  <dl>
+    <dt><strong>DF (document frequency)</strong></dt>
+    <dd>
+      The share of works in the comparison corpus (composers active 1750–1830, excluding the two
+      composers under study) that contain the same window. A small DF means that few other composers
+      of the period use the figure, so finding it in both works is harder to put down to common
+      vocabulary. DF is purely empirical: it counts, it does not model.
+    </dd>
+    <dt><strong>E (expected occurrences)</strong></dt>
+    <dd>
+      How many times the window would be expected to appear in the later work by chance, according to a
+      statistical model of melodic style (an interpolated n-gram model of the period, mixed with a model
+      of the earlier composer’s own idiom). A small E means that the model finds the figure unlikely,
+      even for a composer writing in that idiom. Because E is a model, we checked that it is calibrated:
+      across held-out works, predicted counts should match observed counts (see “Calibration”).
+    </dd>
+  </dl>
+
+  <h3 id="method-fpr">Why a 5 % false-positive rate?</h3>
+  <p>
+    A threshold on DF or E turns a continuous score into a yes/no flag. We set each threshold on
+    <em>control pairs</em> of string quartets from the same years with no documented relationship:
+    the threshold is the most permissive value that flags at most 5 % of the windows these unrelated
+    pairs share by chance. This fixes the error we can control in advance (false alarms) at the
+    conventional level, before the case of interest is examined, and it was frozen in the
+    preregistration so that it cannot be adjusted after seeing the result.
+  </p>
+  <p class="callout">
+    The 5 % is per shared window, not per pair of works: one pair contributes many correlated windows.
+  </p>
+
+  <h3 id="method-null">Why a null result here would not be informative</h3>
+  <p>
+    The same thresholds were applied to pairs where a later composer is <em>documented</em> to have
+    modelled a work on an earlier one (for example, a quartet written with a specific earlier quartet as
+    its model). At the 5 % false-positive rate, DF flags only
+    <span data-num="thresh_sens_df">…</span> of the windows those pairs share, and E only
+    <span data-num="thresh_sens_e">…</span>. In other words, modelling in the musicological sense
+    (form, gesture, texture, a reworked theme) leaves almost no trace in exact 8-note matches.
+  </p>
+  <p>
+    The consequence is stated in the preregistration itself: if the confirmatory test finds no excess of
+    rare shared windows, that will <strong>not</strong> show that no modelling took place; a method that
+    flags so few modelled windows cannot rule it out. Only a clear excess would be evidence, and then
+    evidence of close, near-literal borrowing.
+  </p>
+  <h3 id="method-literal">Sensitivity to literal quotation</h3>
+  <p>
+    Literal borrowing was measured, as an exploratory check, on <span data-num="literal_n_pairs">…</span>
+    pairs of Vivaldi string concertos and their contemporary keyboard arrangements. The DF threshold flags
+    <span data-num="literal_ls1_default_df">…</span> of the windows such a pair shares
+    (95 % interval <span data-num="literal_ls1_default_df_lo">…</span>–<span data-num="literal_ls1_default_df_hi">…</span>),
+    and a contiguous borrowed passage of 10 bars is detected in <span data-num="literal_ls2_default_power_10bars">…</span>
+    of trials. Two cautions: these are an <em>upper bound</em> (exact arrangements of pre-1750 music, scored
+    against thresholds set on later string quartets), and the intervals are <em>optimistic</em>, because the
+    windows of one pair are not independent of each other. Formal adoption of this check is part of the
+    proposed amendment D-43.
+  </p>
+</div>

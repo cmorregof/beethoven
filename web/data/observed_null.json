@@ -1,0 +1,313 @@
+{
+ "source": [
+  "results/base_rate.json"
+ ],
+ "generated_by": "web/build_data.py",
+ "generated_at": "2026-11-10",
+ "motif": "D4",
+ "seed": 20260903,
+ "n_perm": 1000,
+ "null": "independent within-voice shuffle of intervals and durations (works with ≥ 150 notes)",
+ "strata": [
+  {
+   "stratum": "all",
+   "kind": "all",
+   "works_perm": 1825,
+   "obs": 1298,
+   "null_mean": 980.993,
+   "ci95": [
+    925,
+    1043
+   ],
+   "ratio": 1.3231490948457327,
+   "p": 0.000999000999000999,
+   "n_perm": 1000
+  },
+  {
+   "stratum": "<1750",
+   "kind": "period",
+   "works_perm": 994,
+   "obs": 563,
+   "null_mean": 371.936,
+   "ci95": [
+    337,
+    411
+   ],
+   "ratio": 1.5137012819409792,
+   "p": 0.000999000999000999,
+   "n_perm": 1000
+  },
+  {
+   "stratum": "1750–1800",
+   "kind": "period",
+   "works_perm": 235,
+   "obs": 255,
+   "null_mean": 211.325,
+   "ci95": [
+    186,
+    239
+   ],
+   "ratio": 1.2066721873890927,
+   "p": 0.001998001998001998,
+   "n_perm": 1000
+  },
+  {
+   "stratum": "1800–1830",
+   "kind": "period",
+   "works_perm": 68,
+   "obs": 180,
+   "null_mean": 168.857,
+   "ci95": [
+    142,
+    194
+   ],
+   "ratio": 1.065990749569162,
+   "p": 0.19480519480519481,
+   "n_perm": 1000
+  },
+  {
+   "stratum": "1830–1900",
+   "kind": "period",
+   "works_perm": 178,
+   "obs": 162,
+   "null_mean": 123.4,
+   "ci95": [
+    103,
+    144
+   ],
+   "ratio": 1.312803889789303,
+   "p": 0.000999000999000999,
+   "n_perm": 1000
+  },
+  {
+   "stratum": ">1900",
+   "kind": "period",
+   "works_perm": 188,
+   "obs": 13,
+   "null_mean": 30.142,
+   "ci95": [
+    20,
+    41
+   ],
+   "ratio": 0.43129188507730076,
+   "p": 1.0,
+   "n_perm": 1000
+  },
+  {
+   "stratum": "unknown",
+   "kind": "period",
+   "works_perm": 162,
+   "obs": 125,
+   "null_mean": 75.333,
+   "ci95": [
+    59,
+    92
+   ],
+   "ratio": 1.6592993774308735,
+   "p": 0.000999000999000999,
+   "n_perm": 1000
+  }
+ ],
+ "other_motifs": {
+  "D2": [
+   {
+    "stratum": "all",
+    "kind": "all",
+    "works_perm": 1825,
+    "obs": 14371,
+    "null_mean": 17729.363,
+    "ci95": [
+     17518,
+     17942
+    ],
+    "ratio": 0.8105762175437436,
+    "p": 1.0,
+    "n_perm": 1000
+   },
+   {
+    "stratum": "<1750",
+    "kind": "period",
+    "works_perm": 994,
+    "obs": 6140,
+    "null_mean": 6805.668,
+    "ci95": [
+     6672,
+     6939
+    ],
+    "ratio": 0.902189175258035,
+    "p": 1.0,
+    "n_perm": 1000
+   },
+   {
+    "stratum": "1750–1800",
+    "kind": "period",
+    "works_perm": 235,
+    "obs": 2779,
+    "null_mean": 3463.638,
+    "ci95": [
+     3374,
+     3558
+    ],
+    "ratio": 0.8023355789490704,
+    "p": 1.0,
+    "n_perm": 1000
+   },
+   {
+    "stratum": "1800–1830",
+    "kind": "period",
+    "works_perm": 68,
+    "obs": 2109,
+    "null_mean": 3177.787,
+    "ci95": [
+     3099,
+     3266
+    ],
+    "ratio": 0.6636694026377477,
+    "p": 1.0,
+    "n_perm": 1000
+   },
+   {
+    "stratum": "1830–1900",
+    "kind": "period",
+    "works_perm": 178,
+    "obs": 1911,
+    "null_mean": 2328.51,
+    "ci95": [
+     2249,
+     2413
+    ],
+    "ratio": 0.820696496901452,
+    "p": 1.0,
+    "n_perm": 1000
+   },
+   {
+    "stratum": ">1900",
+    "kind": "period",
+    "works_perm": 188,
+    "obs": 354,
+    "null_mean": 561.121,
+    "ci95": [
+     521,
+     601
+    ],
+    "ratio": 0.6308799706302206,
+    "p": 1.0,
+    "n_perm": 1000
+   },
+   {
+    "stratum": "unknown",
+    "kind": "period",
+    "works_perm": 162,
+    "obs": 1078,
+    "null_mean": 1392.639,
+    "ci95": [
+     1330,
+     1455
+    ],
+    "ratio": 0.7740699492115329,
+    "p": 1.0,
+    "n_perm": 1000
+   }
+  ],
+  "D3": [
+   {
+    "stratum": "all",
+    "kind": "all",
+    "works_perm": 1825,
+    "obs": 409603,
+    "null_mean": 383701.523,
+    "ci95": [
+     382934,
+     384470
+    ],
+    "ratio": 1.0675042329712099,
+    "p": 0.000999000999000999,
+    "n_perm": 1000
+   },
+   {
+    "stratum": "<1750",
+    "kind": "period",
+    "works_perm": 994,
+    "obs": 201821,
+    "null_mean": 185821.8,
+    "ci95": [
+     185319,
+     186321
+    ],
+    "ratio": 1.0860996933621352,
+    "p": 0.000999000999000999,
+    "n_perm": 1000
+   },
+   {
+    "stratum": "1750–1800",
+    "kind": "period",
+    "works_perm": 235,
+    "obs": 72767,
+    "null_mean": 67257.997,
+    "ci95": [
+     66947,
+     67584
+    ],
+    "ratio": 1.0819085201124856,
+    "p": 0.000999000999000999,
+    "n_perm": 1000
+   },
+   {
+    "stratum": "1800–1830",
+    "kind": "period",
+    "works_perm": 68,
+    "obs": 34370,
+    "null_mean": 39583.041,
+    "ci95": [
+     39352,
+     39810
+    ],
+    "ratio": 0.8683011494745945,
+    "p": 1.0,
+    "n_perm": 1000
+   },
+   {
+    "stratum": "1830–1900",
+    "kind": "period",
+    "works_perm": 178,
+    "obs": 49295,
+    "null_mean": 45170.153,
+    "ci95": [
+     44906,
+     45434
+    ],
+    "ratio": 1.0913179771607149,
+    "p": 0.000999000999000999,
+    "n_perm": 1000
+   },
+   {
+    "stratum": ">1900",
+    "kind": "period",
+    "works_perm": 188,
+    "obs": 22293,
+    "null_mean": 20297.059,
+    "ci95": [
+     20122,
+     20474
+    ],
+    "ratio": 1.0983364634255632,
+    "p": 0.000999000999000999,
+    "n_perm": 1000
+   },
+   {
+    "stratum": "unknown",
+    "kind": "period",
+    "works_perm": 162,
+    "obs": 29057,
+    "null_mean": 25571.473,
+    "ci95": [
+     25378,
+     25757
+    ],
+    "ratio": 1.1363052883187448,
+    "p": 0.000999000999000999,
+    "n_perm": 1000
+   }
+  ]
+ }
+}

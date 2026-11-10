@@ -1,0 +1,1157 @@
+{
+ "source": [
+  "corpus/works.csv",
+  "docs/DECISIONES.md",
+  "results/base_rate.json",
+  "results/kn_calibration.csv",
+  "results/kn_calibration.json",
+  "results/lambda_by_n.csv",
+  "results/literal_sensitivity_n8.json",
+  "results/thresholds_n8.json",
+  "results/uniqueness.json"
+ ],
+ "generated_by": "web/build_data.py",
+ "generated_at": "2026-11-10",
+ "numbers": {
+  "baserate_d2_rate_1750_1800": {
+   "value": 247.81456800097735,
+   "text": "247.81",
+   "source": "results/base_rate.json:strata.period.1750–1800.rate_per_100k.D2"
+  },
+  "baserate_d2_rate_1800_1830": {
+   "value": 283.13475415338144,
+   "text": "283.13",
+   "source": "results/base_rate.json:strata.period.1800–1830.rate_per_100k.D2"
+  },
+  "baserate_d2_rate_1830_1900": {
+   "value": 221.18772367623023,
+   "text": "221.19",
+   "source": "results/base_rate.json:strata.period.1830–1900.rate_per_100k.D2"
+  },
+  "baserate_d2_rate_all": {
+   "value": 218.69057383378086,
+   "text": "218.69",
+   "source": "results/base_rate.json:strata.all.all.rate_per_100k.D2"
+  },
+  "baserate_d2_rate_post1900": {
+   "value": 94.31122170330329,
+   "text": "94.31",
+   "source": "results/base_rate.json:strata.period.>1900.rate_per_100k.D2"
+  },
+  "baserate_d2_rate_pre1750": {
+   "value": 206.20127768931042,
+   "text": "206.20",
+   "source": "results/base_rate.json:strata.period.<1750.rate_per_100k.D2"
+  },
+  "baserate_d2_rate_unknown": {
+   "value": 220.88987062164722,
+   "text": "220.89",
+   "source": "results/base_rate.json:strata.period.unknown.rate_per_100k.D2"
+  },
+  "baserate_d4_prev_1750_1800": {
+   "value": 31.645569620253166,
+   "text": "31.6 %",
+   "source": "results/base_rate.json:strata.period.1750–1800.prevalence_pct.D4"
+  },
+  "baserate_d4_prev_1800_1830": {
+   "value": 52.94117647058823,
+   "text": "52.9 %",
+   "source": "results/base_rate.json:strata.period.1800–1830.prevalence_pct.D4"
+  },
+  "baserate_d4_prev_1830_1900": {
+   "value": 30.337078651685392,
+   "text": "30.3 %",
+   "source": "results/base_rate.json:strata.period.1830–1900.prevalence_pct.D4"
+  },
+  "baserate_d4_prev_all": {
+   "value": 17.805271651425496,
+   "text": "17.8 %",
+   "source": "results/base_rate.json:strata.all.all.prevalence_pct.D4"
+  },
+  "baserate_d4_prev_post1900": {
+   "value": 4.2105263157894735,
+   "text": "4.2 %",
+   "source": "results/base_rate.json:strata.period.>1900.prevalence_pct.D4"
+  },
+  "baserate_d4_prev_pre1750": {
+   "value": 11.63245356793744,
+   "text": "11.6 %",
+   "source": "results/base_rate.json:strata.period.<1750.prevalence_pct.D4"
+  },
+  "baserate_d4_prev_unknown": {
+   "value": 23.926380368098158,
+   "text": "23.9 %",
+   "source": "results/base_rate.json:strata.period.unknown.prevalence_pct.D4"
+  },
+  "baserate_d4_rate_1750_1800": {
+   "value": 22.739372018801447,
+   "text": "22.74",
+   "source": "results/base_rate.json:strata.period.1750–1800.rate_per_100k.D4"
+  },
+  "baserate_d4_rate_1750_1830": {
+   "value": 23.30842457554555,
+   "text": "23.31",
+   "source": "results/base_rate.json:strata.period.(1750–1800+1800–1830).counts.D4/windows"
+  },
+  "baserate_d4_rate_1800_1830": {
+   "value": 24.165128377244503,
+   "text": "24.17",
+   "source": "results/base_rate.json:strata.period.1800–1830.rate_per_100k.D4"
+  },
+  "baserate_d4_rate_1830_1900": {
+   "value": 18.75060765858153,
+   "text": "18.75",
+   "source": "results/base_rate.json:strata.period.1830–1900.rate_per_100k.D4"
+  },
+  "baserate_d4_rate_all": {
+   "value": 19.7481817751668,
+   "text": "19.75",
+   "source": "results/base_rate.json:strata.all.all.rate_per_100k.D4"
+  },
+  "baserate_d4_rate_post1900": {
+   "value": 3.4634064467314767,
+   "text": "3.46",
+   "source": "results/base_rate.json:strata.period.>1900.rate_per_100k.D4"
+  },
+  "baserate_d4_rate_pre1750": {
+   "value": 18.89814737735337,
+   "text": "18.90",
+   "source": "results/base_rate.json:strata.period.<1750.rate_per_100k.D4"
+  },
+  "baserate_d4_rate_unknown": {
+   "value": 25.61338945056206,
+   "text": "25.61",
+   "source": "results/base_rate.json:strata.period.unknown.rate_per_100k.D4"
+  },
+  "calib_hier_bias_all": {
+   "value": -0.15173166018824272,
+   "text": "−0.152",
+   "source": "results/kn_calibration.json:summary.hier|todas[2]"
+  },
+  "calib_hier_bias_seen": {
+   "value": 0.06469726544685245,
+   "text": "0.065",
+   "source": "results/kn_calibration.json:summary.hier|vistas[2]"
+  },
+  "calib_hier_mae_all": {
+   "value": 0.23423069764741392,
+   "text": "0.234",
+   "source": "results/kn_calibration.json:summary.hier|todas[1]"
+  },
+  "calib_hier_mae_seen": {
+   "value": 0.1365198990877114,
+   "text": "0.137",
+   "source": "results/kn_calibration.json:summary.hier|vistas[1]"
+  },
+  "calib_hier_obs_pred": {
+   "value": 1.0496467034353898,
+   "text": "1.05",
+   "source": "results/kn_calibration.csv:sum(obs_occ)/sum(pred_occ_hier)"
+  },
+  "calib_hier_slope_all": {
+   "value": 1.015686155750386,
+   "text": "1.016",
+   "source": "results/kn_calibration.json:summary.hier|todas[0]"
+  },
+  "calib_hier_slope_seen": {
+   "value": 0.9746747912258692,
+   "text": "0.975",
+   "source": "results/kn_calibration.json:summary.hier|vistas[0]"
+  },
+  "calib_hier_unseen_pred_mean": {
+   "value": 0.04273127811464394,
+   "text": "0.043",
+   "source": "results/kn_calibration.csv:mean(pred_occ_hier|obs_occ==0)"
+  },
+  "calib_kn_bias_all": {
+   "value": -0.1381287986289391,
+   "text": "−0.138",
+   "source": "results/kn_calibration.json:summary.kn|todas[2]"
+  },
+  "calib_kn_bias_seen": {
+   "value": 0.09070020845385615,
+   "text": "0.091",
+   "source": "results/kn_calibration.json:summary.kn|vistas[2]"
+  },
+  "calib_kn_mae_all": {
+   "value": 0.24551684816776517,
+   "text": "0.246",
+   "source": "results/kn_calibration.json:summary.kn|todas[1]"
+  },
+  "calib_kn_mae_seen": {
+   "value": 0.1712218635920612,
+   "text": "0.171",
+   "source": "results/kn_calibration.json:summary.kn|vistas[1]"
+  },
+  "calib_kn_obs_pred": {
+   "value": 1.0993148990583668,
+   "text": "1.10",
+   "source": "results/kn_calibration.csv:sum(obs_occ)/sum(pred_occ_kn)"
+  },
+  "calib_kn_slope_all": {
+   "value": 1.0181374851011065,
+   "text": "1.018",
+   "source": "results/kn_calibration.json:summary.kn|todas[0]"
+  },
+  "calib_kn_slope_seen": {
+   "value": 0.9767524686603022,
+   "text": "0.977",
+   "source": "results/kn_calibration.json:summary.kn|vistas[0]"
+  },
+  "calib_kn_unseen_pred_mean": {
+   "value": 0.04309137129734058,
+   "text": "0.043",
+   "source": "results/kn_calibration.csv:mean(pred_occ_kn|obs_occ==0)"
+  },
+  "calib_lambda": {
+   "value": 0.45,
+   "text": "0.45",
+   "source": "results/kn_calibration.json:lambda"
+  },
+  "calib_lap_bias_all": {
+   "value": -1.6961548917487386,
+   "text": "−1.696",
+   "source": "results/kn_calibration.json:summary.lap|todas[2]"
+  },
+  "calib_lap_bias_seen": {
+   "value": 0.2704266443844488,
+   "text": "0.270",
+   "source": "results/kn_calibration.json:summary.lap|vistas[2]"
+  },
+  "calib_lap_mae_all": {
+   "value": 1.9627136265665444,
+   "text": "1.963",
+   "source": "results/kn_calibration.json:summary.lap|todas[1]"
+  },
+  "calib_lap_mae_seen": {
+   "value": 0.37971661126873635,
+   "text": "0.380",
+   "source": "results/kn_calibration.json:summary.lap|vistas[1]"
+  },
+  "calib_lap_obs_pred": {
+   "value": 1.6118083146080955,
+   "text": "1.61",
+   "source": "results/kn_calibration.csv:sum(obs_occ)/sum(pred_occ_lap)"
+  },
+  "calib_lap_slope_all": {
+   "value": 1.421861884658614,
+   "text": "1.422",
+   "source": "results/kn_calibration.json:summary.lap|todas[0]"
+  },
+  "calib_lap_slope_seen": {
+   "value": 1.0566115454015625,
+   "text": "1.057",
+   "source": "results/kn_calibration.json:summary.lap|vistas[0]"
+  },
+  "calib_lap_unseen_pred_mean": {
+   "value": 1.0205803478536641,
+   "text": "1.021",
+   "source": "results/kn_calibration.csv:mean(pred_occ_lap|obs_occ==0)"
+  },
+  "calib_n_queries": {
+   "value": 200,
+   "text": "200",
+   "source": "results/kn_calibration.csv:filas"
+  },
+  "calib_n_seen": {
+   "value": 82,
+   "text": "82",
+   "source": "results/kn_calibration.csv:obs_occ>=1"
+  },
+  "calib_n_unseen": {
+   "value": 118,
+   "text": "118",
+   "source": "results/kn_calibration.csv:obs_occ==0"
+  },
+  "corpus_collections": {
+   "value": 61,
+   "text": "61",
+   "source": "results/base_rate.json:strata.collection"
+  },
+  "corpus_notes": {
+   "value": 7736142,
+   "text": "7,736,142",
+   "source": "results/base_rate.json:strata.all.all.notes"
+  },
+  "corpus_units": {
+   "value": 6730,
+   "text": "6,730",
+   "source": "corpus/works.csv:is_primary=1,in_analysis=1,sin objetivo"
+  },
+  "corpus_windows": {
+   "value": 6572757,
+   "text": "6,572,757",
+   "source": "results/base_rate.json:strata.all.all.windows"
+  },
+  "corpus_windows_1750_1800": {
+   "value": 1121403,
+   "text": "1,121,403",
+   "source": "results/base_rate.json:strata.period.1750–1800.windows"
+  },
+  "corpus_windows_1800_1830": {
+   "value": 744875,
+   "text": "744,875",
+   "source": "results/base_rate.json:strata.period.1800–1830.windows"
+  },
+  "corpus_windows_1830_1900": {
+   "value": 863972,
+   "text": "863,972",
+   "source": "results/base_rate.json:strata.period.1830–1900.windows"
+  },
+  "corpus_windows_millions": {
+   "value": 6.572757,
+   "text": "6.57",
+   "source": "results/base_rate.json:strata.all.all.windows"
+  },
+  "corpus_windows_post1900": {
+   "value": 375353,
+   "text": "375,353",
+   "source": "results/base_rate.json:strata.period.>1900.windows"
+  },
+  "corpus_windows_pre1750": {
+   "value": 2979128,
+   "text": "2,979,128",
+   "source": "results/base_rate.json:strata.period.<1750.windows"
+  },
+  "corpus_windows_unknown": {
+   "value": 488026,
+   "text": "488,026",
+   "source": "results/base_rate.json:strata.period.unknown.windows"
+  },
+  "corpus_works": {
+   "value": 1859,
+   "text": "1,859",
+   "source": "results/base_rate.json:strata.all.all.works"
+  },
+  "corpus_works_1750_1800": {
+   "value": 237,
+   "text": "237",
+   "source": "results/base_rate.json:strata.period.1750–1800.works"
+  },
+  "corpus_works_1800_1830": {
+   "value": 68,
+   "text": "68",
+   "source": "results/base_rate.json:strata.period.1800–1830.works"
+  },
+  "corpus_works_1830_1900": {
+   "value": 178,
+   "text": "178",
+   "source": "results/base_rate.json:strata.period.1830–1900.works"
+  },
+  "corpus_works_catalog": {
+   "value": 1871,
+   "text": "1,871",
+   "source": "results/base_rate.json:works_in_catalog"
+  },
+  "corpus_works_missing_cache": {
+   "value": 12,
+   "text": "12",
+   "source": "results/base_rate.json:works_missing_cache"
+  },
+  "corpus_works_post1900": {
+   "value": 190,
+   "text": "190",
+   "source": "results/base_rate.json:strata.period.>1900.works"
+  },
+  "corpus_works_pre1750": {
+   "value": 1023,
+   "text": "1,023",
+   "source": "results/base_rate.json:strata.period.<1750.works"
+  },
+  "corpus_works_unknown": {
+   "value": 163,
+   "text": "163",
+   "source": "results/base_rate.json:strata.period.unknown.works"
+  },
+  "lambda_n_windows_n8": {
+   "value": 9000,
+   "text": "9,000",
+   "source": "results/lambda_by_n.csv:n=8.n_ventanas_lambda"
+  },
+  "lambda_obs_pred_n10": {
+   "value": 1.0484,
+   "text": "1.05",
+   "source": "results/lambda_by_n.csv:n=10.obs_pred"
+  },
+  "lambda_obs_pred_n12": {
+   "value": 1.053,
+   "text": "1.05",
+   "source": "results/lambda_by_n.csv:n=12.obs_pred"
+  },
+  "lambda_obs_pred_n4": {
+   "value": 1.0311,
+   "text": "1.03",
+   "source": "results/lambda_by_n.csv:n=4.obs_pred"
+  },
+  "lambda_obs_pred_n5": {
+   "value": 1.0322,
+   "text": "1.03",
+   "source": "results/lambda_by_n.csv:n=5.obs_pred"
+  },
+  "lambda_obs_pred_n6": {
+   "value": 1.0418,
+   "text": "1.04",
+   "source": "results/lambda_by_n.csv:n=6.obs_pred"
+  },
+  "lambda_obs_pred_n7": {
+   "value": 1.0515,
+   "text": "1.05",
+   "source": "results/lambda_by_n.csv:n=7.obs_pred"
+  },
+  "lambda_obs_pred_n8": {
+   "value": 1.0496,
+   "text": "1.05",
+   "source": "results/lambda_by_n.csv:n=8.obs_pred"
+  },
+  "lambda_slope_n10": {
+   "value": 1.0067,
+   "text": "1.007",
+   "source": "results/lambda_by_n.csv:n=10.pendiente"
+  },
+  "lambda_slope_n12": {
+   "value": 1.0023,
+   "text": "1.002",
+   "source": "results/lambda_by_n.csv:n=12.pendiente"
+  },
+  "lambda_slope_n4": {
+   "value": 1.0222,
+   "text": "1.022",
+   "source": "results/lambda_by_n.csv:n=4.pendiente"
+  },
+  "lambda_slope_n5": {
+   "value": 1.0433,
+   "text": "1.043",
+   "source": "results/lambda_by_n.csv:n=5.pendiente"
+  },
+  "lambda_slope_n6": {
+   "value": 1.0198,
+   "text": "1.020",
+   "source": "results/lambda_by_n.csv:n=6.pendiente"
+  },
+  "lambda_slope_n7": {
+   "value": 1.0188,
+   "text": "1.019",
+   "source": "results/lambda_by_n.csv:n=7.pendiente"
+  },
+  "lambda_slope_n8": {
+   "value": 1.0157,
+   "text": "1.016",
+   "source": "results/lambda_by_n.csv:n=8.pendiente"
+  },
+  "lambda_star_n10": {
+   "value": 0.45,
+   "text": "0.45",
+   "source": "results/lambda_by_n.csv:n=10.lambda_star"
+  },
+  "lambda_star_n12": {
+   "value": 0.45,
+   "text": "0.45",
+   "source": "results/lambda_by_n.csv:n=12.lambda_star"
+  },
+  "lambda_star_n4": {
+   "value": 0.5,
+   "text": "0.50",
+   "source": "results/lambda_by_n.csv:n=4.lambda_star"
+  },
+  "lambda_star_n5": {
+   "value": 0.5,
+   "text": "0.50",
+   "source": "results/lambda_by_n.csv:n=5.lambda_star"
+  },
+  "lambda_star_n6": {
+   "value": 0.45,
+   "text": "0.45",
+   "source": "results/lambda_by_n.csv:n=6.lambda_star"
+  },
+  "lambda_star_n7": {
+   "value": 0.45,
+   "text": "0.45",
+   "source": "results/lambda_by_n.csv:n=7.lambda_star"
+  },
+  "lambda_star_n8": {
+   "value": 0.45,
+   "text": "0.45",
+   "source": "results/lambda_by_n.csv:n=8.lambda_star"
+  },
+  "literal_ls1_default_comb": {
+   "value": 52.53444242266701,
+   "text": "52.5 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.global.combined.rate"
+  },
+  "literal_ls1_default_comb_hi": {
+   "value": 54.10909751626388,
+   "text": "54.1 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.global.combined.wilson95[1]"
+  },
+  "literal_ls1_default_comb_lo": {
+   "value": 50.954730794645556,
+   "text": "51.0 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.global.combined.wilson95[0]"
+  },
+  "literal_ls1_default_df": {
+   "value": 52.53444242266701,
+   "text": "52.5 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.global.DF.rate"
+  },
+  "literal_ls1_default_df_hi": {
+   "value": 54.10909751626388,
+   "text": "54.1 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.global.DF.wilson95[1]"
+  },
+  "literal_ls1_default_df_l230": {
+   "value": 51.0,
+   "text": "51.0 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.per_pair.L230.DF.rate"
+  },
+  "literal_ls1_default_df_l265": {
+   "value": 59.14076782449725,
+   "text": "59.1 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.per_pair.L265.DF.rate"
+  },
+  "literal_ls1_default_df_l519": {
+   "value": 46.901579586877276,
+   "text": "46.9 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.per_pair.L519.DF.rate"
+  },
+  "literal_ls1_default_df_l567": {
+   "value": 51.587301587301596,
+   "text": "51.6 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.per_pair.L567.DF.rate"
+  },
+  "literal_ls1_default_df_lo": {
+   "value": 50.954730794645556,
+   "text": "51.0 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.global.DF.wilson95[0]"
+  },
+  "literal_ls1_default_e": {
+   "value": 58.643098518325964,
+   "text": "58.6 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.global.E.rate"
+  },
+  "literal_ls1_default_e_hi": {
+   "value": 60.18993843987648,
+   "text": "60.2 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.global.E.wilson95[1]"
+  },
+  "literal_ls1_default_e_lo": {
+   "value": 57.0790145178403,
+   "text": "57.1 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.global.E.wilson95[0]"
+  },
+  "literal_ls1_default_instances": {
+   "value": 3847,
+   "text": "3,847",
+   "source": "results/literal_sensitivity_n8.json:LS1.default.global.instances"
+  },
+  "literal_ls1_nobeethoven_comb": {
+   "value": 54.276059266961276,
+   "text": "54.3 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.global.combined.rate"
+  },
+  "literal_ls1_nobeethoven_comb_hi": {
+   "value": 55.84522515426053,
+   "text": "55.8 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.global.combined.wilson95[1]"
+  },
+  "literal_ls1_nobeethoven_comb_lo": {
+   "value": 52.698362098504624,
+   "text": "52.7 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.global.combined.wilson95[0]"
+  },
+  "literal_ls1_nobeethoven_df": {
+   "value": 54.276059266961276,
+   "text": "54.3 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.global.DF.rate"
+  },
+  "literal_ls1_nobeethoven_df_hi": {
+   "value": 55.84522515426053,
+   "text": "55.8 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.global.DF.wilson95[1]"
+  },
+  "literal_ls1_nobeethoven_df_l230": {
+   "value": 53.46153846153846,
+   "text": "53.5 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.per_pair.L230.DF.rate"
+  },
+  "literal_ls1_nobeethoven_df_l265": {
+   "value": 60.60329067641682,
+   "text": "60.6 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.per_pair.L265.DF.rate"
+  },
+  "literal_ls1_nobeethoven_df_l519": {
+   "value": 48.359659781287974,
+   "text": "48.4 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.per_pair.L519.DF.rate"
+  },
+  "literal_ls1_nobeethoven_df_l567": {
+   "value": 52.6984126984127,
+   "text": "52.7 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.per_pair.L567.DF.rate"
+  },
+  "literal_ls1_nobeethoven_df_lo": {
+   "value": 52.698362098504624,
+   "text": "52.7 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.global.DF.wilson95[0]"
+  },
+  "literal_ls1_nobeethoven_e": {
+   "value": 59.70886404990902,
+   "text": "59.7 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.global.E.rate"
+  },
+  "literal_ls1_nobeethoven_e_hi": {
+   "value": 61.24836254358003,
+   "text": "61.2 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.global.E.wilson95[1]"
+  },
+  "literal_ls1_nobeethoven_e_lo": {
+   "value": 58.14999513974993,
+   "text": "58.1 %",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.global.E.wilson95[0]"
+  },
+  "literal_ls1_nobeethoven_instances": {
+   "value": 3847,
+   "text": "3,847",
+   "source": "results/literal_sensitivity_n8.json:LS1.noBeethoven.global.instances"
+  },
+  "literal_ls2_alpha": {
+   "value": 0.025,
+   "text": "0.025",
+   "source": "results/literal_sensitivity_n8.json:LS2.alpha"
+  },
+  "literal_ls2_default_power_10bars": {
+   "value": 97.75,
+   "text": "97.8 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.default.all_pairs.10.power.rate"
+  },
+  "literal_ls2_default_power_10bars_lo": {
+   "value": 96.47151090692125,
+   "text": "96.5 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.default.all_pairs.10.power.wilson95[0]"
+  },
+  "literal_ls2_default_power_15bars": {
+   "value": 99.625,
+   "text": "99.6 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.default.all_pairs.15.power.rate"
+  },
+  "literal_ls2_default_power_15bars_lo": {
+   "value": 98.90331057925573,
+   "text": "98.9 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.default.all_pairs.15.power.wilson95[0]"
+  },
+  "literal_ls2_default_power_20bars": {
+   "value": 100.0,
+   "text": "100.0 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.default.all_pairs.20.power.rate"
+  },
+  "literal_ls2_default_power_20bars_lo": {
+   "value": 99.5221123794324,
+   "text": "99.5 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.default.all_pairs.20.power.wilson95[0]"
+  },
+  "literal_ls2_n_null": {
+   "value": 1000,
+   "text": "1,000",
+   "source": "results/literal_sensitivity_n8.json:LS2.n_null"
+  },
+  "literal_ls2_n_obs": {
+   "value": 200,
+   "text": "200",
+   "source": "results/literal_sensitivity_n8.json:LS2.n_obs"
+  },
+  "literal_ls2_nobeethoven_power_10bars": {
+   "value": 97.875,
+   "text": "97.9 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.noBeethoven.all_pairs.10.power.rate"
+  },
+  "literal_ls2_nobeethoven_power_10bars_lo": {
+   "value": 96.62333503869127,
+   "text": "96.6 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.noBeethoven.all_pairs.10.power.wilson95[0]"
+  },
+  "literal_ls2_nobeethoven_power_15bars": {
+   "value": 100.0,
+   "text": "100.0 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.noBeethoven.all_pairs.15.power.rate"
+  },
+  "literal_ls2_nobeethoven_power_15bars_lo": {
+   "value": 99.5221123794324,
+   "text": "99.5 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.noBeethoven.all_pairs.15.power.wilson95[0]"
+  },
+  "literal_ls2_nobeethoven_power_20bars": {
+   "value": 100.0,
+   "text": "100.0 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.noBeethoven.all_pairs.20.power.rate"
+  },
+  "literal_ls2_nobeethoven_power_20bars_lo": {
+   "value": 99.5221123794324,
+   "text": "99.5 %",
+   "source": "results/literal_sensitivity_n8.json:LS2.results.noBeethoven.all_pairs.20.power.wilson95[0]"
+  },
+  "literal_ls2_pool_works": {
+   "value": 72,
+   "text": "72",
+   "source": "results/literal_sensitivity_n8.json:LS2.pool_size_used"
+  },
+  "literal_n_pairs": {
+   "value": 4,
+   "text": "4",
+   "source": "results/literal_sensitivity_n8.json:pairs"
+  },
+  "null_d4_ci_hi_1750_1800": {
+   "value": 239,
+   "text": "239",
+   "source": "results/base_rate.json:strata.period.1750–1800.null.D4.ci95[1]"
+  },
+  "null_d4_ci_hi_1800_1830": {
+   "value": 194,
+   "text": "194",
+   "source": "results/base_rate.json:strata.period.1800–1830.null.D4.ci95[1]"
+  },
+  "null_d4_ci_hi_1830_1900": {
+   "value": 144,
+   "text": "144",
+   "source": "results/base_rate.json:strata.period.1830–1900.null.D4.ci95[1]"
+  },
+  "null_d4_ci_hi_all": {
+   "value": 1043,
+   "text": "1,043",
+   "source": "results/base_rate.json:strata.all.all.null.D4.ci95[1]"
+  },
+  "null_d4_ci_hi_post1900": {
+   "value": 41,
+   "text": "41",
+   "source": "results/base_rate.json:strata.period.>1900.null.D4.ci95[1]"
+  },
+  "null_d4_ci_hi_pre1750": {
+   "value": 411,
+   "text": "411",
+   "source": "results/base_rate.json:strata.period.<1750.null.D4.ci95[1]"
+  },
+  "null_d4_ci_hi_unknown": {
+   "value": 92,
+   "text": "92",
+   "source": "results/base_rate.json:strata.period.unknown.null.D4.ci95[1]"
+  },
+  "null_d4_ci_lo_1750_1800": {
+   "value": 186,
+   "text": "186",
+   "source": "results/base_rate.json:strata.period.1750–1800.null.D4.ci95[0]"
+  },
+  "null_d4_ci_lo_1800_1830": {
+   "value": 142,
+   "text": "142",
+   "source": "results/base_rate.json:strata.period.1800–1830.null.D4.ci95[0]"
+  },
+  "null_d4_ci_lo_1830_1900": {
+   "value": 103,
+   "text": "103",
+   "source": "results/base_rate.json:strata.period.1830–1900.null.D4.ci95[0]"
+  },
+  "null_d4_ci_lo_all": {
+   "value": 925,
+   "text": "925",
+   "source": "results/base_rate.json:strata.all.all.null.D4.ci95[0]"
+  },
+  "null_d4_ci_lo_post1900": {
+   "value": 20,
+   "text": "20",
+   "source": "results/base_rate.json:strata.period.>1900.null.D4.ci95[0]"
+  },
+  "null_d4_ci_lo_pre1750": {
+   "value": 337,
+   "text": "337",
+   "source": "results/base_rate.json:strata.period.<1750.null.D4.ci95[0]"
+  },
+  "null_d4_ci_lo_unknown": {
+   "value": 59,
+   "text": "59",
+   "source": "results/base_rate.json:strata.period.unknown.null.D4.ci95[0]"
+  },
+  "null_d4_mean_1750_1800": {
+   "value": 211.325,
+   "text": "211.3",
+   "source": "results/base_rate.json:strata.period.1750–1800.null.D4.mean"
+  },
+  "null_d4_mean_1800_1830": {
+   "value": 168.857,
+   "text": "168.9",
+   "source": "results/base_rate.json:strata.period.1800–1830.null.D4.mean"
+  },
+  "null_d4_mean_1830_1900": {
+   "value": 123.4,
+   "text": "123.4",
+   "source": "results/base_rate.json:strata.period.1830–1900.null.D4.mean"
+  },
+  "null_d4_mean_all": {
+   "value": 980.993,
+   "text": "981.0",
+   "source": "results/base_rate.json:strata.all.all.null.D4.mean"
+  },
+  "null_d4_mean_post1900": {
+   "value": 30.142,
+   "text": "30.1",
+   "source": "results/base_rate.json:strata.period.>1900.null.D4.mean"
+  },
+  "null_d4_mean_pre1750": {
+   "value": 371.936,
+   "text": "371.9",
+   "source": "results/base_rate.json:strata.period.<1750.null.D4.mean"
+  },
+  "null_d4_mean_unknown": {
+   "value": 75.333,
+   "text": "75.3",
+   "source": "results/base_rate.json:strata.period.unknown.null.D4.mean"
+  },
+  "null_d4_obs_1750_1800": {
+   "value": 255,
+   "text": "255",
+   "source": "results/base_rate.json:strata.period.1750–1800.null.D4.obs"
+  },
+  "null_d4_obs_1800_1830": {
+   "value": 180,
+   "text": "180",
+   "source": "results/base_rate.json:strata.period.1800–1830.null.D4.obs"
+  },
+  "null_d4_obs_1830_1900": {
+   "value": 162,
+   "text": "162",
+   "source": "results/base_rate.json:strata.period.1830–1900.null.D4.obs"
+  },
+  "null_d4_obs_all": {
+   "value": 1298,
+   "text": "1,298",
+   "source": "results/base_rate.json:strata.all.all.null.D4.obs"
+  },
+  "null_d4_obs_post1900": {
+   "value": 13,
+   "text": "13",
+   "source": "results/base_rate.json:strata.period.>1900.null.D4.obs"
+  },
+  "null_d4_obs_pre1750": {
+   "value": 563,
+   "text": "563",
+   "source": "results/base_rate.json:strata.period.<1750.null.D4.obs"
+  },
+  "null_d4_obs_unknown": {
+   "value": 125,
+   "text": "125",
+   "source": "results/base_rate.json:strata.period.unknown.null.D4.obs"
+  },
+  "null_d4_p_1750_1800": {
+   "value": 0.001998001998001998,
+   "text": "0.002",
+   "source": "results/base_rate.json:strata.period.1750–1800.null.D4.p"
+  },
+  "null_d4_p_1800_1830": {
+   "value": 0.19480519480519481,
+   "text": "0.195",
+   "source": "results/base_rate.json:strata.period.1800–1830.null.D4.p"
+  },
+  "null_d4_p_1830_1900": {
+   "value": 0.000999000999000999,
+   "text": "0.001",
+   "source": "results/base_rate.json:strata.period.1830–1900.null.D4.p"
+  },
+  "null_d4_p_all": {
+   "value": 0.000999000999000999,
+   "text": "0.001",
+   "source": "results/base_rate.json:strata.all.all.null.D4.p"
+  },
+  "null_d4_p_post1900": {
+   "value": 1.0,
+   "text": "1.000",
+   "source": "results/base_rate.json:strata.period.>1900.null.D4.p"
+  },
+  "null_d4_p_pre1750": {
+   "value": 0.000999000999000999,
+   "text": "0.001",
+   "source": "results/base_rate.json:strata.period.<1750.null.D4.p"
+  },
+  "null_d4_p_unknown": {
+   "value": 0.000999000999000999,
+   "text": "0.001",
+   "source": "results/base_rate.json:strata.period.unknown.null.D4.p"
+  },
+  "null_d4_ratio_1750_1800": {
+   "value": 1.2066721873890927,
+   "text": "1.21",
+   "source": "results/base_rate.json:strata.period.1750–1800.null.D4.ratio"
+  },
+  "null_d4_ratio_1800_1830": {
+   "value": 1.065990749569162,
+   "text": "1.07",
+   "source": "results/base_rate.json:strata.period.1800–1830.null.D4.ratio"
+  },
+  "null_d4_ratio_1830_1900": {
+   "value": 1.312803889789303,
+   "text": "1.31",
+   "source": "results/base_rate.json:strata.period.1830–1900.null.D4.ratio"
+  },
+  "null_d4_ratio_all": {
+   "value": 1.3231490948457327,
+   "text": "1.32",
+   "source": "results/base_rate.json:strata.all.all.null.D4.ratio"
+  },
+  "null_d4_ratio_post1900": {
+   "value": 0.43129188507730076,
+   "text": "0.43",
+   "source": "results/base_rate.json:strata.period.>1900.null.D4.ratio"
+  },
+  "null_d4_ratio_pre1750": {
+   "value": 1.5137012819409792,
+   "text": "1.51",
+   "source": "results/base_rate.json:strata.period.<1750.null.D4.ratio"
+  },
+  "null_d4_ratio_unknown": {
+   "value": 1.6592993774308735,
+   "text": "1.66",
+   "source": "results/base_rate.json:strata.period.unknown.null.D4.ratio"
+  },
+  "null_min_windows": {
+   "value": 150,
+   "text": "150",
+   "source": "results/base_rate.json:min_windows_for_perm"
+  },
+  "null_n_perm": {
+   "value": 1000,
+   "text": "1,000",
+   "source": "results/base_rate.json:n_perm"
+  },
+  "null_works_perm_all": {
+   "value": 1825,
+   "text": "1,825",
+   "source": "results/base_rate.json:strata.all.all.perm_works"
+  },
+  "status_frozen_commit_short": {
+   "value": "6c44aa9",
+   "text": "6c44aa9",
+   "source": "docs/DECISIONES.md:D-41"
+  },
+  "thresh_ap_df": {
+   "value": 0.5326380844480609,
+   "text": "0.53",
+   "source": "results/thresholds_n8.json:curves.DF.AP"
+  },
+  "thresh_ap_dfe": {
+   "value": 0.5654037518892377,
+   "text": "0.57",
+   "source": "results/thresholds_n8.json:curves.DF→E.AP"
+  },
+  "thresh_ap_e": {
+   "value": 0.5281486602145786,
+   "text": "0.53",
+   "source": "results/thresholds_n8.json:curves.E.AP"
+  },
+  "thresh_auc_df": {
+   "value": 0.4661273911273911,
+   "text": "0.47",
+   "source": "results/thresholds_n8.json:curves.DF.AUC"
+  },
+  "thresh_auc_dfe": {
+   "value": 0.4802706552706552,
+   "text": "0.48",
+   "source": "results/thresholds_n8.json:curves.DF→E.AUC"
+  },
+  "thresh_auc_e": {
+   "value": 0.45733618233618234,
+   "text": "0.46",
+   "source": "results/thresholds_n8.json:curves.E.AUC"
+  },
+  "thresh_fpr_comb": {
+   "value": 4.761904761904762,
+   "text": "4.8 %",
+   "source": "results/thresholds_n8.json:combined.FPR"
+  },
+  "thresh_fpr_df": {
+   "value": 4.761904761904762,
+   "text": "4.8 %",
+   "source": "results/thresholds_n8.json:DF.FPR"
+  },
+  "thresh_fpr_e": {
+   "value": 5.128205128205128,
+   "text": "5.1 %",
+   "source": "results/thresholds_n8.json:E.FPR"
+  },
+  "thresh_lambda": {
+   "value": 0.45,
+   "text": "0.45",
+   "source": "results/thresholds_n8.json:lambda"
+  },
+  "thresh_n": {
+   "value": 8,
+   "text": "8",
+   "source": "results/thresholds_n8.json:n"
+  },
+  "thresh_n_neg": {
+   "value": 273,
+   "text": "273",
+   "source": "results/thresholds_n8.json:n_instances.neg"
+  },
+  "thresh_n_pairs_neg": {
+   "value": 4,
+   "text": "4",
+   "source": "results/thresholds_n8.json:negatives"
+  },
+  "thresh_n_pairs_pos": {
+   "value": 4,
+   "text": "4",
+   "source": "results/thresholds_n8.json:positives"
+  },
+  "thresh_n_pos": {
+   "value": 360,
+   "text": "360",
+   "source": "results/thresholds_n8.json:n_instances.pos"
+  },
+  "thresh_pos_pass_df": {
+   "value": 3,
+   "text": "3",
+   "source": "results/thresholds_n8.json:DF.sensitivity*n_instances.pos"
+  },
+  "thresh_pos_pass_e": {
+   "value": 4,
+   "text": "4",
+   "source": "results/thresholds_n8.json:E.sensitivity*n_instances.pos"
+  },
+  "thresh_prevalence": {
+   "value": 0.5687203791469194,
+   "text": "0.57",
+   "source": "results/thresholds_n8.json:prevalence"
+  },
+  "thresh_sens_comb": {
+   "value": 0.8333333333333334,
+   "text": "0.8 %",
+   "source": "results/thresholds_n8.json:combined.sensitivity"
+  },
+  "thresh_sens_df": {
+   "value": 0.8333333333333334,
+   "text": "0.8 %",
+   "source": "results/thresholds_n8.json:DF.sensitivity"
+  },
+  "thresh_sens_e": {
+   "value": 1.1111111111111112,
+   "text": "1.1 %",
+   "source": "results/thresholds_n8.json:E.sensitivity"
+  },
+  "thresh_t_df": {
+   "value": 0.00018215226373135057,
+   "text": "1.82 × 10⁻⁴",
+   "source": "results/thresholds_n8.json:DF.threshold"
+  },
+  "thresh_t_e": {
+   "value": 0.0004086034322961938,
+   "text": "4.09 × 10⁻⁴",
+   "source": "results/thresholds_n8.json:E.threshold"
+  },
+  "uniq_pcross_iv_n10": {
+   "value": 35.99156450592282,
+   "text": "36.0 %",
+   "source": "results/uniqueness.json:curve.IV[n=10].p_cross"
+  },
+  "uniq_pcross_iv_n12": {
+   "value": 22.144961224331936,
+   "text": "22.1 %",
+   "source": "results/uniqueness.json:curve.IV[n=12].p_cross"
+  },
+  "uniq_pcross_iv_n4": {
+   "value": 99.61749688905279,
+   "text": "99.6 %",
+   "source": "results/uniqueness.json:curve.IV[n=4].p_cross"
+  },
+  "uniq_pcross_iv_n6": {
+   "value": 89.42712719706584,
+   "text": "89.4 %",
+   "source": "results/uniqueness.json:curve.IV[n=6].p_cross"
+  },
+  "uniq_pcross_iv_n8": {
+   "value": 60.462471390837194,
+   "text": "60.5 %",
+   "source": "results/uniqueness.json:curve.IV[n=8].p_cross"
+  },
+  "uniq_pcross_ivr_n10": {
+   "value": 21.68715216308294,
+   "text": "21.7 %",
+   "source": "results/uniqueness.json:curve.IVR[n=10].p_cross"
+  },
+  "uniq_pcross_ivr_n12": {
+   "value": 15.077087016584075,
+   "text": "15.1 %",
+   "source": "results/uniqueness.json:curve.IVR[n=12].p_cross"
+  },
+  "uniq_pcross_ivr_n4": {
+   "value": 95.66140966416376,
+   "text": "95.7 %",
+   "source": "results/uniqueness.json:curve.IVR[n=4].p_cross"
+  },
+  "uniq_pcross_ivr_n6": {
+   "value": 61.92743895876717,
+   "text": "61.9 %",
+   "source": "results/uniqueness.json:curve.IVR[n=6].p_cross"
+  },
+  "uniq_pcross_ivr_n8": {
+   "value": 34.689291634397264,
+   "text": "34.7 %",
+   "source": "results/uniqueness.json:curve.IVR[n=8].p_cross"
+  },
+  "uniq_pcross_ivr_n8_1750_1800": {
+   "value": 38.63541327345102,
+   "text": "38.6 %",
+   "source": "results/uniqueness.json:curve_by_period.IVR.1750–1800[n=8].p_cross"
+  },
+  "uniq_pcross_ivr_n8_1800_1830": {
+   "value": 34.97978532401606,
+   "text": "35.0 %",
+   "source": "results/uniqueness.json:curve_by_period.IVR.1800–1830[n=8].p_cross"
+  },
+  "uniq_ppair_iv_n10": {
+   "value": 0.8312247186320201,
+   "text": "0.83 %",
+   "source": "results/uniqueness.json:curve.IV[n=10].p_pair"
+  },
+  "uniq_ppair_iv_n12": {
+   "value": 0.48882643776929113,
+   "text": "0.49 %",
+   "source": "results/uniqueness.json:curve.IV[n=12].p_pair"
+  },
+  "uniq_ppair_iv_n4": {
+   "value": 44.930010302500044,
+   "text": "44.93 %",
+   "source": "results/uniqueness.json:curve.IV[n=4].p_pair"
+  },
+  "uniq_ppair_iv_n6": {
+   "value": 9.984442115763468,
+   "text": "9.98 %",
+   "source": "results/uniqueness.json:curve.IV[n=6].p_pair"
+  },
+  "uniq_ppair_iv_n8": {
+   "value": 2.273093738856247,
+   "text": "2.27 %",
+   "source": "results/uniqueness.json:curve.IV[n=8].p_pair"
+  },
+  "uniq_ppair_ivr_n10": {
+   "value": 0.5049570573807984,
+   "text": "0.50 %",
+   "source": "results/uniqueness.json:curve.IVR[n=10].p_pair"
+  },
+  "uniq_ppair_ivr_n12": {
+   "value": 0.3359086063371594,
+   "text": "0.34 %",
+   "source": "results/uniqueness.json:curve.IVR[n=12].p_pair"
+  },
+  "uniq_ppair_ivr_n4": {
+   "value": 18.76832768904925,
+   "text": "18.77 %",
+   "source": "results/uniqueness.json:curve.IVR[n=4].p_pair"
+  },
+  "uniq_ppair_ivr_n6": {
+   "value": 3.289608612096684,
+   "text": "3.29 %",
+   "source": "results/uniqueness.json:curve.IVR[n=6].p_pair"
+  },
+  "uniq_ppair_ivr_n8": {
+   "value": 1.003041106582768,
+   "text": "1.00 %",
+   "source": "results/uniqueness.json:curve.IVR[n=8].p_pair"
+  }
+ }
+}

@@ -1,0 +1,29 @@
+work_id,composer_id,year,period,instrumentation,fragments,rule,title
+kern-humdrum-haydn-symphonies-sym099,haydn_fj,1793,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),Symphonie Nr. 99
+kern-humdrum-haydn-symphonies-sym100,haydn_fj,1794,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),Symphonie Nr. 100
+kern-humdrum-haydn-symphonies-sym101,haydn_fj,1794,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),Symphonie Nr. 101
+kern-humdrum-haydn-symphonies-sym102,haydn_fj,1794,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),Symphonie Nr. 102
+kern-humdrum-haydn-symphonies-sym103,haydn_fj,1795,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),Symphonie Nr. 103
+kern-humdrum-haydn-symphonies-sym104,haydn_fj,1795,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),Symphonie Nr. 104
+musedata_mozart-bhl-sym-k385,mozart_wa,1782,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),Symphony No. 35 in D Major
+musedata_mozart-bhl-sym-k425,mozart_wa,1783,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),bhl / sym / k425
+musedata_mozart-bhl-sym-k504,mozart_wa,1786,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),"Mozart Symphony No. 38 in D major, ""Prague"""
+musedata_mozart-bhl-sym-k543,mozart_wa,1788,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),Symphony No. 39 in Eb
+musedata_mozart-bhl-sym-k550,mozart_wa,1788,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),bhl / sym / k550
+musedata_mozart-bhl-sym-k551,mozart_wa,1788,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),"Symphony No. 41 in C Major (""Jupiter"")"
+musedata_mozart-nma-sym-k16,mozart_wa,1764,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),"Mozart Symphony No. 1 in Eb Major, K. 16 (1764)"
+musedata_mozart-nma-sym-k19,mozart_wa,1765,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),"Mozart Symphony No. 4 in D Major, K. 19 (1765)"
+musedata_mozart-nma-sym-k22,mozart_wa,1765,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),"Mozart Symphony No. 5 in Bb Major, K. 22 (1765)"
+musedata_mozart-nma-sym-k43,mozart_wa,1767,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),"Mozart Symphony No. 6 in F-major, K.43 (1767)"
+musedata_mozart-nma-sym-k45,mozart_wa,1768,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),"Mozart Symphony No. 7 in D-major, K.45 (1768)"
+musedata_mozart-nma-sym-k48,mozart_wa,1768,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),"Mozart Symphony No. 8 in D-major, K.48 (1768)"
+musedata_mozart-nma-sym-k73,mozart_wa,1772,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),"Mozart Symphony No. 9 in C-major, K.73 (1771)"
+musedata_mozart-nma-sym-k76,mozart_wa,1767,1750–1800,orchestra,A1;A2,orquesta sin solista ni voces: piscina de A2 (Eliza) y parte de la de A1 (Hymne),"Mozart Symphony in F-major, K.76 (1767)"
+musedata_mozart-bhl-conc-k271,mozart_wa,1777,1750–1800,orchestra_soloist,A1,orquesta con solista: solo piscina ampliada de A1 (Hymne),bhl / conc / k271
+musedata_mozart-bhl-conc-k450,mozart_wa,1784,1750–1800,orchestra_soloist,A1,orquesta con solista: solo piscina ampliada de A1 (Hymne),"Piano Concerto No. 15, K.450."
+musedata_mozart-bhl-conc-k453,mozart_wa,1784,1750–1800,orchestra_soloist,A1,orquesta con solista: solo piscina ampliada de A1 (Hymne),Piano Concerto No. 17
+musedata_mozart-bhl-conc-k459,mozart_wa,1784,1750–1800,orchestra_soloist,A1,orquesta con solista: solo piscina ampliada de A1 (Hymne),Piano Concerto No.19
+musedata_mozart-bhl-conc-k466,mozart_wa,1785,1750–1800,orchestra_soloist,A1,orquesta con solista: solo piscina ampliada de A1 (Hymne),Piano Concerto No.20
+musedata_mozart-bhl-conc-k622,mozart_wa,1791,1750–1800,orchestra_soloist,A1,orquesta con solista: solo piscina ampliada de A1 (Hymne),"Mozart Clarinet Concerto in A Major, K.622"
+musedata_mozart-nma-conc-k467,mozart_wa,1785,1750–1800,orchestra_soloist,A1,orquesta con solista: solo piscina ampliada de A1 (Hymne),"Mozart Piano Concerto No. 21 in C-major, K.467 (1785)"
+musedata_mozart-nma-opera-k588,mozart_wa,1790,1750–1800,voices_orchestra,A1,voces y orquesta: solo piscina ampliada de A1 (Hymne),"Mozart Opera buffa ""Cos\i8 fan tutte""  K.588 (1790)"

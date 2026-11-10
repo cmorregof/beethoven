@@ -1,0 +1,55 @@
+{
+ "source": [
+  "docs/DECISIONES.md",
+  "decisions/D-41_preregistro.md"
+ ],
+ "generated_by": "web/build_data.py",
+ "generated_at": "2026-11-10",
+ "preregistration": {
+  "id": "D-41",
+  "file": "decisions/D-41_preregistro.md",
+  "frozen_commit": "6c44aa98ed32ee691cc4140aec684414ef5691ba",
+  "frozen_commit_short": "6c44aa9",
+  "frozen_date": "2026-09-23",
+  "registered": "2026-09-21"
+ },
+ "confirmatory_case": {
+  "hypothesis": "Beethoven's Fifth Symphony (op. 67) shares with Cherubini's pre-1808 works more low-documentary-frequency 8-note windows (DF ≤ t_DF) than the hierarchical background of the 1750–1830 stratum (without Beethoven or Cherubini) predicts.",
+  "executed": false,
+  "note": "Not run. No window of op. 67 or of any Cherubini work has been read, compared or computed."
+ },
+ "frozen_parameters": {
+  "n": 8,
+  "lambda": 0.45,
+  "stratum": "1750-1830",
+  "n_null_pairs": 1000,
+  "seed": 20260903,
+  "target_fpr": 0.05,
+  "secondary_n": [
+   6,
+   10
+  ]
+ },
+ "pending": [
+  {
+   "item": "Measure sensitivity to literal quotation (arrangements, fugue subjects) with encoded positives",
+   "state": "in progress: first measurement on four literal keyboard arrangements (Anne Dawson's Book against the Le Cène print); formal adoption as a control is part of D-43"
+  },
+  {
+   "item": "Amendment D-43 to the protocol: null built from fragments of equal length and literal-quotation controls (Dawson / Le Cène)",
+   "state": "open: proposed, pending the author's approval; to be frozen before the case is run"
+  },
+  {
+   "item": "Register the preregistration on OSF",
+   "state": "open: not registered; plan is a single registration of D-41 + D-43 after D-43 is approved and before the Cherubini works are transcribed"
+  },
+  {
+   "item": "Confirm the list of Cherubini works composed before 1808 present in the corpus (without looking at their windows)",
+   "state": "open: none is encoded; the two works of the hypothesis (1794) need manual transcription"
+  },
+  {
+   "item": "Run the tests/ suite at the frozen commit",
+   "state": "done (2 of 2)"
+  }
+ ]
+}

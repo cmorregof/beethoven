@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chance or Borrowing?</title>
+  <meta name="description" content="Companion site to a preregistered study of melodic borrowing: base rates of chance coincidence, uniqueness of note windows, a calibrated background model and thresholds, with the confirmatory case Cherubini → Beethoven op. 67 not yet run.">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="module" src="assets/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+    <p class="kicker">Companion site · local preview</p>
+    <h1>Chance or borrowing? Measuring melodic coincidence before testing Cherubini → Beethoven op. 67</h1>
+    <p class="status-banner" role="note">
+      <strong>The confirmatory case has not been run.</strong>
+      Everything on this page describes the corpus, the background model and the thresholds fixed
+      <em>before</em> looking at the target work. No result for Cherubini or for Beethoven's Fifth Symphony is shown or implied.
+    </p>
+    </div>
+  </header>
+
+  <nav id="site-nav" aria-label="Sections">
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#question">The question</a></li>
+      <li><a href="#method">Method</a></li>
+      <li><a href="#corpus">Corpus</a></li>
+      <li><a href="#chance">Chance coincidences</a></li>
+      <li><a href="#uniqueness">Uniqueness</a></li>
+      <li><a href="#calibration">Background model calibration</a></li>
+      <li><a href="#thresholds">Thresholds</a></li>
+      <li><a href="#protocol">Protocol and status</a></li>
+      <li><a href="#reproducibility">Reproducibility</a></li>
+      <li><a href="#licenses">Data licenses and credits</a></li>
+    </ul>
+  </nav>
+
+  <main id="main">
+
+    <section id="overview" aria-labelledby="h-overview">
+      <h2 id="h-overview">Overview</h2>
+      <p>
+        Claims that one composer borrowed a melody from another usually rest on a resemblance that
+        looks too close to be chance. This project asks how often such resemblances arise by chance
+        in the first place, and builds a test whose false-positive rate is fixed in advance.
+      </p>
+      <ul class="key-facts">
+        <li><span data-num="corpus_works">…</span> works analysed (<span data-num="corpus_units">…</span> files or movements, <span data-num="corpus_collections">…</span> collections), <span data-num="corpus_windows">…</span> four-note windows.</li>
+        <li>The generalised short-short-short-long motif (D4) occurs in <span data-num="baserate_d4_prev_1750_1800">…</span> of works from 1750–1800 and <span data-num="baserate_d4_prev_1800_1830">…</span> of works from 1800–1830.</li>
+        <li>At eight notes (intervals and rhythm class), <span data-num="uniq_pcross_ivr_n8">…</span> of windows still recur in some other work.</li>
+        <li>With thresholds that keep the false-positive rate near 5 %, sensitivity on documented cases of formal and thematic modelling is about <span data-num="thresh_sens_e">…</span>: the test can flag close, literal sharing but cannot detect diffuse modelling.</li>
+        <li>The confirmatory protocol is preregistered and frozen at commit <code data-num="status_frozen_commit_short">…</code>. It has not been run.</li>
+      </ul>
+    </section>
+
+    <section id="question" aria-labelledby="h-question">
+      <h2 id="h-question">The question</h2>
+      <p>
+        A musicological claim holds that the Fifth Symphony of Ludwig van Beethoven (op. 67, 1808)
+        draws on the music Luigi Cherubini wrote in revolutionary Paris in the 1790s; the passages
+        usually cited are the opening of the <em>Hymne au Panthéon</em> and the coda of the overture to
+        <em>Eliza</em>, both from 1794.
+      </p>
+      <p>
+        Stated as a testable hypothesis (H1 of the preregistration): op. 67 shares with Cherubini's
+        works composed before 1808 more eight-note windows of low documentary frequency than a
+        background model of the 1750–1830 repertoire, built without Beethoven or Cherubini, predicts.
+      </p>
+      <p class="callout">
+        This page does not answer the question. The test has not been run, and the two Cherubini works
+        named in the hypothesis have no symbolic edition yet: they must be transcribed by hand before the
+        case can be evaluated.
+      </p>
+    </section>
+
+    <section id="method" aria-labelledby="h-method">
+      <h2 id="h-method">Method</h2>
+      <ol class="steps">
+        <li><strong>Windows.</strong> Each voice is reduced to a sequence of notes; a window is a run of
+          <em>n</em> consecutive notes, encoded either by its intervals alone (IV) or by intervals plus a
+          coarse rhythm class (IVR).</li>
+        <li><strong>Base rates.</strong> Five nested definitions of the famous four-note motif (D1–D5) are
+          counted across the corpus and compared with a null model that shuffles intervals and durations
+          within each voice.</li>
+        <li><strong>Uniqueness.</strong> For each window length, how many windows of a work also appear
+          in some other work (P<sub>cross</sub>), and how likely two random works are to share one (P<sub>pair</sub>).</li>
+        <li><strong>Background model.</strong> For a window <em>q</em> and a work B, the expected number
+          of occurrences E = (windows in B) × p(q), where p mixes a Kneser–Ney model of the composer's
+          idiom with one of the period stratum (weight λ). Documentary frequency DF is the share of works
+          in the stratum, excluding both composers, that contain <em>q</em>.</li>
+        <li><strong>Thresholds.</strong> Cut-offs for DF and E are fixed on pairs of works with and without
+          documented influence, never on the target, so that the false-positive rate is about 5 %.</li>
+        <li><strong>Confirmatory test (not yet run).</strong> Count the windows of each Cherubini work that
+          occur in op. 67 with DF below the threshold and compare with 1000 matched null pairs.</li>
+      </ol>
+      <div id="method-content"></div>
+    </section>
+
+    <section id="corpus" aria-labelledby="h-corpus">
+      <h2 id="h-corpus">Corpus</h2>
+      <p>
+        The corpus combines public symbolic editions (DCML, KernScores, MuseData, OpenScore and others).
+        After deduplication, <span data-num="corpus_works_catalog">…</span> primary works are catalogued
+        (excluding the two preregistered target works); <span data-num="corpus_works_missing_cache">…</span>
+        could not be parsed, which leaves <span data-num="corpus_works">…</span> works,
+        <span data-num="corpus_notes">…</span> notes and <span data-num="corpus_windows">…</span> windows of four notes.
+      </p>
+      <figure>
+        <div id="chart-corpus" class="chart" data-src="data/corpus.json" role="img"
+             aria-label="Works and four-note windows per period">
+          <p class="chart-fallback">Works and windows per period: chart loading.</p>
+        </div>
+        <figcaption>Works analysed and four-note windows by period of composition. Source: <code>results/base_rate.json</code>, <code>corpus/works.csv</code>.</figcaption>
+      </figure>
+      <p>
+        The repertoire is unevenly spread: <span data-num="corpus_works_pre1750">…</span> works date from
+        before 1750, <span data-num="corpus_works_1750_1800">…</span> from 1750–1800 and
+        <span data-num="corpus_works_1800_1830">…</span> from 1800–1830, the stratum that matters for the
+        confirmatory case.
+      </p>
+    </section>
+
+    <section id="chance" aria-labelledby="h-chance">
+      <h2 id="h-chance">Chance coincidences</h2>
+      <p>
+        How common is the opening gesture of the Fifth in music that has nothing to do with it?
+        The generalised motif D4 (three repeated notes, a falling third, short-short-short-long)
+        occurs <span data-num="baserate_d4_rate_all">…</span> times per 100,000 windows across the corpus,
+        and <span data-num="baserate_d4_rate_1750_1830">…</span> times per 100,000 windows in 1750–1830.
+      </p>
+      <figure>
+        <div id="chart-baserates" class="chart" data-src="data/base_rates.json" role="img"
+             aria-label="Rates of motif definitions D1 to D5 per 100,000 windows, by period">
+          <p class="chart-fallback">Base rates D1–D5 by period: chart loading.</p>
+        </div>
+        <figcaption>Occurrences per 100,000 four-note windows of the nested motif definitions D1–D5, by period. Source: <code>results/base_rate.json</code>.</figcaption>
+      </figure>
+      <p>
+        Against a null model that shuffles each voice (1000 permutations), the corpus has
+        <span data-num="null_d4_obs_all">…</span> D4 windows where
+        <span data-num="null_d4_mean_all">…</span> are expected
+        (95 % interval <span data-num="null_d4_ci_lo_all">…</span>–<span data-num="null_d4_ci_hi_all">…</span>;
+        ratio <span data-num="null_d4_ratio_all">…</span>). In 1800–1830 the ratio is
+        <span data-num="null_d4_ratio_1800_1830">…</span> (p = <span data-num="null_d4_p_1800_1830">…</span>):
+        the motif is about as frequent as the notes and rhythms of the period make it by chance.
+      </p>
+      <figure>
+        <div id="chart-null" class="chart" data-src="data/observed_null.json" role="img"
+             aria-label="Observed D4 count against the null mean and 95 percent interval, by stratum">
+          <p class="chart-fallback">Observed D4 against the null model: chart loading.</p>
+        </div>
+        <figcaption>D4 observed (point) against the within-voice shuffle null (mean and 95 % interval), by stratum. Source: <code>results/base_rate.json</code>.</figcaption>
+      </figure>
+    </section>
+
+    <section id="uniqueness" aria-labelledby="h-uniqueness">
+      <h2 id="h-uniqueness">Uniqueness</h2>
+      <p>
+        Short windows are shared by almost every work; longer windows become rarer. With intervals and
+        rhythm class, <span data-num="uniq_pcross_ivr_n4">…</span> of four-note windows recur in another work,
+        <span data-num="uniq_pcross_ivr_n8">…</span> of eight-note windows and
+        <span data-num="uniq_pcross_ivr_n12">…</span> of twelve-note windows. Within 1800–1830 the eight-note
+        figure is <span data-num="uniq_pcross_ivr_n8_1800_1830">…</span>.
+      </p>
+      <figure>
+        <div id="chart-uniqueness" class="chart" data-src="data/uniqueness.json" role="img"
+             aria-label="Share of windows recurring in another work, by window length">
+          <p class="chart-fallback">Uniqueness curves P_cross(n) and P_pair(n): chart loading.</p>
+        </div>
+        <figcaption>P<sub>cross</sub>(n): share of windows whose type also occurs in another work; P<sub>pair</sub>(n): chance that two random works share it. IV = intervals only, IVR = intervals + rhythm class. Source: <code>results/uniqueness.json</code>.</figcaption>
+      </figure>
+    </section>
+
+    <section id="calibration" aria-labelledby="h-calibration">
+      <h2 id="h-calibration">Background model calibration</h2>
+      <p>
+        A test is only as good as its expectation of chance. Three background models were compared on
+        <span data-num="calib_n_queries">…</span> windows sampled from 1750–1830, each scored with both its
+        composers left out. The hierarchical model (λ = <span data-num="calib_lambda">…</span>) has slope
+        <span data-num="calib_hier_slope_all">…</span>, mean absolute log error
+        <span data-num="calib_hier_mae_all">…</span> and total observed/predicted ratio
+        <span data-num="calib_hier_obs_pred">…</span>; the Laplace model, kept as an upper bound, has ratio
+        <span data-num="calib_lap_obs_pred">…</span>.
+      </p>
+      <figure>
+        <div id="chart-calibration" class="chart" data-src="data/calibration.json" role="img"
+             aria-label="Observed against predicted occurrences, by bins of predicted E">
+          <p class="chart-fallback">Calibration by bins of predicted E: chart loading.</p>
+        </div>
+        <figcaption>Observed against predicted occurrences by bins of predicted E (Kneser–Ney), for windows seen in another composer; Laplace, Kneser–Ney and hierarchical models. Aggregated bins only. Source: <code>results/kn_calibration.*</code>.</figcaption>
+      </figure>
+      <p>
+        The mixing weight λ is chosen for each window length by deleted interpolation on held-out works
+        (<span data-num="lambda_n_windows_n8">…</span> windows for n = 8). For n = 8 the optimum is
+        λ* = <span data-num="lambda_star_n8">…</span>.
+      </p>
+      <figure>
+        <div id="chart-lambda" class="chart" data-src="data/lambda.json" role="img"
+             aria-label="Held-out log-likelihood over the lambda grid, and lambda star by window length">
+          <p class="chart-fallback">λ*(n) and likelihood profiles: chart loading.</p>
+        </div>
+        <figcaption>Held-out log-likelihood per window over the λ grid for each n, and the optimum λ*(n). Source: <code>results/lambda_by_n*.csv</code>.</figcaption>
+      </figure>
+    </section>
+
+    <section id="thresholds" aria-labelledby="h-thresholds">
+      <h2 id="h-thresholds">Thresholds: what the test can and cannot detect</h2>
+      <p>
+        Thresholds were fixed on <span data-num="thresh_n_pairs_pos">…</span> pairs of string quartets with
+        documented modelling (<span data-num="thresh_n_pos">…</span> shared eight-note window types) and
+        <span data-num="thresh_n_pairs_neg">…</span> matched pairs without a known relation
+        (<span data-num="thresh_n_neg">…</span> types). DF ≤ <span data-num="thresh_t_df">…</span> gives a
+        false-positive rate of <span data-num="thresh_fpr_df">…</span>; E ≤ <span data-num="thresh_t_e">…</span>
+        gives <span data-num="thresh_fpr_e">…</span>.
+      </p>
+      <p>
+        Sensitivity on the documented pairs is <span data-num="thresh_sens_df">…</span> for DF and
+        <span data-num="thresh_sens_e">…</span> for E, and the ROC areas are close to 0.5
+        (DF <span data-num="thresh_auc_df">…</span>, E <span data-num="thresh_auc_e">…</span>,
+        DF→E <span data-num="thresh_auc_dfe">…</span>). Shared eight-note windows do not separate
+        documented modelling from chance sharing within the same repertoire.
+      </p>
+      <figure>
+        <div id="chart-rocpr" class="chart" data-src="data/thresholds.json" role="img"
+             aria-label="ROC and precision-recall curves for DF, E and the combined rule">
+          <p class="chart-fallback">ROC and precision–recall curves: chart loading.</p>
+        </div>
+        <figcaption>ROC (left) and precision–recall (right) for DF, E and DF→E on the calibration pairs; FPR = 5 % marked, prevalence as baseline. Source: <code>results/thresholds_n8_windows.csv</code>, <code>results/thresholds_n8.json</code>.</figcaption>
+      </figure>
+      <p>
+        What this means: a null result in the confirmatory case would not rule out modelling in the broad
+        sense. Only an excess of rare shared windows would count as evidence. Sensitivity to
+        <em>literal</em> quotation (arrangements, borrowed fugue subjects) is a separate question and a
+        precondition of the protocol.
+      </p>
+      <p>
+        A first, exploratory measurement uses <span data-num="literal_n_pairs">…</span> concertos by Vivaldi
+        in their Le Cène print and in literal keyboard arrangements from Anne Dawson's Book. With the same
+        frozen thresholds, <span data-num="literal_ls1_default_df">…</span> of the shared eight-note window types
+        pass DF ≤ t<sub>DF</sub> (95 % interval <span data-num="literal_ls1_default_df_lo">…</span>–<span data-num="literal_ls1_default_df_hi">…</span>;
+        <span data-num="literal_ls1_default_instances">…</span> types). A fragment test on excerpts of ten bars
+        reaches power <span data-num="literal_ls2_default_power_10bars">…</span>. These figures are an upper bound
+        (keyboard arrangements of pre-1750 string music, scored with thresholds calibrated on 1750–1830 quartets;
+        instances within a pair are correlated) and say
+        nothing about the confirmatory case; their formal adoption is part of the proposed amendment D-43.
+      </p>
+      <figure>
+        <div id="chart-literal" class="chart" data-src="data/literal.json" role="img"
+             aria-label="Sensitivity to literal quotation">
+          <p class="chart-fallback">Sensitivity to literal quotation: chart loading.</p>
+        </div>
+        <figcaption>Share of shared window types passing the frozen thresholds in four literal arrangements (Le Cène → Dawson), with Wilson 95 % intervals, and power of the fragment test by excerpt length. Exploratory. Source: <code>results/literal_sensitivity_n8.json</code>.</figcaption>
+      </figure>
+    </section>
+
+    <section id="protocol" aria-labelledby="h-protocol">
+      <h2 id="h-protocol">Preregistered protocol and status</h2>
+      <dl class="status-list">
+        <dt>Preregistration</dt>
+        <dd>Decision D-41 (<code>decisions/D-41_preregistro.md</code>), frozen at commit
+          <code data-num="status_frozen_commit_short">…</code>.</dd>
+        <dt>Frozen parameters</dt>
+        <dd>n = 8; λ = <span data-num="thresh_lambda">…</span>; stratum 1750–1830; thresholds
+          t<sub>DF</sub> = <span data-num="thresh_t_df">…</span> and t<sub>E</sub> = <span data-num="thresh_t_e">…</span>;
+          1000 matched null pairs; seed 20260903; Bonferroni correction over the Cherubini works evaluated.</dd>
+        <dt>Confirmation</dt>
+        <dd>At least one Cherubini work with corrected p ≤ 0.05 and at least one shared window with
+          DF ≤ t<sub>DF</sub> and non-uniform rhythm.</dd>
+        <dt>Refutation (strong sense)</dt>
+        <dd>No work with corrected p ≤ 0.05, reported as "not detected" with the measured sensitivities.</dd>
+        <dt>Confirmatory case</dt>
+        <dd><strong>Not run.</strong> No window of op. 67 or of any Cherubini work has been read or compared.</dd>
+      </dl>
+      <h3>Status and pending items</h3>
+      <div id="status-panel" data-src="data/status.json">
+        <ul class="pending-list">
+          <li>Measure the sensitivity of the test to literal quotation.</li>
+          <li>Confirm the list of Cherubini works before 1808 in the corpus (none is encoded yet; the two works of the hypothesis need manual transcription).</li>
+          <li>Run the test suite at the frozen commit (done).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="reproducibility" aria-labelledby="h-reproducibility">
+      <h2 id="h-reproducibility">Reproducibility</h2>
+      <p>
+        All code, decisions and aggregated results are versioned in a git repository (public link to be
+        added on release). Every number on this page is read from <code>web/data/*.json</code>, which
+        <code>web/build_data.py</code> generates from versioned results and cross-checks between sources;
+        the script stops instead of writing if two sources disagree.
+      </p>
+      <dl class="status-list">
+        <dt>Preregistration (D-41)</dt><dd><code data-num="status_frozen_commit_short">…</code></dd>
+        <dt>Background model, memory-bounded (D-42)</dt><dd><code>160828d</code></dd>
+        <dt>Kneser–Ney, hierarchical and DF backgrounds (D-39, D-40)</dt><dd><code>c715141</code></dd>
+      </dl>
+      <p>To regenerate the page data and preview it locally:</p>
+      <pre><code>python web/build_data.py
+python -m http.server 8765 --directory web</code></pre>
+      <p>
+        Base rates: <code>scripts/base_rate.py</code>; uniqueness: <code>scripts/uniqueness.py</code>;
+        background and calibration: <code>scripts/kn_background.py</code>; λ(n): <code>scripts/lambda_by_n.py</code>;
+        thresholds: <code>scripts/thresholds_n8.py</code>. Decision log: <code>docs/DECISIONES.md</code>.
+      </p>
+    </section>
+
+    <section id="licenses" aria-labelledby="h-licenses">
+      <h2 id="h-licenses">Data licenses and credits</h2>
+      <p>
+        This site shows aggregates only: no scores, no derived note sequences and no per-work rows.
+        The source corpora keep their own licenses:
+      </p>
+      <ul>
+        <li>DCML corpora (Digital and Cognitive Musicology Lab, EPFL): CC BY-NC-SA 4.0. Non-commercial; derived caches are not redistributed.</li>
+        <li>KernScores / Humdrum repositories: licenses vary by repository (CC BY-SA 4.0, or no license file).</li>
+        <li>MuseData (CCARH, Stanford): free for research and educational use.</li>
+        <li>OpenScore Lieder and String Quartets: CC0 1.0.</li>
+        <li>MCTL symphony dataset (iis-mctl): MIT.</li>
+      </ul>
+      <p>
+        Per-collection licenses are listed in <code>web/data/corpus.json</code> and documented in
+        <code>docs/CORPUS.md</code>.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Local preview. Not published. Generated data: <code>web/data/</code>.</p>
+  </footer>
+</body>
+</html>

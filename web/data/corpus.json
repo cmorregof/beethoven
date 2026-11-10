@@ -1,0 +1,951 @@
+{
+ "source": [
+  "corpus/works.csv",
+  "results/base_rate.json"
+ ],
+ "generated_by": "web/build_data.py",
+ "generated_at": "2026-11-10",
+ "windows_n": 4,
+ "period_order": [
+  "<1750",
+  "1750–1800",
+  "1800–1830",
+  "1830–1900",
+  ">1900",
+  "unknown"
+ ],
+ "totals": {
+  "units": 6730,
+  "works_catalog": 1871,
+  "works_missing_cache": 12,
+  "works": 1859,
+  "windows": 6572757,
+  "notes": 7736142,
+  "collections": 61
+ },
+ "note": "Units = primary files/movements in analysis; works_catalog from corpus/works.csv; works, windows and notes = works actually analysed (results/base_rate.json). The two preregistered target works are excluded everywhere.",
+ "by_period": [
+  {
+   "period": "<1750",
+   "units": 3746,
+   "works_catalog": 1028,
+   "works": 1023,
+   "windows": 2979128,
+   "notes": 3455828
+  },
+  {
+   "period": "1750–1800",
+   "units": 715,
+   "works_catalog": 238,
+   "works": 237,
+   "windows": 1121403,
+   "notes": 1360935
+  },
+  {
+   "period": "1800–1830",
+   "units": 273,
+   "works_catalog": 69,
+   "works": 68,
+   "windows": 744875,
+   "notes": 863684
+  },
+  {
+   "period": "1830–1900",
+   "units": 734,
+   "works_catalog": 179,
+   "works": 178,
+   "windows": 863972,
+   "notes": 1028939
+  },
+  {
+   "period": ">1900",
+   "units": 359,
+   "works_catalog": 195,
+   "works": 190,
+   "windows": 375353,
+   "notes": 432878
+  },
+  {
+   "period": "unknown",
+   "units": 903,
+   "works_catalog": 163,
+   "works": 163,
+   "windows": 488026,
+   "notes": 593878
+  }
+ ],
+ "by_collection": [
+  {
+   "collection": "dcml/bach_en_fr_suites",
+   "units": 89,
+   "works_catalog": 12,
+   "works": 12,
+   "windows": 50242,
+   "notes": 54988,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/bach_solo",
+   "units": 68,
+   "works_catalog": 13,
+   "works": 13,
+   "windows": 33508,
+   "notes": 35281,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/bartok_bagatelles",
+   "units": 14,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 4573,
+   "notes": 5458,
+   "periods": [
+    ">1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/beethoven_piano_sonatas",
+   "units": 91,
+   "works_catalog": 28,
+   "works": 28,
+   "windows": 151606,
+   "notes": 172054,
+   "periods": [
+    "1750–1800",
+    "1800–1830"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/c_schumann_lieder",
+   "units": 12,
+   "works_catalog": 2,
+   "works": 2,
+   "windows": 5371,
+   "notes": 6481,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/chopin_mazurkas",
+   "units": 56,
+   "works_catalog": 20,
+   "works": 20,
+   "windows": 29178,
+   "notes": 35850,
+   "periods": [
+    "1800–1830",
+    "1830–1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/corelli",
+   "units": 12,
+   "works_catalog": 3,
+   "works": 3,
+   "windows": 4773,
+   "notes": 5319,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/couperin_concerts",
+   "units": 91,
+   "works_catalog": 91,
+   "works": 91,
+   "windows": 32138,
+   "notes": 36239,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/cpe_bach_keyboard",
+   "units": 66,
+   "works_catalog": 34,
+   "works": 34,
+   "windows": 40182,
+   "notes": 50208,
+   "periods": [
+    "1750–1800"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/debussy_suite_bergamasque",
+   "units": 4,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 5056,
+   "notes": 5575,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/dvorak_silhouettes",
+   "units": 12,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 5201,
+   "notes": 5705,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/frescobaldi_fiori_musicali",
+   "units": 45,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 13789,
+   "notes": 15541,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/grieg_lyric_pieces",
+   "units": 66,
+   "works_catalog": 10,
+   "works": 10,
+   "windows": 32431,
+   "notes": 39082,
+   "periods": [
+    "1830–1900",
+    ">1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/handel_keyboard",
+   "units": 6,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 1353,
+   "notes": 1521,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/jc_bach_sonatas",
+   "units": 29,
+   "works_catalog": 2,
+   "works": 2,
+   "windows": 28047,
+   "notes": 32355,
+   "periods": [
+    "1750–1800"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/kozeluh_sonatas",
+   "units": 21,
+   "works_catalog": 8,
+   "works": 8,
+   "windows": 26997,
+   "notes": 31269,
+   "periods": [
+    "1750–1800"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/liszt_pelerinage",
+   "units": 19,
+   "works_catalog": 3,
+   "works": 3,
+   "windows": 25120,
+   "notes": 31027,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/mahler_kindertotenlieder",
+   "units": 3,
+   "works_catalog": 3,
+   "works": 3,
+   "windows": 2702,
+   "notes": 3185,
+   "periods": [
+    ">1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/medtner_tales",
+   "units": 19,
+   "works_catalog": 7,
+   "works": 7,
+   "windows": 23752,
+   "notes": 27238,
+   "periods": [
+    ">1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/mendelssohn_quartets",
+   "units": 16,
+   "works_catalog": 4,
+   "works": 4,
+   "windows": 42695,
+   "notes": 49958,
+   "periods": [
+    "1800–1830",
+    "1830–1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/monteverdi_madrigals",
+   "units": 15,
+   "works_catalog": 15,
+   "works": 15,
+   "windows": 10888,
+   "notes": 13399,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/pergolesi_stabat_mater",
+   "units": 12,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 8543,
+   "notes": 10445,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/peri_euridice",
+   "units": 6,
+   "works_catalog": 6,
+   "works": 6,
+   "windows": 9282,
+   "notes": 10923,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/pleyel_quartets",
+   "units": 3,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 4428,
+   "notes": 5520,
+   "periods": [
+    "1750–1800"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/poulenc_mouvements_perpetuels",
+   "units": 3,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 962,
+   "notes": 1079,
+   "periods": [
+    ">1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/rachmaninoff_piano",
+   "units": 22,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 4153,
+   "notes": 5440,
+   "periods": [
+    ">1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/ravel_piano",
+   "units": 5,
+   "works_catalog": 2,
+   "works": 2,
+   "windows": 10652,
+   "notes": 12017,
+   "periods": [
+    ">1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/scarlatti_sonatas",
+   "units": 69,
+   "works_catalog": 69,
+   "works": 69,
+   "windows": 51931,
+   "notes": 56551,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/schubert_winterreise",
+   "units": 24,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 13072,
+   "notes": 15685,
+   "periods": [
+    "1800–1830"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/schulhoff_suite_dansante_en_jazz",
+   "units": 6,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 2146,
+   "notes": 2602,
+   "periods": [
+    ">1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/schumann_kinderszenen",
+   "units": 13,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 3124,
+   "notes": 3661,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/schumann_liederkreis",
+   "units": 12,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 4599,
+   "notes": 5736,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/sweelinck_keyboard",
+   "units": 1,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 2411,
+   "notes": 2627,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/tchaikovsky_seasons",
+   "units": 12,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 8768,
+   "notes": 11123,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/wagner_overtures",
+   "units": 2,
+   "works_catalog": 2,
+   "works": 2,
+   "windows": 4756,
+   "notes": 5197,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml/wf_bach_sonatas",
+   "units": 9,
+   "works_catalog": 3,
+   "works": 3,
+   "windows": 5442,
+   "notes": 7311,
+   "periods": [
+    "<1750",
+    "1750–1800"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml_abc",
+   "units": 70,
+   "works_catalog": 16,
+   "works": 16,
+   "windows": 168074,
+   "notes": 195482,
+   "periods": [
+    "1750–1800",
+    "1800–1830"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "dcml_mozart_sonatas",
+   "units": 54,
+   "works_catalog": 18,
+   "works": 18,
+   "windows": 69297,
+   "notes": 82395,
+   "periods": [
+    "1750–1800"
+   ],
+   "licenses": [
+    "CC BY-NC-SA 4.0"
+   ]
+  },
+  {
+   "collection": "kern/art-of-the-fugue",
+   "units": 2,
+   "works_catalog": 2,
+   "works": 2,
+   "windows": 2056,
+   "notes": 2266,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "no LICENSE (craigsapp)"
+   ]
+  },
+  {
+   "collection": "kern/bach-370-chorales",
+   "units": 105,
+   "works_catalog": 105,
+   "works": 105,
+   "windows": 19200,
+   "notes": 21723,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CC BY-SA 4.0"
+   ]
+  },
+  {
+   "collection": "kern/bach-musical-offering",
+   "units": 6,
+   "works_catalog": 5,
+   "works": 5,
+   "windows": 9227,
+   "notes": 10394,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "no LICENSE (craigsapp)"
+   ]
+  },
+  {
+   "collection": "kern/beethoven-piano-sonatas",
+   "units": 11,
+   "works_catalog": 4,
+   "works": 4,
+   "windows": 15690,
+   "notes": 17745,
+   "periods": [
+    "1800–1830"
+   ],
+   "licenses": [
+    "no LICENSE (craigsapp)"
+   ]
+  },
+  {
+   "collection": "kern/chopin-mazurkas",
+   "units": 2,
+   "works_catalog": 2,
+   "works": 2,
+   "windows": 1658,
+   "notes": 1892,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "no LICENSE (craigsapp)"
+   ]
+  },
+  {
+   "collection": "kern/chopin-preludes",
+   "units": 24,
+   "works_catalog": 1,
+   "works": 1,
+   "windows": 12192,
+   "notes": 12957,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "no LICENSE (craigsapp)"
+   ]
+  },
+  {
+   "collection": "kern/haydn-piano-sonatas",
+   "units": 25,
+   "works_catalog": 18,
+   "works": 18,
+   "windows": 24560,
+   "notes": 28724,
+   "periods": [
+    "1750–1800"
+   ],
+   "licenses": [
+    "CC BY-SA 4.0"
+   ]
+  },
+  {
+   "collection": "kern/humdrum-haydn-quartets",
+   "units": 206,
+   "works_catalog": 59,
+   "works": 59,
+   "windows": 247377,
+   "notes": 297603,
+   "periods": [
+    "1750–1800",
+    "1800–1830"
+   ],
+   "licenses": [
+    "no LICENSE (musedata)"
+   ]
+  },
+  {
+   "collection": "kern/humdrum-haydn-symphonies",
+   "units": 24,
+   "works_catalog": 6,
+   "works": 6,
+   "windows": 99563,
+   "notes": 120245,
+   "periods": [
+    "1750–1800"
+   ],
+   "licenses": [
+    "CC BY-SA 4.0"
+   ]
+  },
+  {
+   "collection": "kern/joplin",
+   "units": 47,
+   "works_catalog": 47,
+   "works": 47,
+   "windows": 35241,
+   "notes": 38913,
+   "periods": [
+    "1830–1900",
+    ">1900"
+   ],
+   "licenses": [
+    "CC BY-SA 4.0"
+   ]
+  },
+  {
+   "collection": "kern/scarlatti-keyboard-sonatas",
+   "units": 59,
+   "works_catalog": 59,
+   "works": 59,
+   "windows": 47720,
+   "notes": 53042,
+   "periods": [
+    ">1900"
+   ],
+   "licenses": [
+    "CC BY-SA 4.0"
+   ]
+  },
+  {
+   "collection": "kern/scriabin",
+   "units": 207,
+   "works_catalog": 65,
+   "works": 65,
+   "windows": 95472,
+   "notes": 116946,
+   "periods": [
+    "1830–1900",
+    ">1900"
+   ],
+   "licenses": [
+    "no LICENSE (craigsapp)"
+   ]
+  },
+  {
+   "collection": "kern/vivaldi-op6",
+   "units": 18,
+   "works_catalog": 6,
+   "works": 6,
+   "windows": 20973,
+   "notes": 24576,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "no LICENSE (craigsapp)"
+   ]
+  },
+  {
+   "collection": "musedata_bach",
+   "units": 1343,
+   "works_catalog": 424,
+   "works": 420,
+   "windows": 1422596,
+   "notes": 1630523,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CCARH MuseData (uso académico)"
+   ]
+  },
+  {
+   "collection": "musedata_beethoven",
+   "units": 48,
+   "works_catalog": 11,
+   "works": 11,
+   "windows": 323556,
+   "notes": 379947,
+   "periods": [
+    "1750–1800",
+    "1800–1830"
+   ],
+   "licenses": [
+    "CCARH MuseData (uso académico)"
+   ]
+  },
+  {
+   "collection": "musedata_corelli",
+   "units": 294,
+   "works_catalog": 69,
+   "works": 69,
+   "windows": 117782,
+   "notes": 138458,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CCARH MuseData (uso académico)"
+   ]
+  },
+  {
+   "collection": "musedata_handel",
+   "units": 814,
+   "works_catalog": 38,
+   "works": 38,
+   "windows": 582302,
+   "notes": 700058,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CCARH MuseData (uso académico)"
+   ]
+  },
+  {
+   "collection": "musedata_mozart",
+   "units": 206,
+   "works_catalog": 56,
+   "works": 56,
+   "windows": 426376,
+   "notes": 526945,
+   "periods": [
+    "1750–1800"
+   ],
+   "licenses": [
+    "CCARH MuseData (uso académico)"
+   ]
+  },
+  {
+   "collection": "musedata_telemann",
+   "units": 560,
+   "works_catalog": 109,
+   "works": 109,
+   "windows": 346120,
+   "notes": 414844,
+   "periods": [
+    "<1750",
+    "unknown"
+   ],
+   "licenses": [
+    "CCARH MuseData (uso académico)"
+   ]
+  },
+  {
+   "collection": "musedata_vivaldi",
+   "units": 232,
+   "works_catalog": 57,
+   "works": 56,
+   "windows": 278236,
+   "notes": 313618,
+   "periods": [
+    "<1750"
+   ],
+   "licenses": [
+    "CCARH MuseData (uso académico)"
+   ]
+  },
+  {
+   "collection": "openscore_lieder",
+   "units": 1315,
+   "works_catalog": 246,
+   "works": 246,
+   "windows": 690154,
+   "notes": 838459,
+   "periods": [
+    "1800–1830",
+    "1830–1900",
+    ">1900",
+    "unknown"
+   ],
+   "licenses": [
+    "CC0-1.0"
+   ]
+  },
+  {
+   "collection": "openscore_quartets",
+   "units": 97,
+   "works_catalog": 94,
+   "works": 87,
+   "windows": 746450,
+   "notes": 870515,
+   "periods": [
+    "1750–1800",
+    "1800–1830",
+    "1830–1900",
+    ">1900",
+    "unknown"
+   ],
+   "licenses": [
+    "CC0-1.0"
+   ]
+  },
+  {
+   "collection": "s3_symphonies",
+   "units": 8,
+   "works_catalog": 2,
+   "works": 2,
+   "windows": 67014,
+   "notes": 84222,
+   "periods": [
+    "1830–1900"
+   ],
+   "licenses": [
+    "MIT"
+   ]
+  }
+ ]
+}

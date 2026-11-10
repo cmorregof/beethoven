@@ -1,0 +1,67 @@
+{
+ "source": "corpus/works.csv filtrado por scripts/preregistration_guard.py",
+ "filter": {
+  "in_analysis": 1,
+  "is_primary": 1,
+  "period": [
+   "1750–1800",
+   "1800–1830"
+  ],
+  "excluded_composers": [
+   "beethoven_l",
+   "cherubini (guardia)"
+  ]
+ },
+ "rules": [
+  {
+   "cls": "orchestra",
+   "pattern": "^kern-humdrum-haydn-symphonies-sym\\d+$",
+   "note": "sinfonías de Haydn (KernScores)"
+  },
+  {
+   "cls": "orchestra",
+   "pattern": "^musedata_mozart-(bhl|nma)-sym-k\\d+$",
+   "note": "sinfonías de Mozart (MuseData)"
+  },
+  {
+   "cls": "orchestra_soloist",
+   "pattern": "^musedata_mozart-(bhl|nma)-conc-k\\d+$",
+   "note": "conciertos de Mozart (MuseData)"
+  },
+  {
+   "cls": "voices_orchestra",
+   "pattern": "^musedata_mozart-nma-opera-k\\d+$",
+   "note": "ópera de Mozart (MuseData)"
+  },
+  {
+   "cls": "string_orchestra",
+   "pattern": "^musedata_mozart-bhl-divert-k13[678]$",
+   "note": "divertimentos K. 136–138"
+  },
+  {
+   "cls": "chorus_orchestra",
+   "pattern": "(mass|messe|missa|requiem|oratori|cantat|te-?deum|hymn)",
+   "note": "coro y orquesta (por palabra clave)"
+  }
+ ],
+ "counts": {
+  "corpus_pool_universe_works": 248,
+  "corpus_pool_orch_works": 20,
+  "corpus_pool_orch_composers": 2,
+  "corpus_pool_orch_mozart": 14,
+  "corpus_pool_orch_haydn": 6,
+  "corpus_pool_soloist_works": 7,
+  "corpus_pool_voices_works": 1,
+  "corpus_pool_choral_works": 0,
+  "corpus_pool_strorch_works": 3,
+  "corpus_pool_orchext_works": 28,
+  "corpus_pool_orchext_composers": 2
+ },
+ "by_class_composer": {
+  "orchestra|haydn_fj": 6,
+  "orchestra_soloist|mozart_wa": 7,
+  "string_orchestra|mozart_wa": 3,
+  "orchestra|mozart_wa": 14,
+  "voices_orchestra|mozart_wa": 1
+ }
+}

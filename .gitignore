@@ -10,3 +10,5 @@ __pycache__/
 # tablas de fondo (217 MB): se regeneran con scripts/background.py build
 results/background/*.parquet
 results/background_kn/*.parquet
+# compilaciones del paper (se regeneran con latexmk)
+paper/build/
